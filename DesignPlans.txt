@@ -2,9 +2,12 @@ general overview
 
 As a Windows process, maybe a service down the line, if it wants/needs to run automatically
 
-main loop: continuous loop to do self diagnostics and actions
+main loop: continuous loop to do self diagnostics, respond to sensory input and perform actions
 
-core attributes: physical health - air, water, nutrients, lack of pain, lack of disease, energy, mobility, actionable
+core attributes: 
+ - physical health - air, water, nutrients, lack of pain, lack of disease, energy 
+ - situational optimization - safety, equipment, stockpiling, 
+ - capabilities - able to sense, able to take actions
  - acceptable parameters
  - urgency and importance
  
@@ -16,5 +19,12 @@ Self Diagnostics:
  - check all core attributes within acceptable parameters (if not, add solutions)
  - check all sensory systems performing (if not, add solutions)
  - check solutions have actions
- 
+
+
+
+Evaluation of needs to find solutions:
+ - first pass, just look up coorection records.
+ - future enhancement - extrapolate solution chains (find, make, consume, etc.)
+ - future enhancement - create new solutions from related solutions
+ - future enhancement - create new solutions from knowledge
 
