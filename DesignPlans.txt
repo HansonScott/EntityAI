@@ -11,16 +11,21 @@ core attributes:
  - acceptable parameters
  - urgency and importance
 
+core abilities: 
+ - reactive senses
+ - proactive actions 
+  
 Senses:
- - see, feel taste, smell, hear
+ - see, feel, taste, smell, hear
  - independent threads that create input
  - initial filter to minimize 'noise' by recognition and patterning.  Also compare against existing needs
  - create 'evaluate' needs
  
-abilities: 
- - reactive sensories: see, feel, taste, smell, hear
- - proactive actions: move, consume, manipulate, produce 
-  
+Actions:
+ - within self: wake, sleep, stand up, sit down, lie down, use senses, evaluate
+ - with object: pick up, carry, put down, throw, equip, unequip, use
+ - with entity: 
+ 
 Self Diagnostics:
  - check all core attributes within acceptable parameters (if not, add solutions)
  - check all sensory systems performing (if not, add solutions)
@@ -40,9 +45,8 @@ Needs:
  - evaluate an unknown input
  - improve core attribute
  - improve abilities
- - 
 
 Solutions:
- - meet a need
+ - has a benefit - meet a need to a certain extent
  - 1+ actions to accomplish
  - have a cost (energy, time, resources, etc.)
