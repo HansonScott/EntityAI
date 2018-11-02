@@ -13,7 +13,7 @@ core attributes:
 
 Senses:
  - see, feel taste, smell, hear
- - independent services that create input
+ - independent threads that create input
  - initial filter to minimize 'noise' by recognition and patterning.  Also compare against existing needs
  - create 'evaluate' needs
  
