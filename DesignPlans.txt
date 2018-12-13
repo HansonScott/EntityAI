@@ -2,7 +2,9 @@ general overview
 
 As a Windows process, maybe a service down the line, if it wants/needs to run automatically
 
-main loop: continuous loop to do self diagnostics, respond to sensory input and perform actions, reflection to re-evaluate for patterns and improvement.
+Main loop: continuous loop to do self diagnostics, respond to sensory input and perform actions, reflection to re-evaluate for patterns and improvement.
+
+Process Theory: stimulus exists -> senses pick them up -> diagnosis on senses -> needs created -> evaluation of needs against priorities -> solution creation and planning -> perform actions
 
 core attributes: 
  - physical health - air, water, nutrients, lack of pain, lack of disease, energy 
@@ -12,8 +14,7 @@ core attributes:
  - urgency and importance
 
 core abilities: 
- - reactive senses
- - proactive actions 
+ - senses, diagnostics, evaluations, performing actions
   
 Senses:
  - see, feel, taste, smell, hear
@@ -21,19 +22,19 @@ Senses:
  - initial filter to minimize 'noise' by recognition and patterning.  Also compare against existing needs
  - create 'evaluate' needs
  
-Actions:
- - within self: wake, sleep, stand up, sit down, lie down, use senses, evaluate
- - with object: pick up, carry, put down, throw, equip, unequip, use
- - with entity: 
- 
-Self Diagnostics:
- - check all core attributes within acceptable parameters (if not, add solutions)
- - check all sensory systems performing (if not, add solutions)
- - check solutions have actions
+Diagnostics:
+ - check all core attributes within acceptable parameters (if not, add needs)
+ - check all sensory systems performing (if not, add needs)
+ - check needs have solutions (actions)
 
 Evaluate action:
  - threat detection
  - benefit opportunity
+
+Needs:
+ - evaluate an unknown input
+ - improve core attribute
+ - improve abilities
 
 Evaluation of needs to find solutions:
  - first pass, just look up solution records that match the need.
@@ -41,12 +42,12 @@ Evaluation of needs to find solutions:
  - future enhancement - create new solutions from related solutions
  - future enhancement - create new solutions from knowledge
 
-Needs:
- - evaluate an unknown input
- - improve core attribute
- - improve abilities
-
 Solutions:
  - has a benefit - meet a need to a certain extent
  - 1+ actions to accomplish
  - have a cost (energy, time, resources, etc.)
+
+Actions:
+ - within self: wake/sleep, change position (stand up, sit down, lie down), move, proactively use senses, evaluate
+ - with object: pick up, carry, put down, throw, equip, unequip, use
+ - with entity: socially interact positively (befriend), negatively (confront), physically interact positively (aid, mate), negatively (fight) 
