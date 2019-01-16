@@ -7,4 +7,4 @@ Entity stimulus and reaction simulation to research, develop, and demonstrate AI
 * demonstrate complex AI to be used within scenarios, simulators, games, etc.
 
 # Features
-See the Design doc for more details.
+See the DesignPlans.txt for more details.
