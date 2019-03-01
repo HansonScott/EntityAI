@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.329
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityAI", "EntityAI.csproj", "{7BBBEA28-E472-4813-85DC-CA66FE96BB7B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7BBBEA28-E472-4813-85DC-CA66FE96BB7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BBBEA28-E472-4813-85DC-CA66FE96BB7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BBBEA28-E472-4813-85DC-CA66FE96BB7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BBBEA28-E472-4813-85DC-CA66FE96BB7B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {420D4C20-82D8-4AC1-BCD0-051F66B5DF6B}
+	EndGlobalSection
+EndGlobal
