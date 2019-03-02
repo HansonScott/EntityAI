@@ -12,6 +12,7 @@ namespace EntityAI
 {
     public partial class Form1 : Form
     {
+        private const string SqlFileName = "TestSql.db";
         private const string fCreateDatabase = "Create Database";
         private const string fCreateTable = "Create Table";
         private const string fLoadTable = "Load Table";
@@ -33,7 +34,7 @@ namespace EntityAI
 
         private void btnRun_Click(object sender, EventArgs e)
         {
-            DAC dac = new DAC();
+            DAC dac = new DAC(SqlFileName);
 
             switch (comboBox1.Text)
             {

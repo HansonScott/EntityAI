@@ -10,20 +10,23 @@ namespace EntityAI
 {
     public class DAC
     {
-        private string SQLFileName = "mytestfile.sqlite";
-        private SQLiteConnection Con;
+        private string mFileName;
+        private SQLiteConnection mCon;
 
         private string tblTest = "testTable";
 
-        public DAC ()
-        {
-            Con = new SQLiteConnection($"Data Source={SQLFileName};");
-        }
 
+        public DAC (string SqlFileName)
+        {
+            mFileName = SqlFileName;
+
+            string sCon = $"Data Source={SqlFileName}; Version=3";
+            mCon = new SQLiteConnection(sCon);
+        }
 
         public void CreateFile()
         {
-            SQLiteConnection.CreateFile(SQLFileName);
+            SQLiteConnection.CreateFile(this.mFileName);
         }
 
         public void CreateTable()
@@ -53,32 +56,32 @@ namespace EntityAI
         private DataSet RunSelect(string sql)
         {
             DataSet ds = new DataSet();
-            var da = new SQLiteDataAdapter(sql, Con);
+            var da = new SQLiteDataAdapter(sql, mCon);
 
             try
             {
-                Con.Open();
+                mCon.Open();
                 da.Fill(ds);
 
             }
             finally
             {
-                Con.Close();
+                mCon.Close();
             }
 
             return ds;
         }
         private void RunCommand(string sql)
         {
-            SQLiteCommand comm = new SQLiteCommand(sql, Con);
+            SQLiteCommand comm = new SQLiteCommand(sql, mCon);
             try
             {
-                Con.Open();
+                mCon.Open();
                 comm.ExecuteNonQuery();
             }
             finally
             {
-                Con.Close();
+                mCon.Close();
             }
         }
     }
