@@ -16,7 +16,9 @@ namespace EntityAI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            Entity E = new Entity();
+            E.Run();
         }
     }
 }
