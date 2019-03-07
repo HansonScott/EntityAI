@@ -14,6 +14,10 @@ namespace EntityAI
 
         internal ThreadStart Run()
         {
+            // loop through all the senses of parent entity
+
+            // capture any new inputs, save to database with timestamps
+
             throw new NotImplementedException();
         }
     }

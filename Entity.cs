@@ -12,19 +12,32 @@ namespace EntityAI
         public bool Continue = true; // stay alive variable
 
         SensorySystem senses;
+        List<Sensor> sensors; 
         List<CoreAttribute> coreAttributes;
 
         #region Constructor and Setup
         public Entity()
         {
+            CreateSenses();
             CreateAttributes();
+        }
+
+        private void CreateSenses()
+        {
+            sensors = new List<Sensor>();
+
+            // create/load all sensors
+
+            throw new NotImplementedException();
         }
 
         private void CreateAttributes()
         {
             coreAttributes = new List<CoreAttribute>();
 
-            // load all attributes
+            // create/load all attributes
+
+            throw new NotImplementedException();
 
         }
         #endregion
