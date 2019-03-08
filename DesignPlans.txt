@@ -2,23 +2,23 @@ general overview
 
 As a Windows process, maybe a service down the line, if it wants/needs to run automatically
 
-Main loop: continuous loop to do self diagnostics, respond to sensory input and perform actions, reflection to re-evaluate for patterns and improvement.
+X Main loop: continuous loop to do self diagnostics, respond to sensory input and perform actions, reflection to re-evaluate for patterns and improvement.
 
-Process Theory: stimulus exists -> senses pick them up -> diagnosis on senses -> needs created -> evaluation of needs against priorities -> solution creation and planning -> perform actions
+X Process Theory: stimulus exists -> senses pick them up -> diagnosis on senses -> needs created -> evaluation of needs against priorities -> solution creation and planning -> perform actions
 
 core attributes: 
- - physical health - air, water, nutrients, lack of pain, lack of disease, energy 
- - situational optimization - safety, equipment, stockpiling, preparations
- - capabilities - able to sense, able to take actions, optimization and efficiency improvements
- - acceptable parameters
+X  - physical health - air, water, nutrients, lack of pain, lack of disease, energy 
+X  - situational optimization - safety, equipment, stockpiling, preparations
+X  - capabilities - able to sense, able to take actions, optimization and efficiency improvements
+X  - acceptable parameters
  - urgency and importance
 
-core abilities: 
- - senses, diagnostics, evaluations, performing actions
+X core abilities: 
+X  - senses, diagnostics, evaluations, performing actions
   
 Senses:
- - see, feel, taste, smell, hear
- - independent threads that create input
+X  - see, feel, taste, smell, hear
+X  - independent threads that create input
  - initial filter to minimize 'noise' by recognition and patterning.  Also compare against existing needs
  - create 'evaluate' needs
  
