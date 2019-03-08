@@ -26,6 +26,16 @@ namespace EntityAI
             AbleToSense = 20,
             AbleToAct = 21,
         }
+        public enum ValueRelativeStatus
+        {
+            LowSD3 = 0,
+            LowSD2 = 1,
+            LowSD1 = 2,
+            Mid = 3,
+            HighSD1 = 4,
+            HighSD2 = 5,
+            HighSD3 = 6,
+        }
 
         public double Urgency;
         public double Importance;
@@ -34,6 +44,8 @@ namespace EntityAI
         public double Effectiveness; //?
 
         public ParameterRange param = new ParameterRange(CoreAttributeType.Unknown);
+
+        public double CurrentValue;
 
         private CoreAttributeType m_CType;
         public CoreAttributeType CType
@@ -51,6 +63,11 @@ namespace EntityAI
         public CoreAttribute()
         {
 
+        }
+
+        internal ValueRelativeStatus GetRelativeValueStatus()
+        {
+            throw new NotImplementedException();
         }
     }
 }

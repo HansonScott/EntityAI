@@ -12,40 +12,18 @@ namespace EntityAI
         public bool Continue = true; // stay alive variable
 
         SensorySystem senses;
-        List<Sensor> sensors; 
         List<CoreAttribute> coreAttributes;
 
         #region Constructor and Setup
         public Entity()
         {
-            CreateSenses();
-            CreateAttributes();
-        }
-
-        private void CreateSenses()
-        {
-            sensors = new List<Sensor>();
-
-            // create/load all sensors
-
-            throw new NotImplementedException();
-        }
-
-        private void CreateAttributes()
-        {
+            senses = new SensorySystem(this);
             coreAttributes = new List<CoreAttribute>();
-
-            // create/load all attributes
-
-            throw new NotImplementedException();
-
         }
         #endregion
 
         public void Run()
         {
-            senses = new SensorySystem(this);
-
             // start up sensory input thread
             Thread thread = new Thread(new ThreadStart(senses.Run()));
             thread.Start();
@@ -53,6 +31,8 @@ namespace EntityAI
             // main loop
             while (Continue)
             {
+                DateTime start = DateTime.Now;
+
                 // self diagnostics
                 RunSelfDiagnostics();
 
@@ -67,6 +47,17 @@ namespace EntityAI
 
                 // reflection and re-evaluate
                 ReflectAndReevaluate();
+
+                // adjust timing?
+                int delay = 100;
+
+                DateTime end = DateTime.Now;
+
+                // wait until next loop
+                double waittime = Math.Max(0, (delay - (end-start).TotalMilliseconds));
+
+                // slow down the loop
+                Thread.Sleep((int)waittime);
             }
         }
 
@@ -115,7 +106,22 @@ namespace EntityAI
         #region Diagnostics
         private void EvaluateCoreAttributes()
         {
-            throw new NotImplementedException();
+            // go through each attribute
+            for(int i = 0; i < this.coreAttributes.Count; i++)
+            {
+                // check for parameters
+                CoreAttribute c = this.coreAttributes[i];
+
+                CoreAttribute.ValueRelativeStatus s = c.GetRelativeValueStatus();
+
+                // if outside
+
+                // check if we have the need already
+
+                // if not exist, create /add a need
+
+                // check and adjust the urgency of the need
+            }
         }
         private void EvaluateSensorySystems()
         {

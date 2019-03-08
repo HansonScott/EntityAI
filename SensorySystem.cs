@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace EntityAI
@@ -6,6 +7,7 @@ namespace EntityAI
     internal class SensorySystem
     {
         private Entity entity;
+        List<Sensor> sensors;
 
         public SensorySystem(Entity entity)
         {
