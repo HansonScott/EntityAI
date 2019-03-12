@@ -2,11 +2,11 @@
 {
     public class ParameterRange
     {
-        private CoreAttribute.CoreAttributeType value;
+        private CoreAttribute.CoreAttributeType CType;
 
         public ParameterRange(CoreAttribute.CoreAttributeType value)
         {
-            this.value = value;
+            this.CType = value;
         }
 
         public double Optimal { get; set; }

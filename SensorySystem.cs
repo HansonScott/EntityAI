@@ -1,17 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using static EntityAI.Sensor;
 
 namespace EntityAI
 {
-    internal class SensorySystem
+    public class SensorySystem
     {
+
         private Entity entity;
-        List<Sensor> sensors;
+        public List<Sensor> sensors;
 
         public SensorySystem(Entity entity)
         {
             this.entity = entity;
+
+            CreateSensors();
+        }
+
+        private void CreateSensors()
+        {
+            Array S_sensors = Enum.GetValues(typeof(SensorType));
+            foreach(SensorType t in S_sensors)
+            {
+                this.sensors.Add(new Sensor(t));
+            }
         }
 
         internal ThreadStart Run()

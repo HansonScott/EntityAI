@@ -13,12 +13,16 @@ namespace EntityAI
 
         SensorySystem senses;
         List<CoreAttribute> coreAttributes;
+        int delay = 100;
+
+        List<EntityNeed> CurrentNeeds;
 
         #region Constructor and Setup
         public Entity()
         {
             senses = new SensorySystem(this);
             coreAttributes = new List<CoreAttribute>();
+            CurrentNeeds = new List<EntityNeed>();
         }
         #endregion
 
@@ -49,7 +53,7 @@ namespace EntityAI
                 ReflectAndReevaluate();
 
                 // adjust timing?
-                int delay = 100;
+                //int delay = 100;
 
                 DateTime end = DateTime.Now;
 
@@ -111,21 +115,99 @@ namespace EntityAI
             {
                 // check for parameters
                 CoreAttribute c = this.coreAttributes[i];
-
                 CoreAttribute.ValueRelativeStatus s = c.GetRelativeValueStatus();
+                if(c.IsInNeed(s))
+                {
+                    CoreNeed need = new CoreNeed(c);
 
-                // if outside
+                    // check if we have the need already
+                    CoreNeed existingNeed = GetCoreNeed(need.Attribute.CType);
 
-                // check if we have the need already
+                    if (existingNeed != null)
+                    {
+                        // check and adjust the urgency of the need
+                        if(existingNeed.Urgency < need.Urgency)
+                        {
+                            // replace need?
+                            // update source DateTime?
+                            // update anything else?
 
-                // if not exist, create /add a need
+                            CurrentNeeds.Remove(existingNeed);
+                            this.CurrentNeeds.Add(need);
+                        }
+                        else // we already have something this urgent
+                        {
+                            // do nothing.
+                        }
 
-                // check and adjust the urgency of the need
-            }
+                    }
+                    else
+                    {
+                        this.CurrentNeeds.Add(need);
+                    }
+
+                } // end if in need
+            } // end foreach attribute
         }
+
+        private CoreNeed GetCoreNeed(CoreAttribute.CoreAttributeType cType)
+        {
+            foreach (CoreNeed n in this.CurrentNeeds)
+            {
+                if (n.Attribute.CType == cType) { return n; }
+            }
+            return null;
+        }
+
         private void EvaluateSensorySystems()
         {
-            throw new NotImplementedException();
+            // go through each attribute
+            for (int i = 0; i < this.senses.sensors.Count; i++)
+            {
+                // check for parameters
+                Sensor s = this.senses.sensors[i];
+                if (s.IsInNeed())
+                {
+                    SensorNeed need = new SensorNeed(s);
+
+                    // check if we have the need already
+                    SensorNeed existingNeed = GetSensorNeed(s.SType);
+
+                    if (existingNeed != null)
+                    {
+                        // check and adjust the urgency of the need
+                        if (existingNeed.Urgency < need.Urgency)
+                        {
+                            // replace need?
+                            // update source DateTime?
+                            // update anything else?
+
+                            CurrentNeeds.Remove(existingNeed);
+                            this.CurrentNeeds.Add(need);
+                        }
+                        else // we already have something this urgent
+                        {
+                            // do nothing.
+                        }
+
+                    }
+                    else
+                    {
+                        this.CurrentNeeds.Add(need);
+                    }
+
+                } // end if in need
+            } // end foreach attribute
+        }
+
+        private SensorNeed GetSensorNeed(Sensor.SensorType sType)
+        {
+            foreach (SensorNeed n in this.CurrentNeeds)
+            {
+                if (n.Sensor.SType == sType) { return n; }
+            }
+
+            return null;
         }
         #endregion
 

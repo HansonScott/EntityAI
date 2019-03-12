@@ -1,4 +1,6 @@
-﻿namespace EntityAI
+﻿using System;
+
+namespace EntityAI
 {
     public class Sensor
     {
@@ -26,9 +28,16 @@
             }
         }
 
+        public double Effectiveness_Current;
+
         public Sensor(SensorType t)
         {
             this.SType = t;
+        }
+
+        internal bool IsInNeed()
+        {
+            throw new NotImplementedException();
         }
     }
 }

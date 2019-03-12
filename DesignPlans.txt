@@ -23,8 +23,8 @@ X  - independent threads that create input
  - create 'evaluate' needs
  
 Diagnostics:
- - check all core attributes within acceptable parameters (if not, add needs)
- - check all sensory systems performing (if not, add needs)
+X - check all core attributes within acceptable parameters (if not, add needs)
+X - check all sensory systems performing (if not, add needs)
  - check needs have solutions (actions)
 
 Evaluate action:

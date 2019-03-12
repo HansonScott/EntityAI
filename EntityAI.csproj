@@ -51,11 +51,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CoreAttribute.cs" />
+    <Compile Include="CoreNeed.cs" />
     <Compile Include="Entity.cs" />
+    <Compile Include="EntityNeed.cs" />
     <Compile Include="ParameterRange.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sensor.cs" />
+    <Compile Include="SensorNeed.cs" />
     <Compile Include="SensorySystem.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
