@@ -11,7 +11,6 @@ X  - physical health - air, water, nutrients, lack of pain, lack of disease, ene
 X  - situational optimization - safety, equipment, stockpiling, preparations
 X  - capabilities - able to sense, able to take actions, optimization and efficiency improvements
 X  - acceptable parameters
- - urgency and importance
 
 X core abilities: 
 X  - senses, diagnostics, evaluations, performing actions
@@ -25,18 +24,20 @@ X  - independent threads that create input
 Diagnostics:
 X - check all core attributes within acceptable parameters (if not, add needs)
 X - check all sensory systems performing (if not, add needs)
- - check needs have solutions (actions)
 
 Evaluate action:
- - threat detection
- - benefit opportunity
+- (if there are no outstanding critical needs, then be proactive)
+- threat detection
+- benefit opportunity
 
 Needs:
- - evaluate an unknown input
- - improve core attribute
- - improve abilities
+X - urgency and importance
+X - improve core attribute
+X - improve sensors
+ - improve (action) abilities
 
 Evaluation of needs to find solutions:
+ - check needs have solutions (actions)
  - first pass, just look up solution records that match the need.
  - future enhancement - extrapolate solution chains (find, make, consume, etc.)
  - future enhancement - create new solutions from related solutions
