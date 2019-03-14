@@ -50,9 +50,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ability.cs" />
+    <Compile Include="AbilityNeed.cs" />
+    <Compile Include="ActionCost.cs" />
+    <Compile Include="ActionSystem.cs" />
     <Compile Include="CoreAttribute.cs" />
     <Compile Include="CoreNeed.cs" />
     <Compile Include="Entity.cs" />
+    <Compile Include="EntityAction.cs" />
+    <Compile Include="EntityAttribute.cs" />
     <Compile Include="EntityNeed.cs" />
     <Compile Include="InputNeed.cs" />
     <Compile Include="ParameterRange.cs" />
@@ -61,6 +67,8 @@
     <Compile Include="Sensor.cs" />
     <Compile Include="SensorNeed.cs" />
     <Compile Include="SensorySystem.cs" />
+    <Compile Include="Solution.cs" />
+    <Compile Include="SolutionBenefit.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

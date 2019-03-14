@@ -16,6 +16,10 @@ namespace EntityAI
             Taste = 3,
             Smell = 4,
             Hear = 5,
+
+            Temperature = 10,
+
+            Pain = 20,
         }
 
         private SensorType m_SType;

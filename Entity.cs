@@ -14,18 +14,23 @@ namespace EntityAI
     {
         public bool Continue = true; // stay alive variable
 
-        SensorySystem senses;
         List<CoreAttribute> coreAttributes;
+        SensorySystem senses;
+        ActionSystem actions;
+
         int delay = 100;
 
         List<EntityNeed> CurrentNeeds;
+        List<Solution> CurrentSolutions;
 
         #region Constructor and Setup
         public Entity()
         {
-            senses = new SensorySystem(this);
             coreAttributes = new List<CoreAttribute>();
+            senses = new SensorySystem(this);
+            actions = new ActionSystem(this);
             CurrentNeeds = new List<EntityNeed>();
+            CurrentSolutions = new List<Solution>();
         }
         #endregion
 
@@ -77,7 +82,8 @@ namespace EntityAI
             // evaluate sensory systems
             EvaluateSensorySystems();
 
-            // check that all needs have solutions
+            // evaluate abilities
+            EvaluateAbilities();
         }
         private void RespondToSensoryInput()
         {
@@ -212,34 +218,156 @@ namespace EntityAI
 
             return null;
         }
+
+        private void EvaluateAbilities()
+        {
+            foreach(Ability A in this.actions.Abilities)
+            {
+                if(A.IsInNeed())
+                {
+                    AbilityNeed need = new AbilityNeed(A);
+
+                    // check if we have the need already
+                    AbilityNeed existingNeed = GetAbilityNeed(A.AType);
+
+                    if (existingNeed != null)
+                    {
+                        // check and adjust the urgency of the need
+                        if (existingNeed.Urgency < need.Urgency)
+                        {
+                            // replace need?
+                            // update source DateTime?
+                            // update anything else?
+
+                            CurrentNeeds.Remove(existingNeed);
+                            this.CurrentNeeds.Add(need);
+                        }
+                        else // we already have something this urgent
+                        {
+                            // do nothing.
+                        }
+
+                    }
+                    else
+                    {
+                        this.CurrentNeeds.Add(need);
+                    }
+
+                } // end if in need            
+            }
+        }
+
+        private AbilityNeed GetAbilityNeed(Ability.AbilityType aType)
+        {
+            foreach (AbilityNeed n in this.CurrentNeeds)
+            {
+                if (n.Ability.AType == aType) { return n; }
+            }
+
+            return null;
+        }
         #endregion
 
         #region SensoryResponse
         private void DiagnoseSensoryInputs(List<InputNeed> needs)
         {
             // evaluate sensory input needs compared to current needs
+            foreach(InputNeed n in needs)
+            {
+                // if this need is important, add it to our current needs.
+                EntityNeed existingNeed = GetExistingNeed(n);
+                if(existingNeed == null)
+                {
+                    this.CurrentNeeds.Add(n);
+                }
+                else
+                {
+                    // replace or change need?
+                }
+            }
+        }
+
+        private EntityNeed GetExistingNeed(InputNeed n)
+        {
+            foreach(EntityNeed existingNeed in this.CurrentNeeds)
+            {
+                if(existingNeed.GetType() == n.GetType())
+                {
+                    if(((InputNeed)existingNeed).SourceSensor == n.SourceSensor)
+                    {
+                        // any other details we need to check?
+                        return existingNeed;
+                    }
+                }
+            }
+
+            // if we get here, then we didn't find a match
+            return null;
         }
         #endregion
 
         #region EvaluateNeeds
         private void CompareNeedsToPriorities()
         {
-            throw new NotImplementedException();
+            // look at all the needs, and priortize
         }
         private void CreateSolutionsFromNeeds()
         {
+            for(int i = 0; i < this.CurrentNeeds.Count; i++)
+            {
+                Solution S = Solution.FindSolutionForNeed(this.CurrentNeeds[i]);
+
+                if(S != null)
+                {
+                    Solution existingSolution = GetExistingSolution(S);
+
+                    if (existingSolution != null)
+                    {
+                        // compare and change/replace?
+                        this.CurrentSolutions.Remove(existingSolution);
+                    }
+
+                    this.CurrentSolutions.Add(S);
+                }
+                else
+                {
+                    // we don't have a solution for this need, 
+                    // what do we do next? (look for one, create one, etc.)
+                }
+            }
+
             throw new NotImplementedException();
+        }
+        private Solution GetExistingSolution(Solution s)
+        {
+            foreach(Solution existingSolution in this.CurrentSolutions)
+            {
+                // what attributes should we check on?
+                if (existingSolution.Benefit == s.Benefit &&
+                    existingSolution.NeedFulfilled == s.NeedFulfilled)
+                {
+                    return existingSolution;
+                }
+            }
+
+            // if we get here, we didn't find a match
+            return null;
         }
         #endregion
 
         #region PerformActions
         private void PrioritizeSolutions()
         {
+            // look at urgency, ROI, etc.
+
+            // change order to solutions in the list
             throw new NotImplementedException();
         }
         private void PlanActions()
         {
-            throw new NotImplementedException();
+            // strategy comes into play here, as some action combinations can be optimized, etc.
+
+            // add queued actions to action thread according to queued solutions
         }
         #endregion
 

@@ -1,6 +1,6 @@
-general overview
+General Overview
 
-As a Windows process, maybe a service down the line, if it wants/needs to run automatically
+X As a Windows process, maybe a service down the line, if it wants/needs to run automatically
 
 X Main loop: continuous loop to do self diagnostics, respond to sensory input and perform actions, reflection to re-evaluate for patterns and improvement.
 
@@ -18,8 +18,8 @@ X  - senses, diagnostics, evaluations, performing actions
 Senses:
 X  - see, feel, taste, smell, hear
 X  - independent threads that create input
- - initial filter to minimize 'noise' by recognition and patterning.  Also compare against existing needs
 X - create 'evaluate' needs
+ - initial filter to minimize 'noise' by recognition and patterning.  Also compare against existing needs
  
 Diagnostics:
 X - check all core attributes within acceptable parameters (if not, add needs)
@@ -34,21 +34,32 @@ Needs:
 X - urgency and importance
 X - improve core attribute
 X - improve sensors
- - improve (action) abilities
+X - improve (action) abilities
 
 Evaluation of needs to find solutions:
- - check needs have solutions (actions)
- - first pass, just look up solution records that match the need.
+X - check needs have 1+ solutions
+X - first pass, just look up solution records that match the need.
  - future enhancement - extrapolate solution chains (find, make, consume, etc.)
  - future enhancement - create new solutions from related solutions
  - future enhancement - create new solutions from knowledge
 
 Solutions:
- - has a benefit - meet a need to a certain extent
- - 1+ actions to accomplish
- - have a cost (energy, time, resources, etc.)
+X - has a benefit - meet a need to a certain extent
+X - 1+ actions to accomplish
 
-Actions:
- - within self: wake/sleep, change position (stand up, sit down, lie down), move, proactively use senses, evaluate
- - with object: pick up, carry, put down, throw, equip, unequip, use
- - with entity: socially interact positively (befriend), negatively (confront), physically interact positively (aid, mate), negatively (fight) 
+Entity Action:
+X - use ability
+X - optionally have item
+X - optionally have environment
+X - optionally have target location or item
+X - has an ActionCost
+
+ActionCost:
+X - negative impact to something
+X - time, energy, item, sensory efficiency, ability efficiency
+
+
+Abilities:
+X - within self: wake/sleep, change position (stand up, sit down, lie down), move, proactively use senses, evaluate
+X - with object: pick up, carry, put down, throw, equip, unequip, use
+X - with entity: socially interact positively (befriend), negatively (confront), physically interact positively (aid, mate), negatively (fight) 

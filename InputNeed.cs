@@ -5,6 +5,13 @@
     /// </summary>
     public class InputNeed : EntityNeed
     {
+        public Sensor SourceSensor;
+
+        public InputNeed(Sensor s)
+        {
+            this.SourceSensor = s;
+        }
+
         /// <summary>
         /// Copy Constructor
         /// </summary>
@@ -13,6 +20,7 @@
         {
             base.OriginationWhen = source.OriginationWhen;
             base.Urgency = source.Urgency;
+            this.SourceSensor = source.SourceSensor;
         }
     }
 }
