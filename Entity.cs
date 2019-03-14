@@ -23,6 +23,9 @@ namespace EntityAI
         List<EntityNeed> CurrentNeeds;
         List<Solution> CurrentSolutions;
 
+        List<EntityNeed> CurrentOpportunities;
+        List<Solution> CurrentOpportunitySolutions;
+
         #region Constructor and Setup
         public Entity()
         {
@@ -31,6 +34,8 @@ namespace EntityAI
             actions = new ActionSystem(this);
             CurrentNeeds = new List<EntityNeed>();
             CurrentSolutions = new List<Solution>();
+            CurrentOpportunities = new List<EntityNeed>();
+            CurrentOpportunitySolutions = new List<Solution>();
         }
         #endregion
 
@@ -102,6 +107,7 @@ namespace EntityAI
             // create solution
             CreateSolutionsFromNeeds();
         }
+
         private void PerformActions()
         {
             // prioritize and load solutions
@@ -124,7 +130,7 @@ namespace EntityAI
             {
                 // check for parameters
                 CoreAttribute c = this.coreAttributes[i];
-                CoreAttribute.ValueRelativeStatus s = c.GetRelativeValueStatus();
+                EntityAttribute.ValueRelativeStatus s = c.GetRelativeValueStatus();
                 if(c.IsInNeed(s))
                 {
                     CoreNeed need = new CoreNeed(c);
@@ -148,7 +154,6 @@ namespace EntityAI
                         {
                             // do nothing.
                         }
-
                     }
                     else
                     {
@@ -156,6 +161,35 @@ namespace EntityAI
                     }
 
                 } // end if in need
+                else if(c.HasOpportunity())
+                {
+                    CoreNeed need = new CoreNeed(c);
+
+                    // check if we have the need already
+                    CoreNeed existingNeed = GetCoreNeed(need.Attribute.CType);
+
+                    if (existingNeed != null)
+                    {
+                        // check and adjust the urgency of the need
+                        if (existingNeed.Urgency < need.Urgency)
+                        {
+                            // replace need?
+                            // update source DateTime?
+                            // update anything else?
+
+                            CurrentOpportunities.Remove(existingNeed);
+                            CurrentOpportunities.Add(need);
+                        }
+                        else // we already have something this urgent
+                        {
+                            // do nothing.
+                        }
+                    }
+                    else
+                    {
+                        CurrentOpportunities.Add(need);
+                    }
+                }
             } // end foreach attribute
         }
 
@@ -175,7 +209,8 @@ namespace EntityAI
             {
                 // check for parameters
                 Sensor s = this.senses.sensors[i];
-                if (s.IsInNeed())
+                EntityAttribute.ValueRelativeStatus vrs = s.GetRelativeValueStatus();
+                if (s.IsInNeed(vrs))
                 {
                     SensorNeed need = new SensorNeed(s);
 
@@ -206,6 +241,36 @@ namespace EntityAI
                     }
 
                 } // end if in need
+                else if(s.HasOpportunity())
+                {
+                    SensorNeed need = new SensorNeed(s);
+
+                    // check if we have the need already
+                    SensorNeed existingNeed = GetSensorNeed(s.SType);
+
+                    if (existingNeed != null)
+                    {
+                        // check and adjust the urgency of the need
+                        if (existingNeed.Urgency < need.Urgency)
+                        {
+                            // replace need?
+                            // update source DateTime?
+                            // update anything else?
+
+                            this.CurrentOpportunities.Remove(existingNeed);
+                            this.CurrentOpportunities.Add(need);
+                        }
+                        else // we already have something this urgent
+                        {
+                            // do nothing.
+                        }
+
+                    }
+                    else
+                    {
+                        this.CurrentOpportunities.Add(need);
+                    }
+                }
             } // end foreach attribute
         }
 
@@ -223,7 +288,8 @@ namespace EntityAI
         {
             foreach(Ability A in this.actions.Abilities)
             {
-                if(A.IsInNeed())
+                EntityAttribute.ValueRelativeStatus vrs = A.GetRelativeValueStatus();
+                if (A.IsInNeed(vrs))
                 {
                     AbilityNeed need = new AbilityNeed(A);
 
@@ -336,7 +402,28 @@ namespace EntityAI
                 }
             }
 
-            throw new NotImplementedException();
+            for (int i = 0; i < this.CurrentOpportunities.Count; i++)
+            {
+                Solution S = Solution.FindSolutionForNeed(this.CurrentOpportunities[i]);
+
+                if (S != null)
+                {
+                    Solution existingSolution = GetExistingSolution(S);
+
+                    if (existingSolution != null)
+                    {
+                        // compare and change/replace?
+                        this.CurrentOpportunitySolutions.Remove(existingSolution);
+                    }
+
+                    this.CurrentOpportunitySolutions.Add(S);
+                }
+                else
+                {
+                    // we don't have a solution for this need, 
+                    // what do we do next? (look for one, create one, etc.)
+                }
+            }
         }
         private Solution GetExistingSolution(Solution s)
         {
@@ -353,6 +440,9 @@ namespace EntityAI
             // if we get here, we didn't find a match
             return null;
         }
+        #endregion
+
+        #region
         #endregion
 
         #region PerformActions

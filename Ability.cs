@@ -5,7 +5,7 @@ namespace EntityAI
     /// <summary>
     /// Represents a possible change type to performed by the entity as an action
     /// </summary>
-    public class Ability
+    public class Ability: EntityAttribute
     {
         public enum AbilityType
         {
@@ -59,11 +59,6 @@ namespace EntityAI
         public Ability(AbilityType T)
         {
             this.AType = T;
-        }
-
-        internal bool IsInNeed()
-        {
-            throw new NotImplementedException();
         }
     }
 }

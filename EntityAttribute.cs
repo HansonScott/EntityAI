@@ -43,5 +43,9 @@
             return (s != ValueRelativeStatus.Mid);
         }
 
+        internal bool HasOpportunity()
+        {
+            return (Efficiency < 100 || Effectiveness < 100);
+        }
     }
 }
