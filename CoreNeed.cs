@@ -2,6 +2,9 @@
 
 namespace EntityAI
 {
+    /// <summary>
+    /// Represents a need relating to the core attributes
+    /// </summary>
     public class CoreNeed: EntityNeed
     {
         public CoreAttribute Attribute;

@@ -54,6 +54,7 @@
     <Compile Include="CoreNeed.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EntityNeed.cs" />
+    <Compile Include="InputNeed.cs" />
     <Compile Include="ParameterRange.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -9,7 +9,7 @@ namespace EntityAI
     static class Program
     {
         /// <summary>
-        /// The main entry point for the application.
+        /// The main entry point for the application, temporary for develpment and testing.
         /// </summary>
         [STAThread]
         static void Main()

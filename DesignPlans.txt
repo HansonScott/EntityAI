@@ -12,14 +12,14 @@ X  - situational optimization - safety, equipment, stockpiling, preparations
 X  - capabilities - able to sense, able to take actions, optimization and efficiency improvements
 X  - acceptable parameters
 
-X core abilities: 
+core abilities: 
 X  - senses, diagnostics, evaluations, performing actions
   
 Senses:
 X  - see, feel, taste, smell, hear
 X  - independent threads that create input
  - initial filter to minimize 'noise' by recognition and patterning.  Also compare against existing needs
- - create 'evaluate' needs
+X - create 'evaluate' needs
  
 Diagnostics:
 X - check all core attributes within acceptable parameters (if not, add needs)

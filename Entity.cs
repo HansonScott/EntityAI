@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace EntityAI
 {
+    /// <summary>
+    /// Represents the parent object governing the many systems
+    /// </summary>
     public class Entity
     {
         public bool Continue = true; // stay alive variable
@@ -29,7 +32,7 @@ namespace EntityAI
         public void Run()
         {
             // start up sensory input thread
-            Thread thread = new Thread(new ThreadStart(senses.Run()));
+            Thread thread = new Thread(new ThreadStart(senses.Run));
             thread.Start();
 
             // main loop
@@ -79,11 +82,11 @@ namespace EntityAI
         private void RespondToSensoryInput()
         {
             // look for new sensory input
-            LoadNewInputs();
+            List<InputNeed> needs = this.senses.GetInputNeeds();
 
             // run diagnosis on sensory input
-            // create needs
-            DiagnoseSensoryInputs();
+            // create actual entity needs to be dealt with
+            DiagnoseSensoryInputs(needs);
         }
         private void EvaluateNeeds()
         {
@@ -212,13 +215,9 @@ namespace EntityAI
         #endregion
 
         #region SensoryResponse
-        private void LoadNewInputs()
+        private void DiagnoseSensoryInputs(List<InputNeed> needs)
         {
-            throw new NotImplementedException();
-        }
-        private void DiagnoseSensoryInputs()
-        {
-            throw new NotImplementedException();
+            // evaluate sensory input needs compared to current needs
         }
         #endregion
 

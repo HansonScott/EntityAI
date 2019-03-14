@@ -2,6 +2,9 @@
 
 namespace EntityAI
 {
+    /// <summary>
+    /// Represents a need relating to the sensors themselves
+    /// </summary>
     internal class SensorNeed: EntityNeed
     {
         public Sensor Sensor;

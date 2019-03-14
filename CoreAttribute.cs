@@ -2,6 +2,9 @@
 
 namespace EntityAI
 {
+    /// <summary>
+    /// Represents the many statuses and acceptable ranges of operation for the entity
+    /// </summary>
     public class CoreAttribute
     {
         public enum CoreAttributeType

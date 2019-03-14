@@ -1,5 +1,8 @@
 ﻿namespace EntityAI
 {
+    /// <summary>
+    /// represents a detailed DTO for the value ranges for a core attribute
+    /// </summary>
     public class ParameterRange
     {
         private CoreAttribute.CoreAttributeType CType;

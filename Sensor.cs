@@ -2,6 +2,9 @@
 
 namespace EntityAI
 {
+    /// <summary>
+    /// A specific capability of the entity related to capturing sensory input
+    /// </summary>
     public class Sensor
     {
         public enum SensorType
@@ -36,6 +39,11 @@ namespace EntityAI
         }
 
         internal bool IsInNeed()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal InputNeed CaptureInput(Entity entity)
         {
             throw new NotImplementedException();
         }
