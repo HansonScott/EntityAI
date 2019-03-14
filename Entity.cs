@@ -451,13 +451,20 @@ namespace EntityAI
             // look at urgency, ROI, etc.
 
             // change order to solutions in the list
-            throw new NotImplementedException();
+
         }
         private void PlanActions()
         {
-            // strategy comes into play here, as some action combinations can be optimized, etc.
-
-            // add queued actions to action thread according to queued solutions
+            // for each solution
+            foreach(Solution s in this.CurrentSolutions)
+            {
+                // future: strategy comes into play here, as some action combinations can be optimized, etc.
+                foreach(EntityAction ea in s.Actions)
+                {
+                    // add queued actions to action thread according to queued solutions
+                    this.actions.ActionQueue.Add(ea);
+                }
+            }
         }
         #endregion
 
