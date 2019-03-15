@@ -2,9 +2,11 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
+/EntityAI/bin/Debug
 /EntityAI/obj/Debug
 /EntityAI/.vs/EntityAI/v15
 *.suo
 /.vs
 /EntityAI/.vs/config/applicationhost.config
+/bin/Debug
 /obj/Debug
