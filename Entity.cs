@@ -26,6 +26,10 @@ namespace EntityAI
         List<EntityNeed> CurrentOpportunities;
         List<Solution> CurrentOpportunitySolutions;
 
+        public EntityEnvironment CurrentEnvironment;
+
+        public Position PositionCurrent;
+
         #region Constructor and Setup
         public Entity()
         {

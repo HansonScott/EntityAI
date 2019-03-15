@@ -6,6 +6,7 @@
     public class InputNeed : EntityNeed
     {
         public Sensor SourceSensor;
+        public Sound SourceSound;
 
         public InputNeed(Sensor s)
         {
@@ -21,6 +22,11 @@
             base.OriginationWhen = source.OriginationWhen;
             base.Urgency = source.Urgency;
             this.SourceSensor = source.SourceSensor;
+        }
+
+        public InputNeed(Sound S)
+        {
+            this.SourceSound = S;
         }
     }
 }

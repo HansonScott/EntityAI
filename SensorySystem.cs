@@ -49,14 +49,7 @@ namespace EntityAI
                 foreach (Sensor s in sensors)
                 {
                     // capture any new inputs, add to list with timestamps
-                    InputNeed n = s.CaptureInput(this.entity);
-                    if(n != null)
-                    {
-                        lock(this) // force single thread on list access
-                        {
-                            this.InputNeeds.Add(n);
-                        }
-                    }
+                    s.CaptureInput(this.entity);
                 }
 
                 DateTime End = DateTime.Now;
