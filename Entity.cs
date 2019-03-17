@@ -15,7 +15,7 @@ namespace EntityAI
         public bool Continue = true; // stay alive variable
 
         List<CoreAttribute> coreAttributes;
-        SensorySystem senses;
+        public SensorySystem senses;
         ActionSystem actions;
 
         int delay = 100;
@@ -96,13 +96,24 @@ namespace EntityAI
         }
         private void RespondToSensoryInput()
         {
-            // look for new sensory input
-            List<InputNeed> needs = this.senses.GetInputNeeds();
+            // look for sensory input that could be considered a threat or an opportunity
+            List<EntityNeed> needs = new List<EntityNeed>();
 
-            // run diagnosis on sensory input
             // create actual entity needs to be dealt with
-            DiagnoseSensoryInputs(needs);
+            needs = EvaluateSensoryInputForNeeds();
+
+            // verify needs against current ones
+            UpdateCurrentNeedsFromNewSensoryNeeds(needs);
         }
+
+        private List<EntityNeed> EvaluateSensoryInputForNeeds()
+        {
+            //this.senses.SightsCurrentlySeen;
+            //this.senses.SoundsCurrentlyHeard;
+            throw new NotImplementedException();
+            return null;
+        }
+
         private void EvaluateNeeds()
         {
             // evaluate needs against priorities
@@ -216,76 +227,14 @@ namespace EntityAI
                 EntityAttribute.ValueRelativeStatus vrs = s.GetRelativeValueStatus();
                 if (s.IsInNeed(vrs))
                 {
-                    SensorNeed need = new SensorNeed(s);
-
-                    // check if we have the need already
-                    SensorNeed existingNeed = GetSensorNeed(s.SType);
-
-                    if (existingNeed != null)
-                    {
-                        // check and adjust the urgency of the need
-                        if (existingNeed.Urgency < need.Urgency)
-                        {
-                            // replace need?
-                            // update source DateTime?
-                            // update anything else?
-
-                            CurrentNeeds.Remove(existingNeed);
-                            this.CurrentNeeds.Add(need);
-                        }
-                        else // we already have something this urgent
-                        {
-                            // do nothing.
-                        }
-
-                    }
-                    else
-                    {
-                        this.CurrentNeeds.Add(need);
-                    }
+                    this.CurrentNeeds.Add(new SensorNeed(s));
 
                 } // end if in need
                 else if(s.HasOpportunity())
                 {
-                    SensorNeed need = new SensorNeed(s);
-
-                    // check if we have the need already
-                    SensorNeed existingNeed = GetSensorNeed(s.SType);
-
-                    if (existingNeed != null)
-                    {
-                        // check and adjust the urgency of the need
-                        if (existingNeed.Urgency < need.Urgency)
-                        {
-                            // replace need?
-                            // update source DateTime?
-                            // update anything else?
-
-                            this.CurrentOpportunities.Remove(existingNeed);
-                            this.CurrentOpportunities.Add(need);
-                        }
-                        else // we already have something this urgent
-                        {
-                            // do nothing.
-                        }
-
-                    }
-                    else
-                    {
-                        this.CurrentOpportunities.Add(need);
-                    }
+                    this.CurrentOpportunities.Add(new SensorNeed(s));
                 }
             } // end foreach attribute
-        }
-
-        private SensorNeed GetSensorNeed(Sensor.SensorType sType)
-        {
-            foreach (SensorNeed n in this.CurrentNeeds)
-            {
-                if (n.Sensor.SType == sType) { return n; }
-            }
-
-            return null;
         }
 
         private void EvaluateAbilities()
@@ -339,10 +288,10 @@ namespace EntityAI
         #endregion
 
         #region SensoryResponse
-        private void DiagnoseSensoryInputs(List<InputNeed> needs)
+        private void UpdateCurrentNeedsFromNewSensoryNeeds(List<EntityNeed> SensoryNeeds)
         {
             // evaluate sensory input needs compared to current needs
-            foreach(InputNeed n in needs)
+            foreach(InputNeed n in SensoryNeeds)
             {
                 // if this need is important, add it to our current needs.
                 EntityNeed existingNeed = GetExistingNeed(n);

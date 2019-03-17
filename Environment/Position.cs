@@ -33,6 +33,11 @@ namespace EntityAI
             this.Z = Z;
         }
 
+        internal double DistanceFrom(object position)
+        {
+            throw new NotImplementedException();
+        }
+
         public Position()
         {
             this.X = 0;

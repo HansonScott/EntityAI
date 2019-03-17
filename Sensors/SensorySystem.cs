@@ -12,10 +12,15 @@ namespace EntityAI
     {
         private Entity entity;
         public List<Sensor> sensors;
-        private List<InputNeed> InputNeeds;
 
         public bool ShouldContinue = true;
         private int LoopDelay = 500;
+
+        public List<Sound> SoundsCurrentlyHeard;
+        public List<Sight> SightsCurrentlySeen;
+
+        public SightSensor Sensor_Sight;
+        public HearingSensor Sensor_Hearing;
 
         #region Constructor and Setup
         public SensorySystem(Entity entity)
@@ -23,15 +28,14 @@ namespace EntityAI
             this.entity = entity;
 
             CreateSensors();
-            InputNeeds = new List<InputNeed>();
         }
         private void CreateSensors()
         {
-            Array S_sensors = Enum.GetValues(typeof(SensorType));
-            foreach(SensorType t in S_sensors)
-            {
-                this.sensors.Add(new Sensor(t));
-            }
+            Sensor_Sight = new SightSensor(this);
+            this.sensors.Add(Sensor_Sight);
+            Sensor_Hearing = new HearingSensor(this);
+            this.sensors.Add(Sensor_Hearing);
+
         }
         #endregion
 
@@ -62,27 +66,6 @@ namespace EntityAI
                 // slow down the loop
                 Thread.Sleep((int)waittime);
             }
-        }
-
-        /// <summary>
-        /// the accessor method to get the needs recently created.
-        /// </summary>
-        /// <returns></returns>
-        public List<InputNeed> GetInputNeeds()
-        {
-            List<InputNeed> results = new List<InputNeed>();
-
-            lock(this)
-            {
-                foreach (InputNeed n in this.InputNeeds)
-                {
-                    results.Add(new InputNeed(n));
-                }
-
-                this.InputNeeds.Clear();
-            }
-
-            return results;
         }
     }
 }
