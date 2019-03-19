@@ -32,6 +32,18 @@ namespace EntityAI
 
         public Position Origin;
 
+        public string Description
+        {
+            get
+            {
+                string thing = Enum.GetName(typeof(RecognitionFootPrint), FootPrint);
+
+                // add adjective for distance or loudness, or distance?
+
+                return thing;
+            }
+        }
+
         public Sound(RecognitionFootPrint FootPrint, double Loudness, Position Origin)
         {
             this.FootPrint = FootPrint;
@@ -71,7 +83,7 @@ namespace EntityAI
              * 90 = 25
              * 100 = 24 - 20x dist =~ 50%
              * 125 = 22
-             * 150 = 20
+             * 150 = 20 - 30x dist = ~40%
              * 175 = 19
              * 200 = 18
              * 250 = 16
@@ -87,6 +99,7 @@ namespace EntityAI
             if (dist / 5 > 200) { return loudness * .1; }
             else if (dist / 5 > 100) { return loudness * .2; }
             else if (dist / 5 > 60) { return loudness * .3; }
+            else if (dist / 5 > 30) { return loudness * .4; }
             else if (dist / 5 > 20) { return loudness * .5; }
             else if (dist / 5 > 10) { return loudness * .6; }
             else if (dist / 5 > 5) { return loudness * .7; }

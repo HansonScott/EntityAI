@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace EntityAI
 {
-    public class PainSensor
+    public class PainSensor: Sensor
     {
+        public PainSensor(SensorySystem sensorySystem): base(sensorySystem)
+        {
+        }
+
+        internal override void CaptureInput(Entity entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

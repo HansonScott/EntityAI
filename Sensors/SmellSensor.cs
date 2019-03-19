@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace EntityAI
 {
-    public class SmellSensor
+    public class SmellSensor: Sensor
     {
+        public SmellSensor(SensorySystem sensorySystem): base(sensorySystem)
+        {
+        }
+
+        internal override void CaptureInput(Entity entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

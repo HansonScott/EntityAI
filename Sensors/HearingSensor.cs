@@ -33,8 +33,10 @@ namespace EntityAI
 
             foreach (Sound s in sounds)
             {
-                if (s.IsHeard(this.Effectiveness_Current, p, ambiantLoudness)) ;
+                if (s.IsHeard(this.Effectiveness_Current, p, ambiantLoudness))
                 {
+                    base.parentSystem.entity.RaiseLog(new EntityLogging.EntityLog("I hear " + s.Description, System.Diagnostics.TraceLevel.Verbose));
+
                     results.Add(s);
                 }
             }

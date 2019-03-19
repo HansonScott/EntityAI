@@ -7,9 +7,9 @@ namespace EntityAI
     /// </summary>
     public class SolutionBenefit
     {
-        Type ObjectTypeAffected;
-        object ObjectTypeCategoryAffected;
+        //Type ObjectTypeAffected;
+        //object ObjectTypeCategoryAffected;
 
-        double ValueChange;
+        //double ValueChange;
     }
 }

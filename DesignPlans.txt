@@ -1,6 +1,7 @@
 General Overview
 
-X As a Windows process, maybe a service down the line, if it wants/needs to run automatically
+X - as a DLL, to be run inside a simulator
+  - future: As a Windows process, maybe a service down the line, if it wants/needs to run automatically
 
 X Main loop: continuous loop to do self diagnostics, respond to sensory input and perform actions, reflection to re-evaluate for patterns and improvement.
 

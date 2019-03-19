@@ -10,7 +10,8 @@ namespace EntityAI
     /// </summary>
     public class SensorySystem
     {
-        private Entity entity;
+        #region Fields and Properties
+        internal Entity entity;
         public List<Sensor> sensors;
 
         public bool ShouldContinue = true;
@@ -21,6 +22,12 @@ namespace EntityAI
 
         public SightSensor Sensor_Sight;
         public HearingSensor Sensor_Hearing;
+        public PainSensor Sensor_Pain;
+        public SmellSensor Sensor_Smell;
+        public TasteSensor Sensor_Taste;
+        public TemperatureSensor Sensor_Temp;
+        public TouchSensor Sensor_Touch;
+        #endregion
 
         #region Constructor and Setup
         public SensorySystem(Entity entity)
@@ -35,6 +42,16 @@ namespace EntityAI
             this.sensors.Add(Sensor_Sight);
             Sensor_Hearing = new HearingSensor(this);
             this.sensors.Add(Sensor_Hearing);
+            this.Sensor_Pain = new PainSensor(this);
+            this.sensors.Add(Sensor_Pain);
+            this.Sensor_Smell = new SmellSensor(this);
+            this.sensors.Add(Sensor_Smell);
+            this.Sensor_Taste = new TasteSensor(this);
+            this.sensors.Add(Sensor_Taste);
+            this.Sensor_Temp = new TemperatureSensor(this);
+            this.sensors.Add(Sensor_Temp);
+            this.Sensor_Touch = new TouchSensor(this);
+            this.sensors.Add(Sensor_Touch);
 
         }
         #endregion

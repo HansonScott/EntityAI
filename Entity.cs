@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using EntityLogging;
 
 namespace EntityAI
 {
@@ -12,6 +13,18 @@ namespace EntityAI
     /// </summary>
     public class Entity
     {
+        #region Custom Logging Events
+        public delegate void LoggingHandler(object sender, EntityLogging.EntityLoggingEventArgs e);
+        public event LoggingHandler OnLog;
+
+        internal void RaiseLog(EntityLogging.EntityLog log)
+        {
+            // using this inline vs checking for null is more thread safe
+            OnLog?.Invoke(this, new EntityLoggingEventArgs(log));
+        }
+        #endregion
+
+        #region Fields and Properties
         public bool Continue = true; // stay alive variable
 
         List<CoreAttribute> coreAttributes;
@@ -29,6 +42,7 @@ namespace EntityAI
         public EntityEnvironment CurrentEnvironment;
 
         public Position PositionCurrent;
+        #endregion
 
         #region Constructor and Setup
         public Entity()
@@ -105,15 +119,6 @@ namespace EntityAI
             // verify needs against current ones
             UpdateCurrentNeedsFromNewSensoryNeeds(needs);
         }
-
-        private List<EntityNeed> EvaluateSensoryInputForNeeds()
-        {
-            //this.senses.SightsCurrentlySeen;
-            //this.senses.SoundsCurrentlyHeard;
-            throw new NotImplementedException();
-            return null;
-        }
-
         private void EvaluateNeeds()
         {
             // evaluate needs against priorities
@@ -122,7 +127,6 @@ namespace EntityAI
             // create solution
             CreateSolutionsFromNeeds();
         }
-
         private void PerformActions()
         {
             // prioritize and load solutions
@@ -288,6 +292,13 @@ namespace EntityAI
         #endregion
 
         #region SensoryResponse
+        private List<EntityNeed> EvaluateSensoryInputForNeeds()
+        {
+            //this.senses.SightsCurrentlySeen;
+            //this.senses.SoundsCurrentlyHeard;
+            throw new NotImplementedException();
+            //return null;
+        }
         private void UpdateCurrentNeedsFromNewSensoryNeeds(List<EntityNeed> SensoryNeeds)
         {
             // evaluate sensory input needs compared to current needs
@@ -305,7 +316,6 @@ namespace EntityAI
                 }
             }
         }
-
         private EntityNeed GetExistingNeed(InputNeed n)
         {
             foreach(EntityNeed existingNeed in this.CurrentNeeds)
@@ -395,9 +405,6 @@ namespace EntityAI
         }
         #endregion
 
-        #region
-        #endregion
-
         #region PerformActions
         private void PrioritizeSolutions()
         {
@@ -419,10 +426,6 @@ namespace EntityAI
                 }
             }
         }
-        #endregion
-
-        #region Reflection
-        // future...
         #endregion
     }
 }

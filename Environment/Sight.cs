@@ -4,7 +4,23 @@ namespace EntityAI
 {
     public class Sight
     {
-        EntityObject ThisObject;
+        EntityObject ThisObject = null;
+        public string Description
+        {
+            get
+            {
+                if(ThisObject == null) { return "nothing"; }
+                else
+                {
+                    return ThisObject.Description;
+                }
+            }
+        }
+
+        public Sight(EntityObject obj)
+        {
+            this.ThisObject = obj;
+        }
 
         internal bool IsSeen(double EntitySightDistance, double effectiveness_Current, Position p, double EnvironmentSightDistance)
         {

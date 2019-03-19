@@ -8,7 +8,8 @@ namespace EntityAI
 {
     public class SightSensor: Sensor
     {
-        double SightDistance;
+        public const double SIGHT_DISTANCE_DEFAULT = 500;
+        double SightDistance = SIGHT_DISTANCE_DEFAULT;
 
         public SightSensor(SensorySystem parentSystem): base(parentSystem)
         { 
@@ -26,13 +27,11 @@ namespace EntityAI
 
             foreach (Sight s in sights)
             {
-
-            }
-
-            foreach (Sight s in sights)
-            {
-                if (s.IsSeen(BaseSightDistance, this.Effectiveness_Current, p, SightDistance)) ;
+                if (s.IsSeen(BaseSightDistance, this.Effectiveness_Current, p, SightDistance))
                 {
+                    // log that the entity sees something
+                    base.parentSystem.entity.RaiseLog(new EntityLogging.EntityLog("I see " + s.Description, System.Diagnostics.TraceLevel.Verbose));
+
                     results.Add(s);
                 }
             }

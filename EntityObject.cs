@@ -10,5 +10,6 @@ namespace EntityAI
         {
             get; set;
         }
+        public string Description { get; internal set; }
     }
 }

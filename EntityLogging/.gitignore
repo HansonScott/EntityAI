@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/EntityLogging/bin/Debug
+/EntityLogging/obj/Debug
+/EntityLogging/.vs/EntityAI/v15
+*.suo
+*.csproj.user
+/.vs
+/EntityLogging/.vs/config/applicationhost.config
+/bin/Debug
+/obj/Debug

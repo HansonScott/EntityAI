@@ -8,7 +8,7 @@ namespace EntityAI
     /// </summary>
     public abstract class Sensor: EntityAttribute
     {
-        private SensorySystem parentSystem;
+        protected SensorySystem parentSystem;
 
         public double BaseSightDistance;
 
