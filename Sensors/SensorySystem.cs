@@ -38,20 +38,22 @@ namespace EntityAI
         }
         private void CreateSensors()
         {
+            this.sensors = new List<Sensor>();
+
             Sensor_Sight = new SightSensor(this);
             this.sensors.Add(Sensor_Sight);
             Sensor_Hearing = new HearingSensor(this);
             this.sensors.Add(Sensor_Hearing);
-            this.Sensor_Pain = new PainSensor(this);
-            this.sensors.Add(Sensor_Pain);
-            this.Sensor_Smell = new SmellSensor(this);
-            this.sensors.Add(Sensor_Smell);
-            this.Sensor_Taste = new TasteSensor(this);
-            this.sensors.Add(Sensor_Taste);
-            this.Sensor_Temp = new TemperatureSensor(this);
-            this.sensors.Add(Sensor_Temp);
-            this.Sensor_Touch = new TouchSensor(this);
-            this.sensors.Add(Sensor_Touch);
+            //this.Sensor_Pain = new PainSensor(this);
+            //this.sensors.Add(Sensor_Pain);
+            //this.Sensor_Smell = new SmellSensor(this);
+            //this.sensors.Add(Sensor_Smell);
+            //this.Sensor_Taste = new TasteSensor(this);
+            //this.sensors.Add(Sensor_Taste);
+            //this.Sensor_Temp = new TemperatureSensor(this);
+            //this.sensors.Add(Sensor_Temp);
+            //this.Sensor_Touch = new TouchSensor(this);
+            //this.sensors.Add(Sensor_Touch);
 
         }
         #endregion

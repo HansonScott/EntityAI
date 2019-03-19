@@ -25,7 +25,7 @@ namespace EntityAI
         #endregion
 
         #region Fields and Properties
-        public bool Continue = true; // stay alive variable
+        private bool Continue = true; // stay alive variable
 
         List<CoreAttribute> coreAttributes;
         public SensorySystem senses;
@@ -55,7 +55,6 @@ namespace EntityAI
             CurrentOpportunities = new List<EntityNeed>();
             CurrentOpportunitySolutions = new List<Solution>();
         }
-
         private List<CoreAttribute> PopulateCoreAttributes()
         {
             List<CoreAttribute> results = new List<CoreAttribute>();
@@ -70,11 +69,15 @@ namespace EntityAI
 
         public void Run()
         {
+            RaiseLog(new EntityLog("Hello."));
+
             // start up sensory input thread
             Thread thread = new Thread(new ThreadStart(senses.Run));
+            RaiseLog(new EntityLog("I am starting up my senses now."));
             thread.Start();
 
             // main loop
+            RaiseLog(new EntityLog("I am starting my continuous loop."));
             while (Continue)
             {
                 DateTime start = DateTime.Now;
@@ -105,6 +108,12 @@ namespace EntityAI
                 // slow down the loop
                 Thread.Sleep((int)waittime);
             }
+
+            RaiseLog(new EntityLog("Goodbye."));
+        }
+        public void ShutDown()
+        {
+            this.Continue = false;
         }
 
         #region Top Level Functions
@@ -188,7 +197,7 @@ namespace EntityAI
                     }
                     else
                     {
-                        RaiseLog(new EntityLog("I have a core attribute need: " + need.Attribute.Description));
+                        RaiseLog(new EntityLog("I have a new core attribute need: " + need.Attribute.Description));
                         this.CurrentNeeds.Add(need);
                     }
 
@@ -309,11 +318,15 @@ namespace EntityAI
         {
             //this.senses.SightsCurrentlySeen;
             //this.senses.SoundsCurrentlyHeard;
-            throw new NotImplementedException();
-            //return null;
+
+            //throw new NotImplementedException();
+            
+            return null;
         }
         private void UpdateCurrentNeedsFromNewSensoryNeeds(List<EntityNeed> SensoryNeeds)
         {
+            if (SensoryNeeds == null) { return; }
+
             // evaluate sensory input needs compared to current needs
             foreach(InputNeed n in SensoryNeeds)
             {
