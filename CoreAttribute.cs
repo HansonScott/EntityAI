@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace EntityAI
 {
@@ -45,9 +46,23 @@ namespace EntityAI
             }
         }
 
-        public CoreAttribute()
+        public string Description
         {
+            get
+            {
+                StringBuilder sb = new StringBuilder(Enum.GetName(typeof(CoreAttributeType), CType));
+                sb.Append(" has effectiveness of ");
+                sb.Append(base.Effectiveness * 100);
+                sb.Append("%, and an effectiveness of ");
+                sb.Append(base.Effectiveness * 100);
+                sb.Append("%");
+                return sb.ToString();
+            }
+        }
 
+        public CoreAttribute(CoreAttributeType CType)
+        {
+            this.CType = CType;
         }
     }
 }

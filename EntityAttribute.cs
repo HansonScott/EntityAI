@@ -14,8 +14,8 @@
         }
 
         public double Importance;
-        public double Efficiency;
-        public double Effectiveness;
+        public double Efficiency; // %
+        public double Effectiveness; // %?
 
         public ParameterRange param = new ParameterRange();
 

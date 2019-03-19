@@ -47,13 +47,24 @@ namespace EntityAI
         #region Constructor and Setup
         public Entity()
         {
-            coreAttributes = new List<CoreAttribute>();
+            coreAttributes = PopulateCoreAttributes();
             senses = new SensorySystem(this);
             actions = new ActionSystem(this);
             CurrentNeeds = new List<EntityNeed>();
             CurrentSolutions = new List<Solution>();
             CurrentOpportunities = new List<EntityNeed>();
             CurrentOpportunitySolutions = new List<Solution>();
+        }
+
+        private List<CoreAttribute> PopulateCoreAttributes()
+        {
+            List<CoreAttribute> results = new List<CoreAttribute>();
+            string[] CTypes = Enum.GetNames(typeof(CoreAttribute.CoreAttributeType));
+            foreach (string cat in CTypes)
+            {
+                results.Add(new CoreAttribute((CoreAttribute.CoreAttributeType)Enum.Parse(typeof(CoreAttribute.CoreAttributeType), cat)));
+            }
+            return results;
         }
         #endregion
 
@@ -166,6 +177,7 @@ namespace EntityAI
                             // update source DateTime?
                             // update anything else?
 
+                            RaiseLog(new EntityLog("I have a core attribute need with a higher urgency than previously: " + need.Attribute.Description));
                             CurrentNeeds.Remove(existingNeed);
                             this.CurrentNeeds.Add(need);
                         }
@@ -176,6 +188,7 @@ namespace EntityAI
                     }
                     else
                     {
+                        RaiseLog(new EntityLog("I have a core attribute need: " + need.Attribute.Description));
                         this.CurrentNeeds.Add(need);
                     }
 
