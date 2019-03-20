@@ -15,7 +15,7 @@ namespace EntityAI
         public List<Sensor> sensors;
 
         public bool ShouldContinue = true;
-        private int LoopDelay = 500;
+        private int LoopDelay = 1000;
 
         public List<Sound> SoundsCurrentlyHeard;
         public List<Sight> SightsCurrentlySeen;
@@ -66,6 +66,8 @@ namespace EntityAI
         {
             while (ShouldContinue)
             {
+                this.entity.RaiseLog(new EntityLogging.EntityLog("Checking for sensory input..."));
+
                 DateTime Start = DateTime.Now;
 
                 // loop through all the senses of parent entity

@@ -24,11 +24,13 @@ namespace EntityAI
             List<Sound> results = new List<Sound>();
 
             // capture ambient volume.
-            double ambiantLoudness = 0;
-            foreach (Sound s in sounds)
-            {
-                ambiantLoudness = Math.Max(ambiantLoudness, s.Loudness);
-            }
+            double ambiantLoudness = 5; // 5 for entity noises such as breathing, heart beat, etc.
+
+            // come back to this later, for now just use the default.
+            //foreach (Sound s in sounds)
+            //{
+            //    ambiantLoudness = Math.Max(ambiantLoudness, s.Loudness);
+            //}
 
 
             foreach (Sound s in sounds)

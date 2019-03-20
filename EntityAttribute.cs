@@ -14,19 +14,19 @@
         }
 
         public double Importance;
-        public double Efficiency; // %
-        public double Effectiveness; // %?
+        public double Efficiency = 1.0; // %
+        public double Effectiveness = 1.0; // %?
 
         public ParameterRange param = new ParameterRange();
 
-        public double Value_Mid;
-        public double Value_HighSD1;
-        public double Value_HighSD2;
-        public double Value_HighSD3;
-        public double Value_LowSD1;
-        public double Value_LowSD2;
-        public double Value_LowSD3;
-        public double CurrentValue;
+        public double Value_Mid = 1.0;
+        public double Value_HighSD1 = 1.5;
+        public double Value_HighSD2 = 2.0;
+        public double Value_HighSD3 = 3.0;
+        public double Value_LowSD1 = 0.75;
+        public double Value_LowSD2 = 0.50;
+        public double Value_LowSD3 = 0.25;
+        public double CurrentValue = 1.0;
 
         internal ValueRelativeStatus GetRelativeValueStatus()
         {

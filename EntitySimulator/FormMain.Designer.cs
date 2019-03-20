@@ -33,6 +33,7 @@
             this.tbOutput = new System.Windows.Forms.TextBox();
             this.EnvironmentPanel = new System.Windows.Forms.Panel();
             this.btnStop = new System.Windows.Forms.Button();
+            this.btnPlaceSound = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnNew
@@ -73,11 +74,15 @@
             this.EnvironmentPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.EnvironmentPanel.BackColor = System.Drawing.SystemColors.ControlDark;
             this.EnvironmentPanel.Location = new System.Drawing.Point(113, 12);
             this.EnvironmentPanel.Name = "EnvironmentPanel";
             this.EnvironmentPanel.Size = new System.Drawing.Size(675, 278);
             this.EnvironmentPanel.TabIndex = 3;
             this.EnvironmentPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.EnvironmentPanel_Paint);
+            this.EnvironmentPanel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.EnvironmentPanel_MouseClick);
+            this.EnvironmentPanel.MouseEnter += new System.EventHandler(this.EnvironmentPanel_MouseEnter);
+            this.EnvironmentPanel.MouseLeave += new System.EventHandler(this.EnvironmentPanel_MouseLeave);
             // 
             // btnStop
             // 
@@ -89,11 +94,22 @@
             this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
+            // btnPlaceSound
+            // 
+            this.btnPlaceSound.Location = new System.Drawing.Point(12, 162);
+            this.btnPlaceSound.Name = "btnPlaceSound";
+            this.btnPlaceSound.Size = new System.Drawing.Size(95, 23);
+            this.btnPlaceSound.TabIndex = 5;
+            this.btnPlaceSound.Text = "Place Sound";
+            this.btnPlaceSound.UseVisualStyleBackColor = true;
+            this.btnPlaceSound.Click += new System.EventHandler(this.btnPlaceSound_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnPlaceSound);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.EnvironmentPanel);
             this.Controls.Add(this.tbOutput);
@@ -113,6 +129,7 @@
         private System.Windows.Forms.TextBox tbOutput;
         private System.Windows.Forms.Panel EnvironmentPanel;
         private System.Windows.Forms.Button btnStop;
+        private System.Windows.Forms.Button btnPlaceSound;
     }
 }
 

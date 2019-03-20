@@ -29,6 +29,7 @@ namespace EntityAI
 
         List<CoreAttribute> coreAttributes;
         public SensorySystem senses;
+        Thread SensoryThread;
         ActionSystem actions;
 
         int delay = 100;
@@ -72,9 +73,9 @@ namespace EntityAI
             RaiseLog(new EntityLog("Hello."));
 
             // start up sensory input thread
-            Thread thread = new Thread(new ThreadStart(senses.Run));
-            RaiseLog(new EntityLog("I am starting up my senses now."));
-            thread.Start();
+            SensoryThread = new Thread(new ThreadStart(senses.Run));
+            RaiseLog(new EntityLog("I am starting up my senses..."));
+            SensoryThread.Start();
 
             // main loop
             RaiseLog(new EntityLog("I am starting my continuous loop."));

@@ -24,6 +24,14 @@ namespace EntitySimulator
         #endregion
 
         Simulator CurrentSimulator;
+        UIState CurrentState;
+
+        private enum UIState
+        {
+            normal = 0,
+            Placing_Sound = 1,
+            Placing_Sight = 2,
+        }
 
         public FormMain()
         {
@@ -70,6 +78,51 @@ namespace EntitySimulator
             CurrentSimulator?.RunSimulation();
             Output("Simulation started.");
         }
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            Output("Stopping simulation...");
+            CurrentSimulator?.StopSimulation();
+
+            // NOTE: because we need to wait until all the parts are shut down, we need to wait for the other threads...
+
+            Output("Simulation stopped.");
+        }
+        private void EnvironmentPanel_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (CurrentState == UIState.Placing_Sound)
+            {
+                CurrentSimulator.CurrentEnvironment.Sounds.Add(
+                    new Sound(Sound.RecognitionFootPrint.Water, 50, new Position(e.X, e.Y, 0)));
+            }
+            else if (CurrentState == UIState.Placing_Sight)
+            {
+                EntityObject eo = new EntityObject();
+                // set properties of eo
+
+                // add to environment
+                CurrentSimulator.CurrentEnvironment.Sights.Add(
+                    new Sight(eo));
+            }
+
+            // and finally, set the state back to normal
+            CurrentState = UIState.normal;
+        }
+        private void btnPlaceSound_Click(object sender, EventArgs e)
+        {
+            CurrentState = UIState.Placing_Sound;
+            Output("Placing sound...");
+        }
+        private void EnvironmentPanel_MouseEnter(object sender, EventArgs e)
+        {
+            if (CurrentState != UIState.normal)
+            {
+                Cursor.Current = Cursors.Cross;
+            }
+        }
+        private void EnvironmentPanel_MouseLeave(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.Default;
+        }
         #endregion
 
         private void Output(string msg)
@@ -98,26 +151,31 @@ namespace EntitySimulator
 
         private void DrawEnvironment(EntityEnvironment currentEnvironment, Graphics g)
         {
+            #region Draw simulation timer
             TimeSpan T = this.CurrentSimulator.RunTime;
             string Duration = $"Run time: {T.Hours}h: {T.Minutes}m: {T.Seconds}s";
-
             Font F = DefaultFont;
             Brush B = Brushes.Black;
-
             g.DrawString(Duration, F, B, 5, 5);
+            #endregion
+
+            // draw entity
+            g.DrawString("@", DefaultFont, Brushes.Goldenrod, 
+                (float)CurrentSimulator.Protagonist.PositionCurrent.X, 
+                (float)CurrentSimulator.Protagonist.PositionCurrent.Y);
 
             // draw sights, sounds, etc.
+            foreach(Sound s in currentEnvironment.Sounds)
+            {
+                g.DrawString("*", DefaultFont, Brushes.DarkBlue, (float)s.Origin.X, (float)s.Origin.Y);
+            }
+
+            foreach (Sight s in currentEnvironment.Sights)
+            {
+                //g.DrawString("@", DefaultFont, Brushes.Gold, (float)s.X, (float)s.Y);
+            }
+
         }
         #endregion
-
-        private void btnStop_Click(object sender, EventArgs e)
-        {
-            Output("Stopping simulation...");
-            CurrentSimulator?.StopSimulation();
-
-            // NOTE: because we need to wait until all the parts are shut down, we need to wait for the other threads...
-
-            Output("Simulation stopped.");
-        }
     }
 }

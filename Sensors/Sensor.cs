@@ -15,7 +15,7 @@ namespace EntityAI
         /// <summary>
         /// 0 to 1.0 base, so 0.90 = 90% effectiveness (not the number 90)
         /// </summary>
-        public double Effectiveness_Current;
+        public double Effectiveness_Current = 1.0;
 
         public Sensor(SensorySystem SensorSystem)
         {
