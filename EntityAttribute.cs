@@ -1,4 +1,6 @@
-﻿namespace EntityAI
+﻿using System;
+
+namespace EntityAI
 {
     public class EntityAttribute
     {
@@ -14,8 +16,9 @@
         }
 
         public double Importance;
-        public double Efficiency = 1.0; // %
-        public double Effectiveness = 1.0; // %?
+
+        public DateTime LastUpdate;
+        public TimeSpan UpdateDelay;
 
         public ParameterRange param = new ParameterRange();
 
@@ -27,6 +30,11 @@
         public double Value_LowSD2 = 0.50;
         public double Value_LowSD3 = 0.25;
         public double CurrentValue = 1.0;
+
+        public EntityAttribute()
+        {
+            LastUpdate = DateTime.Now;
+        }
 
         internal ValueRelativeStatus GetRelativeValueStatus()
         {
@@ -45,7 +53,7 @@
 
         internal bool HasOpportunity()
         {
-            return (Efficiency < 100 || Effectiveness < 100);
+            return (CurrentValue < 1.0);
         }
     }
 }

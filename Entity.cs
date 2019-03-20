@@ -32,6 +32,7 @@ namespace EntityAI
         Thread SensoryThread;
         ActionSystem actions;
 
+        // core entity loop delay, needs to be pretty fast for reacting to things.
         int delay = 100;
 
         List<EntityNeed> CurrentNeeds;
@@ -62,7 +63,7 @@ namespace EntityAI
             string[] CTypes = Enum.GetNames(typeof(CoreAttribute.CoreAttributeType));
             foreach (string cat in CTypes)
             {
-                results.Add(new CoreAttribute((CoreAttribute.CoreAttributeType)Enum.Parse(typeof(CoreAttribute.CoreAttributeType), cat)));
+                results.Add(new CoreAttribute(this, (CoreAttribute.CoreAttributeType)Enum.Parse(typeof(CoreAttribute.CoreAttributeType), cat)));
             }
             return results;
         }
@@ -82,6 +83,8 @@ namespace EntityAI
             while (Continue)
             {
                 DateTime start = DateTime.Now;
+
+                UpdateTickers();
 
                 // self diagnostics
                 RunSelfDiagnostics();
@@ -112,12 +115,18 @@ namespace EntityAI
 
             RaiseLog(new EntityLog("Goodbye."));
         }
+
         public void ShutDown()
         {
             this.Continue = false;
         }
 
         #region Top Level Functions
+        private void UpdateTickers()
+        {
+            // update timing-based attributes
+            UpdateCoreAttributesForTiming();
+        }
         private void RunSelfDiagnostics()
         {
             // evaluate core attributes within acceptable parameters
@@ -159,6 +168,16 @@ namespace EntityAI
         private void ReflectAndReevaluate()
         {
             // review patterns, trends, look to create new solutions
+        }
+        #endregion
+
+        #region Tickers
+        private void UpdateCoreAttributesForTiming()
+        {
+            foreach(CoreAttribute c in this.coreAttributes)
+            {
+                c.UpdateForTiming();
+            }
         }
         #endregion
 
