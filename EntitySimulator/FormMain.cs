@@ -109,8 +109,16 @@ namespace EntitySimulator
         }
         private void btnPlaceSound_Click(object sender, EventArgs e)
         {
-            CurrentState = UIState.Placing_Sound;
-            Output("Placing sound...");
+            // get what type of input was chosen from the comboBox
+            switch(cbSensoryType.SelectedItem)
+            {
+                case "Sound":
+                    CurrentState = UIState.Placing_Sound;
+                    Output("Placing sound...");
+                    break;
+                default:
+                    break;
+            }
         }
         private void EnvironmentPanel_MouseEnter(object sender, EventArgs e)
         {
@@ -177,5 +185,12 @@ namespace EntitySimulator
 
         }
         #endregion
+
+        private void btnEntityStats_Click(object sender, EventArgs e)
+        {
+            Form_Entity_Viewer frm = new Form_Entity_Viewer();
+            frm.LoadEntity(this.CurrentSimulator.Protagonist);
+            frm.Show(this);
+        }
     }
 }
