@@ -11,6 +11,8 @@
         public object Item = null;
         public object Environment = null;
 
+        public Solution ParentSolution = null;
+        
         /// <summary>
         /// represents conducting an action with the assumption there is no need for an item or target
         /// </summary>
