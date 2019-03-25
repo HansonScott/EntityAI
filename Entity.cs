@@ -30,7 +30,9 @@ namespace EntityAI
         public List<CoreAttribute> coreAttributes;
         public SensorySystem senses;
         Thread SensoryThread;
+
         public ActionSystem actions;
+        Thread ActionThread;
 
         // core entity loop delay, needs to be pretty fast for reacting to things.
         int delay = 100;
@@ -81,6 +83,10 @@ namespace EntityAI
             RaiseLog(new EntityLog("I am starting up my senses..."));
             SensoryThread.Start();
 
+            ActionThread = new Thread(new ThreadStart(actions.Run));
+            RaiseLog(new EntityLog("I am starting up my actions..."));
+            ActionThread.Start();
+            
             // main loop
             RaiseLog(new EntityLog("I am starting my continuous loop."));
             while (Continue)
@@ -121,8 +127,9 @@ namespace EntityAI
 
         public void ShutDown()
         {
-            this.Continue = false;
             this.senses.ShutDown();
+            this.actions.ShutDown();
+            this.Continue = false;
         }
 
         #region Top Level Functions
