@@ -77,5 +77,13 @@ namespace EntityAI
 
             return result;
         }
+        
+        public EntityAction GetNextAction(EntityAction A)
+        {
+            if(this.Actons == null || this.Actions.Count == 0) { return null; }
+            
+            // otherwise, look through the list for the next index.
+            throw new NotImplementedException();
+        }
     }
 }
