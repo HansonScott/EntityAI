@@ -12,13 +12,13 @@ namespace EntityAI
     {
         #region Fields and Properties
         internal Entity entity;
-        public List<Sensor> sensors;
+        public List<Sensor> sensors = new List<Sensor>();
 
         public bool ShouldContinue = true;
         private int LoopDelay = 1000;
 
-        public List<Sound> SoundsCurrentlyHeard;
-        public List<Sight> SightsCurrentlySeen;
+        public List<Sound> SoundsCurrentlyHeard = new List<Sound>();
+        public List<Sight> SightsCurrentlySeen = new List<Sight>();
 
         public SightSensor Sensor_Sight;
         public HearingSensor Sensor_Hearing;
@@ -33,8 +33,10 @@ namespace EntityAI
         public SensorySystem(Entity entity)
         {
             this.entity = entity;
+            SoundsCurrentlyHeard = new List<Sound>();
+            SightsCurrentlySeen = new List<Sight>();
 
-            CreateSensors();
+        CreateSensors();
         }
         private void CreateSensors()
         {

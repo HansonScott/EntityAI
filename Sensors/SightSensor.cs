@@ -39,15 +39,8 @@ namespace EntityAI
                     results.Add(s);
                 }
             }
-            if (results.Count > 0)
-            {
-                return results;
-            }
-            else
-            {
-                return null;
-            }
-        }
 
+            return results;
+        }
     }
 }

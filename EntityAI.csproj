@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Ability.cs" />
     <Compile Include="EntityObject.cs" />
+    <Compile Include="EntityResource.cs" />
     <Compile Include="Sensors\HearingSensor.cs" />
     <Compile Include="Needs\AbilityNeed.cs" />
     <Compile Include="ActionCost.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Sensors\TasteSensor.cs" />
     <Compile Include="Sensors\TemperatureSensor.cs" />
     <Compile Include="Sensors\TouchSensor.cs" />
+    <Compile Include="SolutionCost.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

@@ -15,6 +15,8 @@ namespace EntityAI
             Wake = 1,
             Sleep = 2,
 
+            Consume = 5,
+
             Stand = 10,
             Crouch = 11,
             Sit = 12,

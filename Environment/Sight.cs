@@ -4,7 +4,23 @@ namespace EntityAI
 {
     public class Sight
     {
+        public enum RecognitionFootPrint
+        {
+            Unknown = 0,
+
+            Water = 1,
+            Wind = 2,
+            Fire = 3,
+
+            Footfall = 10,
+
+            Animal_Call = 20,
+        }
+
         EntityObject ThisObject = null;
+        internal Position Origin;
+        internal RecognitionFootPrint FootPrint;
+
         public string Description
         {
             get

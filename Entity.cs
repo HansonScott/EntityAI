@@ -35,11 +35,11 @@ namespace EntityAI
         // core entity loop delay, needs to be pretty fast for reacting to things.
         int delay = 100;
 
-        public List<EntityNeed> CurrentNeeds;
-        public List<Solution> CurrentSolutions;
+        public List<EntityNeed> CurrentNeeds = new List<EntityNeed>();
+        public List<Solution> CurrentSolutions = new List<Solution>();
 
-        public List<EntityNeed> CurrentOpportunities;
-        public List<Solution> CurrentOpportunitySolutions;
+        public List<EntityNeed> CurrentOpportunities = new List<EntityNeed>();
+        public List<Solution> CurrentOpportunitySolutions = new List<Solution>();
 
         public EntityEnvironment CurrentEnvironment;
 
@@ -343,6 +343,8 @@ namespace EntityAI
             //this.senses.SightsCurrentlySeen;
             //this.senses.SoundsCurrentlyHeard;
 
+            // evaluate any sensory input as a threat, and therefore a need to respond.
+
             //throw new NotImplementedException();
             
             return null;
@@ -363,6 +365,7 @@ namespace EntityAI
                 else
                 {
                     // replace or change need?
+                    // for now, just skip
                 }
             }
         }
@@ -394,19 +397,17 @@ namespace EntityAI
         {
             for(int i = 0; i < this.CurrentNeeds.Count; i++)
             {
-                Solution S = Solution.FindSolutionForNeed(this.CurrentNeeds[i]);
+                Solution S = Solution.FindSolutionForNeed(this.CurrentNeeds[i], this);
 
                 if(S != null)
                 {
                     Solution existingSolution = GetExistingSolution(S);
 
-                    if (existingSolution != null)
+                    if (existingSolution == null)
                     {
-                        // compare and change/replace?
-                        this.CurrentSolutions.Remove(existingSolution);
+                        RaiseLog(new EntityLog("Found a solution for need: " + this.CurrentNeeds[i].Name));
+                        this.CurrentSolutions.Add(S);
                     }
-
-                    this.CurrentSolutions.Add(S);
                 }
                 else
                 {
@@ -417,19 +418,17 @@ namespace EntityAI
 
             for (int i = 0; i < this.CurrentOpportunities.Count; i++)
             {
-                Solution S = Solution.FindSolutionForNeed(this.CurrentOpportunities[i]);
+                Solution S = Solution.FindSolutionForNeed(this.CurrentOpportunities[i], this);
 
                 if (S != null)
                 {
                     Solution existingSolution = GetExistingSolution(S);
 
-                    if (existingSolution != null)
+                    if (existingSolution == null)
                     {
-                        // compare and change/replace?
-                        this.CurrentOpportunitySolutions.Remove(existingSolution);
+                        RaiseLog(new EntityLog("Found a solution for opportunity: " + this.CurrentOpportunities[i].Name));
+                        this.CurrentOpportunitySolutions.Add(S);
                     }
-
-                    this.CurrentOpportunitySolutions.Add(S);
                 }
                 else
                 {
