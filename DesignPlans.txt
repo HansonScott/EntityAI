@@ -47,18 +47,18 @@ X - first pass, just look up solution records that match the need.
 Solutions:
 X - has a benefit - meet a need to a certain extent
 X - 1+ actions to accomplish
+(NOTE: no Solution cost, because actions have cost)
 
 Entity Action:
-X - use ability
-X - optionally have item
-X - optionally have environment
-X - optionally have target location or item
-X - has an ActionCost
+X - use ability - each ability has intransitive, transitive, and complicated situational usage)
+X - optionally have target location, item, entity (do something TO the item as the target)
+X - optionally have item to be used (container, tool, etc. - do something WITH the item)
+X - optionally have environment needed (under water, etc.)
+X - has an ActionCost (usually energy, sometimes resource)
 
 ActionCost:
 X - negative impact to something
 X - time, energy, item, sensory efficiency, ability efficiency
-
 
 Abilities:
 X - within self: wake/sleep, change position (stand up, sit down, lie down), move, proactively use senses, evaluate
