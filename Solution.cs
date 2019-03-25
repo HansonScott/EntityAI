@@ -10,7 +10,7 @@ namespace EntityAI
     {
         public EntityNeed NeedFulfilled;
         public SolutionBenefit Benefit;
-        public SolutionCost Cost;
+        public SolutionCost Cost; // NOTE: this should be removed, as we want to use the action costs instead
         public List<EntityAction> Actions;
 
         public Solution()
@@ -35,6 +35,7 @@ namespace EntityAI
             result.Benefit = new SolutionBenefit(t, cn.Attribute.CType, 0.3);
 
             // the cost of drinking water: energy
+            // NOTE: need to move this down to adding cost to each action
             result.Cost = new SolutionCost(typeof(EntityAI.CoreAttribute.CoreAttributeType), EntityAI.CoreAttribute.CoreAttributeType.Energy, 0.1);
 
             // the actions to achive it:
@@ -62,12 +63,15 @@ namespace EntityAI
             }
 
             // go to water
+            // NOTE: split out to own lines, so we can add the cost to each action before adding it.
             result.Actions.Add(new EntityAction(new Ability(Ability.AbilityType.Walk), target, null));
 
             // gather the water in a container
+            // NOTE: split out to own lines, so we can add the cost to each action before adding it.
             result.Actions.Add(new EntityAction(new Ability(Ability.AbilityType.Use), new EntityResource(EntityResource.ResourceType.Water) ,new EntityResource(EntityResource.ResourceType.Container)));
 
             // consume the water
+            // NOTE: split out to own lines, so we can add the cost to each action before adding it.
             result.Actions.Add(new EntityAction(new Ability(Ability.AbilityType.Consume), new EntityResource(EntityResource.ResourceType.Water)));
             #endregion
 
