@@ -9,6 +9,11 @@ namespace EntityAI
     {
         public Sensor Sensor;
 
+        public override string Name
+        {
+            get { return this.Sensor.Name; }
+        }
+
         public SensorNeed(Sensor s): base()
         {
             this.Sensor = s;

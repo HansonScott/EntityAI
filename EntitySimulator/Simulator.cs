@@ -54,11 +54,34 @@ namespace EntitySimulator
         }
         #endregion
 
-        public void RunSimulation()
+        public bool RunSimulation()
         {
+            if(this.CurrentEnvironment == null || this.Protagonist == null)
+            {
+                return false;
+            }
+
             StartTime = DateTime.Now;
-            EnvironmentThread.Start();
-            ProtagonistThread.Start();
+            if(EnvironmentThread.ThreadState == ThreadState.Stopped)
+            {
+                EnvironmentThread = new Thread(new ThreadStart(CurrentEnvironment.Run));
+            }
+
+            if (this.EnvironmentThread.ThreadState == ThreadState.Unstarted)
+            {
+                EnvironmentThread.Start();
+            }
+
+            if(ProtagonistThread.ThreadState == ThreadState.Stopped)
+            {
+                ProtagonistThread = new Thread(new ThreadStart(Protagonist.Run));
+            }
+
+            if (this.ProtagonistThread.ThreadState == ThreadState.Unstarted)
+            {
+                ProtagonistThread.Start();
+            }
+            return true;
         }
 
         public void StopSimulation()

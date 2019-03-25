@@ -10,6 +10,10 @@ namespace EntityAI
     {
         public const double SIGHT_DISTANCE_DEFAULT = 500;
         double SightDistance = SIGHT_DISTANCE_DEFAULT;
+        public override string Name
+        {
+            get { return "Sight"; }
+        }
 
         public SightSensor(SensorySystem parentSystem): base(parentSystem)
         { 

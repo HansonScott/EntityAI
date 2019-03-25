@@ -5,7 +5,7 @@ namespace EntityAI
     /// <summary>
     ///  represents the parent class for all types of needs
     /// </summary>
-    public class EntityNeed
+    public abstract class EntityNeed
     {
         public DateTime OriginationWhen;
         public double Urgency;
@@ -14,5 +14,7 @@ namespace EntityAI
         {
             OriginationWhen = DateTime.Now;
         }
+
+        public abstract string Name { get; }
     }
 }

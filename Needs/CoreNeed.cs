@@ -11,6 +11,11 @@ namespace EntityAI
 
         public double Change;
 
+        public override string Name
+        {
+            get { return this.Attribute.Name; }
+        }
+
         public CoreNeed (CoreAttribute A): base()
         {
             this.Attribute = A;

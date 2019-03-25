@@ -13,6 +13,11 @@ namespace EntityAI
 
         }
 
+        public override string Name
+        {
+            get { return "Hearing"; }
+        }
+
         internal override void CaptureInput(Entity entity)
         {
             // sort of cheating in the code to send the environment information, but logical for an AI

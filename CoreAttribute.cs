@@ -58,6 +58,14 @@ namespace EntityAI
             }
         }
 
+        public string Name
+        {
+            get
+            {
+                return Enum.GetName(typeof(CoreAttributeType), this.CType);
+            }
+        }
+
         private Entity ParentEntity;
 
         public CoreAttribute(Entity ParentEntity, CoreAttributeType CType)

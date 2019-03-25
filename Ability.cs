@@ -53,6 +53,13 @@ namespace EntityAI
         public AbilityType AType;
         public double Effectiveness_Current;
 
+        public string Name
+        {
+            get
+            {
+                return Enum.GetName(typeof(AbilityType), AType);
+            }
+        }
 
         public Ability(): this(AbilityType.unknown){}
 

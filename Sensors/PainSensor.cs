@@ -12,6 +12,11 @@ namespace EntityAI
         {
         }
 
+        public override string Name
+        {
+            get { return "Pain"; }
+        }
+
         internal override void CaptureInput(Entity entity)
         {
             throw new NotImplementedException();

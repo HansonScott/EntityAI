@@ -8,6 +8,10 @@ namespace EntityAI
 {
     public class TouchSensor : Sensor
     {
+        public override string Name
+        {
+            get { return "Touch"; }
+        }
         public TouchSensor(SensorySystem parentSystem) : base(parentSystem) { }
         internal override void CaptureInput(Entity entity)
         {

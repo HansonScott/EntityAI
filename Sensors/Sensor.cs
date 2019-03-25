@@ -17,6 +17,8 @@ namespace EntityAI
         /// </summary>
         public double Effectiveness_Current = 1.0;
 
+        public abstract string Name { get; }
+
         public Sensor(SensorySystem SensorSystem)
         {
             this.parentSystem = SensorSystem;

@@ -8,6 +8,10 @@ namespace EntityAI
 {
     public class TemperatureSensor: Sensor
     {
+        public override string Name
+        {
+            get { return "Temperature"; }
+        }
         public TemperatureSensor(SensorySystem sensorySystem): base(sensorySystem)
         {
         }

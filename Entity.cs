@@ -27,19 +27,19 @@ namespace EntityAI
         #region Fields and Properties
         private bool Continue = true; // stay alive variable
 
-        List<CoreAttribute> coreAttributes;
+        public List<CoreAttribute> coreAttributes;
         public SensorySystem senses;
         Thread SensoryThread;
-        ActionSystem actions;
+        public ActionSystem actions;
 
         // core entity loop delay, needs to be pretty fast for reacting to things.
         int delay = 100;
 
-        List<EntityNeed> CurrentNeeds;
-        List<Solution> CurrentSolutions;
+        public List<EntityNeed> CurrentNeeds;
+        public List<Solution> CurrentSolutions;
 
-        List<EntityNeed> CurrentOpportunities;
-        List<Solution> CurrentOpportunitySolutions;
+        public List<EntityNeed> CurrentOpportunities;
+        public List<Solution> CurrentOpportunitySolutions;
 
         public EntityEnvironment CurrentEnvironment;
 
@@ -71,6 +71,9 @@ namespace EntityAI
 
         public void Run()
         {
+            // if the function run is called, it is assumed the loop should actually run...
+            Continue = true;
+
             RaiseLog(new EntityLog("Hello."));
 
             // start up sensory input thread
@@ -119,6 +122,7 @@ namespace EntityAI
         public void ShutDown()
         {
             this.Continue = false;
+            this.senses.ShutDown();
         }
 
         #region Top Level Functions

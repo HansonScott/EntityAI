@@ -39,6 +39,9 @@ namespace EntityAI
 
         public void Run()
         {
+            // reset the default, if the function is called, it is assummed to want to actually run.
+            Continue = true;
+
             RaiseLog(new EntityLog("Starting environment..."));
 
             while(Continue)

@@ -64,6 +64,9 @@ namespace EntityAI
         /// <returns></returns>
         public void Run()
         {
+            // when the function is first called, it can ba ssumed the loop should actually be ran
+            ShouldContinue = true;
+
             while (ShouldContinue)
             {
                 this.entity.RaiseLog(new EntityLogging.EntityLog("Checking for sensory input..."));
@@ -87,6 +90,11 @@ namespace EntityAI
                 // slow down the loop
                 Thread.Sleep((int)waittime);
             }
+        }
+
+        internal void ShutDown()
+        {
+            ShouldContinue = false;
         }
     }
 }

@@ -8,6 +8,10 @@ namespace EntityAI
 {
     public class TasteSensor: Sensor
     {
+        public override string Name
+        {
+            get { return "Taste"; }
+        }
         public TasteSensor(SensorySystem sensorySystem): base(sensorySystem)
         {
         }

@@ -8,6 +8,11 @@
         public Sensor SourceSensor;
         public Sound SourceSound;
 
+        public override string Name
+        {
+            get { return this.SourceSound.Description; }
+        }
+
         public InputNeed(Sensor s)
         {
             this.SourceSensor = s;

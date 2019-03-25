@@ -74,14 +74,33 @@ namespace EntitySimulator
         }
         private void btnRun_Click(object sender, EventArgs e)
         {
+            if(CurrentSimulator == null)
+            {
+                Output("Run failed, need to create a new simulation first.");
+                return;
+            }
+
             Output("Starting simulation...");
-            CurrentSimulator?.RunSimulation();
-            Output("Simulation started.");
+            bool result = CurrentSimulator.RunSimulation();
+            if(result)
+            {
+                Output("Simulation started.");
+            }
+            else
+            {
+                Output("Simulation unable to start.");
+            }
         }
         private void btnStop_Click(object sender, EventArgs e)
         {
+            if (CurrentSimulator == null)
+            {
+                Output("Stop failed, need to create a new simulation first.");
+                return;
+            }
+
             Output("Stopping simulation...");
-            CurrentSimulator?.StopSimulation();
+            CurrentSimulator.StopSimulation();
 
             // NOTE: because we need to wait until all the parts are shut down, we need to wait for the other threads...
 
