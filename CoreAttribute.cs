@@ -102,5 +102,19 @@ namespace EntityAI
                 }
             }
         }
+
+        internal static double GetEnergyDrainForDistanceMoved(Position positionCurrent, Position pTarget, double speed)
+        {
+            double dist = positionCurrent.DistanceFrom(pTarget);
+
+            // apply formula, taking into account speed
+
+            // theory: distance is the base, but the faster the speed, the more energy was used.
+            double baseSpeed = Ability.BaseSpeed;
+
+            double result = dist * (speed / baseSpeed);
+
+            return result;
+        }
     }
 }

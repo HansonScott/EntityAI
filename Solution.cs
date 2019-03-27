@@ -10,7 +10,6 @@ namespace EntityAI
     {
         public EntityNeed NeedFulfilled;
         public SolutionBenefit Benefit;
-        public SolutionCost Cost; // NOTE: this should be removed, as we want to use the action costs instead
         public List<EntityAction> Actions;
 
         public Solution()
@@ -33,10 +32,6 @@ namespace EntityAI
             CoreNeed cn = (need as CoreNeed);
             Type t = cn.Attribute.CType.GetType();
             result.Benefit = new SolutionBenefit(t, cn.Attribute.CType, 0.3);
-
-            // the cost of drinking water: energy
-            // NOTE: need to move this down to adding cost to each action
-            result.Cost = new SolutionCost(typeof(EntityAI.CoreAttribute.CoreAttributeType), EntityAI.CoreAttribute.CoreAttributeType.Energy, 0.1);
 
             // the actions to achive it:
 
@@ -80,10 +75,18 @@ namespace EntityAI
         
         public EntityAction GetNextAction(EntityAction A)
         {
-            if(this.Actons == null || this.Actions.Count == 0) { return null; }
-            
+            if(this.Actions == null || this.Actions.Count == 0) { return null; }
+
             // otherwise, look through the list for the next index.
-            throw new NotImplementedException();
+            int currentIndex = 0;
+            for(int i = 0; i < this.Actions.Count; i++)
+            {
+                if (this.Actions[i] == A) { currentIndex = i; break; }
+            }
+
+            if (this.Actions.Count > currentIndex) { return this.Actions[currentIndex + 1]; }
+
+            return null;
         }
     }
 }

@@ -55,5 +55,31 @@ namespace EntityAI
             double deltas = deltaX + deltaY + deltaZ;
             return Math.Sqrt(deltas);
         }
+
+        internal Position GetNewPositionForSpeedToTarget(Position pTarget, double speed)
+        {
+            // find the angle we want to go
+            // adjust the entity's position by the change
+            double changeX = pTarget.X - X;
+            double changeY = pTarget.Y - Y;
+            double changeZ = pTarget.Z - Z;
+
+            // future: apply the distance cos/sin to get the distance on each coordinate
+            // apply the change on each axis to the current position (move towards target)
+
+            // for now, just use the speed
+            double distX = 0;
+            double distY = 0;
+            double distZ = 0;
+
+            // don't overshoot,
+            if (changeX > 0) { distX = Math.Min(speed, changeX); } else { distX = Math.Max(-speed, changeX); }
+            if (changeY > 0) { distY = Math.Min(speed, changeY); } else { distY = Math.Max(-speed, changeY); }
+            if (changeZ > 0) { distZ = Math.Min(speed, changeZ); } else { distZ = Math.Max(-speed, changeZ); }
+
+            // return the new postion
+            Position result = new Position(X + changeX, Y + changeY, Z + changeZ);
+            return result;
+        }
     }
 }

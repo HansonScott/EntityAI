@@ -21,10 +21,10 @@ namespace EntityAI
         internal override void CaptureInput(Entity entity)
         {
             // sort of cheating in the code to send the environment information, but logical for an AI
-            entity.senses.SoundsCurrentlyHeard = GetAllSoundsHeard(entity.CurrentEnvironment.Sounds, entity.PositionCurrent);
+            entity.senses.SoundsCurrentlyHeard.AddRange(GetAllNewSoundsHeard(entity.CurrentEnvironment.Sounds, entity.PositionCurrent));
         }
 
-        private List<Sound> GetAllSoundsHeard(List<Sound> sounds, Position p)
+        private List<Sound> GetAllNewSoundsHeard(List<Sound> sounds, Position p)
         {
             List<Sound> results = new List<Sound>();
 
@@ -42,13 +42,28 @@ namespace EntityAI
             {
                 if (s.IsHeard(this.Effectiveness_Current, p, ambiantLoudness))
                 {
-                    base.parentSystem.entity.RaiseLog(new EntityLogging.EntityLog("I hear " + s.Description, System.Diagnostics.TraceLevel.Verbose));
 
-                    results.Add(s);
+                    // now, before adding, check that we don't already have it.
+                    if (!SoundCurrentlyHeard(s))
+                    {
+                        base.parentSystem.entity.RaiseLog(new EntityLogging.EntityLog("I hear " + s.Description, System.Diagnostics.TraceLevel.Verbose));
+                        results.Add(s);
+                    }
                 }
             }
 
             return results;
+        }
+
+        private bool SoundCurrentlyHeard(Sound s)
+        {
+            foreach(Sound cs in this.parentSystem.SoundsCurrentlyHeard)
+            {
+                if (cs.Description == s.Description)
+                    return true;
+            }
+
+            return false;
         }
     }
 }

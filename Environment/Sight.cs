@@ -4,7 +4,7 @@ namespace EntityAI
 {
     public class Sight
     {
-        public enum RecognitionFootPrint
+        public enum RecognitionFootPrint // all the possible things an entity can see - database?
         {
             Unknown = 0,
 
@@ -36,6 +36,10 @@ namespace EntityAI
         public Sight(EntityObject obj)
         {
             this.ThisObject = obj;
+            this.Origin = obj.Position;
+
+            // determine the footprint based on the object
+            FootPrint = RecognitionFootPrint.Unknown;
         }
 
         internal bool IsSeen(double EntitySightDistance, double effectiveness_Current, Position p, double EnvironmentSightDistance)

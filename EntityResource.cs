@@ -1,6 +1,8 @@
-﻿namespace EntityAI
+﻿using System;
+
+namespace EntityAI
 {
-    internal class EntityResource
+    public class EntityResource
     {
         public enum ResourceType
         {
@@ -18,6 +20,16 @@
         public EntityResource(ResourceType t)
         {
             this.RType = t;
+        }
+
+        internal bool IsConsumedOnUse()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal bool IsContainer()
+        {
+            throw new NotImplementedException();
         }
     }
 }

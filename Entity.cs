@@ -35,7 +35,7 @@ namespace EntityAI
         Thread ActionThread;
 
         // core entity loop delay, needs to be pretty fast for reacting to things.
-        int delay = 100;
+        int delay = 500;
 
         public List<EntityNeed> CurrentNeeds = new List<EntityNeed>();
         public List<Solution> CurrentSolutions = new List<Solution>();
@@ -46,6 +46,7 @@ namespace EntityAI
         public EntityEnvironment CurrentEnvironment;
 
         public Position PositionCurrent;
+        public EntityInventory Inventory;
         #endregion
 
         #region Constructor and Setup
@@ -58,6 +59,7 @@ namespace EntityAI
             CurrentSolutions = new List<Solution>();
             CurrentOpportunities = new List<EntityNeed>();
             CurrentOpportunitySolutions = new List<Solution>();
+            Inventory = new EntityInventory(this);
         }
         private List<CoreAttribute> PopulateCoreAttributes()
         {
@@ -149,6 +151,7 @@ namespace EntityAI
             // evaluate abilities
             EvaluateAbilities();
         }
+
         private void RespondToSensoryInput()
         {
             // look for sensory input that could be considered a threat or an opportunity
@@ -238,7 +241,7 @@ namespace EntityAI
                     CoreNeed need = new CoreNeed(c);
 
                     // check if we have the need already
-                    CoreNeed existingNeed = GetCoreNeed(need.Attribute.CType);
+                    CoreNeed existingNeed = GetCoreOpportunity(need.Attribute.CType);
 
                     if (existingNeed != null)
                     {
@@ -263,6 +266,15 @@ namespace EntityAI
                     }
                 }
             } // end foreach attribute
+        }
+
+        private CoreNeed GetCoreOpportunity(CoreAttribute.CoreAttributeType cType)
+        {
+            foreach (CoreNeed n in this.CurrentOpportunities)
+            {
+                if (n.Attribute.CType == cType) { return n; }
+            }
+            return null;
         }
 
         private CoreNeed GetCoreNeed(CoreAttribute.CoreAttributeType cType)
@@ -429,7 +441,7 @@ namespace EntityAI
 
                 if (S != null)
                 {
-                    Solution existingSolution = GetExistingSolution(S);
+                    Solution existingSolution = GetExistingOpportunitySolution(S);
 
                     if (existingSolution == null)
                     {
@@ -443,6 +455,20 @@ namespace EntityAI
                     // what do we do next? (look for one, create one, etc.)
                 }
             }
+        }
+
+        private Solution GetExistingOpportunitySolution(Solution s)
+        {
+            foreach (Solution existingSolution in this.CurrentOpportunitySolutions)
+            {
+                // what attributes should we check on?
+                if (existingSolution.Benefit.ObjectTypeAffected == s.Benefit.ObjectTypeAffected &&
+                    existingSolution.NeedFulfilled.Name == s.NeedFulfilled.Name)
+                {
+                    return existingSolution;
+                }
+            }
+            return null;
         }
         private Solution GetExistingSolution(Solution s)
         {
@@ -475,7 +501,18 @@ namespace EntityAI
             foreach(Solution s in this.CurrentSolutions)
             {
                 // future: strategy comes into play here, as some action combinations can be optimized, etc.
+                // for now, just add them linearly.
                 foreach(EntityAction ea in s.Actions)
+                {
+                    // add queued actions to action thread according to queued solutions
+                    this.actions.ActionQueue.Add(ea);
+                }
+            }
+            foreach(Solution s in this.CurrentOpportunitySolutions)
+            {
+                // future: strategy comes into play here, as some action combinations can be optimized, etc.
+                // for now, just add them linearly.
+                foreach (EntityAction ea in s.Actions)
                 {
                     // add queued actions to action thread according to queued solutions
                     this.actions.ActionQueue.Add(ea);
