@@ -40,6 +40,7 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.btnRefresh = new System.Windows.Forms.Button();
+            this.cbAutoRefresh = new System.Windows.Forms.CheckBox();
             this.gbSenses.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSenses)).BeginInit();
             this.gbAttributes.SuspendLayout();
@@ -283,11 +284,25 @@
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
+            // cbAutoRefresh
+            // 
+            this.cbAutoRefresh.AutoSize = true;
+            this.cbAutoRefresh.Checked = true;
+            this.cbAutoRefresh.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbAutoRefresh.Location = new System.Drawing.Point(84, 4);
+            this.cbAutoRefresh.Name = "cbAutoRefresh";
+            this.cbAutoRefresh.Size = new System.Drawing.Size(88, 17);
+            this.cbAutoRefresh.TabIndex = 6;
+            this.cbAutoRefresh.Text = "Auto Refresh";
+            this.cbAutoRefresh.UseVisualStyleBackColor = true;
+            this.cbAutoRefresh.CheckedChanged += new System.EventHandler(this.cbAutoRefresh_CheckedChanged);
+            // 
             // Form_Entity_Viewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(786, 377);
+            this.Controls.Add(this.cbAutoRefresh);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.splitContainer1);
             this.Name = "Form_Entity_Viewer";
@@ -295,6 +310,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Entity Viewer";
+            this.Load += new System.EventHandler(this.Form_Entity_Viewer_Load);
             this.gbSenses.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvSenses)).EndInit();
             this.gbAttributes.ResumeLayout(false);
@@ -316,6 +332,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -333,5 +350,6 @@
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.CheckBox cbAutoRefresh;
     }
 }

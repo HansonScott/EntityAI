@@ -114,6 +114,9 @@ namespace EntityAI
 
             double result = dist * (speed / baseSpeed);
 
+            // transform to ability/attribute scale of 0-1
+            result = result * 0.001;
+
             return result;
         }
     }

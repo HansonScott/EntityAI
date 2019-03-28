@@ -138,7 +138,7 @@ namespace EntityAI
                     if(CurrentAction != null) { this.ActionQueue.Remove(CurrentAction); }
                     if(nextAction != null)
                     {
-                        this.entity.RaiseLog(new EntityLogging.EntityLog("starting to act on " + nextAction.Description));
+                        this.entity.RaiseLog(new EntityLogging.EntityLog("next planned action: " + nextAction.Description));
                         CurrentAction = nextAction;
                         this.CurrentState = ActionState.Acting;
                     }

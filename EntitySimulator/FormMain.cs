@@ -212,6 +212,12 @@ namespace EntitySimulator
 
         private void btnEntityStats_Click(object sender, EventArgs e)
         {
+            if(this.CurrentSimulator == null || this.CurrentSimulator.Protagonist == null)
+            {
+                Output("create a new simulation before opening the entity stat viewer.");
+                return;
+            }
+
             Form_Entity_Viewer frm = new Form_Entity_Viewer();
             frm.LoadEntity(this.CurrentSimulator.Protagonist);
             frm.Show(this);

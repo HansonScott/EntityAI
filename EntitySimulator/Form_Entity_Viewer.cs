@@ -15,10 +15,21 @@ namespace EntitySimulator
     {
         private Entity CurrentEntity;
 
+        private bool ShouldRefresh = true;
+        Timer RefreshTimer;
+
         public Form_Entity_Viewer()
         {
             InitializeComponent();
             SetupGrids();
+            SetupTimer();
+        }
+
+        private void SetupTimer()
+        {
+            RefreshTimer = new Timer();
+            RefreshTimer.Interval = 1000;
+            RefreshTimer.Tick += T_Tick;
         }
 
         private void SetupGrids()
@@ -78,6 +89,25 @@ namespace EntitySimulator
         {
             LoadEntityDetails();
             this.splitContainer1.Refresh();
+        }
+
+        private void cbAutoRefresh_CheckedChanged(object sender, EventArgs e)
+        {
+            ShouldRefresh = cbAutoRefresh.Checked;
+        }
+
+        private void Form_Entity_Viewer_Load(object sender, EventArgs e)
+        {
+            RefreshTimer.Start();
+        }
+
+        private void T_Tick(object sender, EventArgs e)
+        {
+            if(ShouldRefresh)
+            {
+                LoadEntityDetails();
+                this.splitContainer1.Refresh();
+            }
         }
     }
 }

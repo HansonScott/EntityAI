@@ -115,7 +115,7 @@ namespace EntityAI
             if(this.ActionState == EntityActionState.Blocked) { return; }
             else
             {
-                entity.RaiseLog(new EntityLogging.EntityLog("Starting action: " + this.Description));
+                entity.RaiseLog(new EntityLogging.EntityLog("starting: " + this.Description));
 
                 if(this.ParentSolution != null)
                 {
@@ -134,12 +134,7 @@ namespace EntityAI
 
         public void Update(Entity entity)
         {
-            // would an in-progress action need to be evaluated for blocking?
-            //EvaluateForBlockedStatus(entity);
-            //if(this.ActionState == EntityActionState.Blocked)
-            //{
-            //    return;
-            //}
+            entity.RaiseLog(new EntityLogging.EntityLog("continuing: " + this.Description));
 
             switch (ability.AType)
             {
@@ -270,7 +265,7 @@ namespace EntityAI
                         {
                             if(ca.CType == CoreAttribute.CoreAttributeType.Energy)
                             {
-                                ca.CurrentValue -= CoreAttribute.GetEnergyDrainForDistanceMoved(entity.PositionCurrent, pTarget, speed);
+                                ca.CurrentValue -= CoreAttribute.GetEnergyDrainForDistanceMoved(entity.PositionCurrent, newPos, speed);
                             }
                         }
 

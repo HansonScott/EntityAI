@@ -78,7 +78,7 @@ namespace EntityAI
             if (changeZ > 0) { distZ = Math.Min(speed, changeZ); } else { distZ = Math.Max(-speed, changeZ); }
 
             // return the new postion
-            Position result = new Position(X + changeX, Y + changeY, Z + changeZ);
+            Position result = new Position(X + distX, Y + distY, Z + distZ);
             return result;
         }
     }
