@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace EntityAI
 {
@@ -8,13 +9,42 @@ namespace EntityAI
     /// </summary>
     public class Solution
     {
-        public EntityNeed NeedFulfilled;
-        public SolutionBenefit Benefit;
+        public enum EntitySolutionState
+        {
+            created = 0,
+            planned = 1,
+            active = 2,
+            blocked = 3,
+            completed = 4,
+        }
+
+        public EntitySolutionState SolutionState;
         public List<EntityAction> Actions;
+
+        public string Description
+        {
+            get
+            {
+                StringBuilder sb = new StringBuilder(Actions.Count);
+                bool first = true;
+                foreach(EntityAction ea in Actions)
+                {
+                    if(!first)
+                    {
+                        sb.Append(",");
+                    }
+                    sb.Append(ea.Description);
+                    first = false;
+                }
+
+                return sb.ToString();
+            }
+        }
 
         public Solution()
         {
             Actions = new List<EntityAction>();
+            SolutionState = EntitySolutionState.created;
         }
 
         public static Solution FindSolutionForNeed(EntityNeed need, Entity CurrentEntity)
@@ -27,14 +57,8 @@ namespace EntityAI
 
             #region hard code the prototype - water
             Solution result = new Solution();
-            result.NeedFulfilled = need;
-
-            CoreNeed cn = (need as CoreNeed);
-            Type t = cn.Attribute.CType.GetType();
-            result.Benefit = new SolutionBenefit(t, cn.Attribute.CType, 0.3);
 
             // the actions to achive it:
-
             // find water - a separate action?
             Position target = null;
             foreach(Sound s in CurrentEntity.senses.SoundsCurrentlyHeard)
@@ -57,17 +81,24 @@ namespace EntityAI
                 }
             }
 
+            if(target == null)
+            {
+                // then we don't know of any water we can find.
+                // this solution won't work, go elsewhere, or just quit.
+                return null;
+            }
+
             // go to water
             // NOTE: split out to own lines, so we can add the cost to each action before adding it.
-            result.Actions.Add(new EntityAction(new Ability(Ability.AbilityType.Walk), target, null));
+            result.Actions.Add(new EntityAction(result, new Ability(Ability.AbilityType.Walk), target, null));
 
             // gather the water in a container
             // NOTE: split out to own lines, so we can add the cost to each action before adding it.
-            result.Actions.Add(new EntityAction(new Ability(Ability.AbilityType.Use), new EntityResource(EntityResource.ResourceType.Water) ,new EntityResource(EntityResource.ResourceType.Container)));
+            result.Actions.Add(new EntityAction(result, new Ability(Ability.AbilityType.Use), new EntityResource(EntityResource.ResourceType.Water) ,new EntityResource(EntityResource.ResourceType.Container)));
 
             // consume the water
             // NOTE: split out to own lines, so we can add the cost to each action before adding it.
-            result.Actions.Add(new EntityAction(new Ability(Ability.AbilityType.Consume), new EntityResource(EntityResource.ResourceType.Water)));
+            result.Actions.Add(new EntityAction(result, new Ability(Ability.AbilityType.Consume), new EntityResource(EntityResource.ResourceType.Water)));
             #endregion
 
             return result;

@@ -161,7 +161,12 @@ namespace EntitySimulator
             }
 
             string s = DateTime.Now.ToString("HH:mm:ss: ") + msg + Environment.NewLine;
-            tbOutput.AppendText(s);
+
+            try
+            {
+                tbOutput.AppendText(s);
+            }
+            catch { }// in this case, just don't print.
         }
 
         #region Drawing Environment
@@ -210,6 +215,11 @@ namespace EntitySimulator
             Form_Entity_Viewer frm = new Form_Entity_Viewer();
             frm.LoadEntity(this.CurrentSimulator.Protagonist);
             frm.Show(this);
+        }
+
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            CurrentSimulator?.StopSimulation();
         }
     }
 }

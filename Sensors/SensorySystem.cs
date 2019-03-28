@@ -33,6 +33,7 @@ namespace EntityAI
         public SensorySystem(Entity entity)
         {
             this.entity = entity;
+            this.LoopDelay = entity.LoopDelay;
             SoundsCurrentlyHeard = new List<Sound>();
             SightsCurrentlySeen = new List<Sight>();
 

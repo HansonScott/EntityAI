@@ -40,9 +40,11 @@ namespace EntityAI
 
                 if(this.Target != null)
                 {
-                    if(this.Target is Position)
+                    result.Append(" ");
+
+                    if (this.Target is Position)
                     {
-                        result.Append(" to a position.");
+                        result.Append("to a different position.");
                     }
                     else if(this.Target is EntityResource)
                     {
@@ -52,11 +54,26 @@ namespace EntityAI
 
                 if(this.Item != null)
                 {
-                    result.Append(" using ");
+                    result.Append(", using ");
 
                     if(this.Item is EntityResource)
                     {
                         result.Append((this.Item as EntityResource).RType.ToString());
+                    }
+                }
+
+                if(this.Results != null && this.Results.Count > 0)
+                {
+                    result.Append(" with results of ");
+                    bool first = true;
+                    foreach(ActionResult ar in this.Results)
+                    {
+                        if(!first)
+                        {
+                            result.Append(", ");
+                        }
+                        result.Append(ar.Description);
+                        first = false;
                     }
                 }
 
@@ -68,14 +85,14 @@ namespace EntityAI
         /// represents conducting an action with the assumption there is no need for an item or target
         /// </summary>
         /// <param name="ability"></param>
-        public EntityAction(Ability ability): this(ability, null, null){}
+        public EntityAction(Solution parent, Ability ability): this(parent, ability, null, null){}
 
         /// <summary>
         /// represents conducting an action with the assumption there is an item involved
         /// </summary>
         /// <param name="ability"></param>
         /// <param name="Item"></param>
-        public EntityAction(Ability ability, object Item): this(ability, Item, null){}
+        public EntityAction(Solution parent, Ability ability, object Item): this(parent, ability, Item, null){}
 
         /// <summary>
         ///  respresents conducting an action with an item on a target
@@ -83,8 +100,9 @@ namespace EntityAI
         /// <param name="ability"></param>
         /// <param name="Target"></param>
         /// <param name="Item"></param>
-        public EntityAction(Ability ability, object Target, object Item)
+        public EntityAction(Solution parent, Ability ability, object Target, object Item)
         {
+            this.ParentSolution = parent;
             this.ability = ability;
             this.Target = Target;
             this.Item = Item;
@@ -92,19 +110,37 @@ namespace EntityAI
 
         public void Start(Entity entity)
         {
-            if(this.Item != null &&
-                this.Item is EntityResource)
+            EvaluateForBlockedStatus(entity);
+
+            if(this.ActionState == EntityActionState.Blocked) { return; }
+            else
             {
-                if (!entity.Inventory.HaveResource((this.Target as EntityResource).RType))
+                entity.RaiseLog(new EntityLogging.EntityLog("Starting action: " + this.Description));
+
+                if(this.ParentSolution != null)
                 {
-                    entity.RaiseLog(new EntityLogging.EntityLog("Don't have needed target to perform action."));
-                    this.ActionState = EntityActionState.Blocked;
+                    if(this.ParentSolution.SolutionState == Solution.EntitySolutionState.planned)
+                    {
+                        this.ParentSolution.SolutionState = Solution.EntitySolutionState.active;
+                    }
                 }
+
+                this.ActionState = EntityActionState.Active;
+
+                // proceed
+                Update(entity);
             }
         }
 
         public void Update(Entity entity)
         {
+            // would an in-progress action need to be evaluated for blocking?
+            //EvaluateForBlockedStatus(entity);
+            //if(this.ActionState == EntityActionState.Blocked)
+            //{
+            //    return;
+            //}
+
             switch (ability.AType)
             {
                 //case Ability.AbilityType.Carry:
@@ -244,6 +280,60 @@ namespace EntityAI
                     break;
                 default:
                     break; // do nothing.
+            }
+        }
+
+        internal void EvaluateForBlockedStatus(Entity entity)
+        {
+            EntityAction.EntityActionState oldState = this.ActionState;
+
+            #region Check for ability
+            double val = entity.actions.GetAbilityValue(this.ability.AType);
+            if(val == 0)
+            {
+                entity.RaiseLog(new EntityLogging.EntityLog("Unable to to perform action: " + this.ability.AType.ToString()));
+                this.ActionState = EntityActionState.Blocked;
+                return;
+            }
+            #endregion
+
+            #region Check Target
+            if (this.Target != null &&
+                this.Target is EntityResource)
+            {
+                // how do we track if a target resource needs to be in the inventory?
+                // for example to chop a tree, it might just need to be a nearby target, not an inventory item...
+
+                // if the target is supposed to be in the inventory, check the inventory
+                if (!entity.Inventory.HaveResource((this.Target as EntityResource).RType))
+                {
+                    entity.RaiseLog(new EntityLogging.EntityLog("Don't have needed target to perform action."));
+                    this.ActionState = EntityActionState.Blocked;
+                }
+                // if the target is supposed to be in the environment, check the senses for existance
+            }
+            else { } // check other types of targets than resources (unreachable position?)
+            #endregion
+
+            #region Check Item
+            if (this.Item != null &&
+                this.Item is EntityResource)
+            {
+                if (!entity.Inventory.HaveResource((this.Item as EntityResource).RType))
+                {
+                    entity.RaiseLog(new EntityLogging.EntityLog("Don't have needed " + (this.Item as EntityResource).RType.ToString() + " to perform action."));
+                    this.ActionState = EntityActionState.Blocked;
+                    return; // no need to go further
+                }
+
+                // quantity needed?
+            }
+            #endregion
+
+            // if we get to here, then we can reset it.
+            if(oldState == EntityActionState.Blocked)
+            {
+                this.ActionState = EntityActionState.New;
             }
         }
     }

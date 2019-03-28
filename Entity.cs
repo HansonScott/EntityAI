@@ -35,7 +35,7 @@ namespace EntityAI
         Thread ActionThread;
 
         // core entity loop delay, needs to be pretty fast for reacting to things.
-        int delay = 500;
+        public int LoopDelay = 1000;
 
         public List<EntityNeed> CurrentNeeds = new List<EntityNeed>();
         public List<Solution> CurrentSolutions = new List<Solution>();
@@ -118,7 +118,7 @@ namespace EntityAI
                 DateTime end = DateTime.Now;
 
                 // wait until next loop
-                double waittime = Math.Max(0, (delay - (end-start).TotalMilliseconds));
+                double waittime = Math.Max(0, (LoopDelay - (end-start).TotalMilliseconds));
 
                 // slow down the loop
                 Thread.Sleep((int)waittime);
@@ -462,8 +462,7 @@ namespace EntityAI
             foreach (Solution existingSolution in this.CurrentOpportunitySolutions)
             {
                 // what attributes should we check on?
-                if (existingSolution.Benefit.ObjectTypeAffected == s.Benefit.ObjectTypeAffected &&
-                    existingSolution.NeedFulfilled.Name == s.NeedFulfilled.Name)
+                if (existingSolution.Description == s.Description)
                 {
                     return existingSolution;
                 }
@@ -475,8 +474,7 @@ namespace EntityAI
             foreach(Solution existingSolution in this.CurrentSolutions)
             {
                 // what attributes should we check on?
-                if (existingSolution.Benefit == s.Benefit &&
-                    existingSolution.NeedFulfilled == s.NeedFulfilled)
+                if (existingSolution.Description == s.Description)
                 {
                     return existingSolution;
                 }
@@ -500,22 +498,32 @@ namespace EntityAI
             // for each solution
             foreach(Solution s in this.CurrentSolutions)
             {
-                // future: strategy comes into play here, as some action combinations can be optimized, etc.
-                // for now, just add them linearly.
-                foreach(EntityAction ea in s.Actions)
+                if(s.SolutionState == Solution.EntitySolutionState.created)
                 {
-                    // add queued actions to action thread according to queued solutions
-                    this.actions.ActionQueue.Add(ea);
+                    // future: strategy comes into play here, as some action combinations can be optimized, etc.
+                    // for now, just add them linearly.
+                    foreach (EntityAction ea in s.Actions)
+                    {
+                        // add queued actions to action thread according to queued solutions
+                        this.actions.ActionQueue.Add(ea);
+                    }
+
+                    s.SolutionState = Solution.EntitySolutionState.planned;
                 }
             }
             foreach(Solution s in this.CurrentOpportunitySolutions)
             {
-                // future: strategy comes into play here, as some action combinations can be optimized, etc.
-                // for now, just add them linearly.
-                foreach (EntityAction ea in s.Actions)
+                if (s.SolutionState == Solution.EntitySolutionState.created)
                 {
-                    // add queued actions to action thread according to queued solutions
-                    this.actions.ActionQueue.Add(ea);
+                    // future: strategy comes into play here, as some action combinations can be optimized, etc.
+                    // for now, just add them linearly.
+                    foreach (EntityAction ea in s.Actions)
+                    {
+                        // add queued actions to action thread according to queued solutions
+                        this.actions.ActionQueue.Add(ea);
+                    }
+
+                    s.SolutionState = Solution.EntitySolutionState.planned;
                 }
             }
         }

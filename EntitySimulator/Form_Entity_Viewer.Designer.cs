@@ -39,6 +39,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.gbSenses.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSenses)).BeginInit();
             this.gbAttributes.SuspendLayout();
@@ -69,7 +70,7 @@
             this.gbSenses.Controls.Add(this.dgvSenses);
             this.gbSenses.Location = new System.Drawing.Point(3, 3);
             this.gbSenses.Name = "gbSenses";
-            this.gbSenses.Size = new System.Drawing.Size(384, 169);
+            this.gbSenses.Size = new System.Drawing.Size(384, 157);
             this.gbSenses.TabIndex = 0;
             this.gbSenses.TabStop = false;
             this.gbSenses.Text = "Senses";
@@ -97,7 +98,7 @@
             this.dgvSenses.ShowCellToolTips = false;
             this.dgvSenses.ShowEditingIcon = false;
             this.dgvSenses.ShowRowErrors = false;
-            this.dgvSenses.Size = new System.Drawing.Size(384, 150);
+            this.dgvSenses.Size = new System.Drawing.Size(384, 138);
             this.dgvSenses.TabIndex = 0;
             // 
             // gbAttributes
@@ -108,7 +109,7 @@
             this.gbAttributes.Controls.Add(this.dgvAttributes);
             this.gbAttributes.Location = new System.Drawing.Point(3, 3);
             this.gbAttributes.Name = "gbAttributes";
-            this.gbAttributes.Size = new System.Drawing.Size(382, 169);
+            this.gbAttributes.Size = new System.Drawing.Size(382, 157);
             this.gbAttributes.TabIndex = 1;
             this.gbAttributes.TabStop = false;
             this.gbAttributes.Text = "Attributes";
@@ -136,7 +137,7 @@
             this.dgvAttributes.ShowCellToolTips = false;
             this.dgvAttributes.ShowEditingIcon = false;
             this.dgvAttributes.ShowRowErrors = false;
-            this.dgvAttributes.Size = new System.Drawing.Size(382, 150);
+            this.dgvAttributes.Size = new System.Drawing.Size(382, 138);
             this.dgvAttributes.TabIndex = 0;
             // 
             // gbNeeds
@@ -147,7 +148,7 @@
             this.gbNeeds.Controls.Add(this.dgvNeeds);
             this.gbNeeds.Location = new System.Drawing.Point(3, 3);
             this.gbNeeds.Name = "gbNeeds";
-            this.gbNeeds.Size = new System.Drawing.Size(382, 191);
+            this.gbNeeds.Size = new System.Drawing.Size(382, 178);
             this.gbNeeds.TabIndex = 2;
             this.gbNeeds.TabStop = false;
             this.gbNeeds.Text = "Needs";
@@ -175,7 +176,7 @@
             this.dgvNeeds.ShowCellToolTips = false;
             this.dgvNeeds.ShowEditingIcon = false;
             this.dgvNeeds.ShowRowErrors = false;
-            this.dgvNeeds.Size = new System.Drawing.Size(382, 172);
+            this.dgvNeeds.Size = new System.Drawing.Size(382, 159);
             this.dgvNeeds.TabIndex = 0;
             // 
             // gbActions
@@ -186,7 +187,7 @@
             this.gbActions.Controls.Add(this.dgvActions);
             this.gbActions.Location = new System.Drawing.Point(3, 3);
             this.gbActions.Name = "gbActions";
-            this.gbActions.Size = new System.Drawing.Size(384, 191);
+            this.gbActions.Size = new System.Drawing.Size(384, 178);
             this.gbActions.TabIndex = 3;
             this.gbActions.TabStop = false;
             this.gbActions.Text = "Actions";
@@ -214,7 +215,7 @@
             this.dgvActions.ShowCellToolTips = false;
             this.dgvActions.ShowEditingIcon = false;
             this.dgvActions.ShowRowErrors = false;
-            this.dgvActions.Size = new System.Drawing.Size(384, 172);
+            this.dgvActions.Size = new System.Drawing.Size(384, 159);
             this.dgvActions.TabIndex = 0;
             // 
             // splitContainer1
@@ -222,7 +223,7 @@
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(3, 1);
+            this.splitContainer1.Location = new System.Drawing.Point(3, 26);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -232,7 +233,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer1.Size = new System.Drawing.Size(782, 376);
+            this.splitContainer1.Size = new System.Drawing.Size(782, 351);
             this.splitContainer1.SplitterDistance = 388;
             this.splitContainer1.TabIndex = 4;
             // 
@@ -250,8 +251,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.gbNeeds);
-            this.splitContainer2.Size = new System.Drawing.Size(388, 376);
-            this.splitContainer2.SplitterDistance = 175;
+            this.splitContainer2.Size = new System.Drawing.Size(388, 351);
+            this.splitContainer2.SplitterDistance = 163;
             this.splitContainer2.TabIndex = 0;
             // 
             // splitContainer3
@@ -268,15 +269,26 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.gbActions);
-            this.splitContainer3.Size = new System.Drawing.Size(390, 376);
-            this.splitContainer3.SplitterDistance = 175;
+            this.splitContainer3.Size = new System.Drawing.Size(390, 351);
+            this.splitContainer3.SplitterDistance = 163;
             this.splitContainer3.TabIndex = 0;
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(3, 0);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btnRefresh.TabIndex = 5;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // Form_Entity_Viewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(786, 377);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.splitContainer1);
             this.Name = "Form_Entity_Viewer";
             this.ShowIcon = false;
@@ -320,5 +332,6 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SplitContainer splitContainer3;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }

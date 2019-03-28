@@ -57,7 +57,6 @@
     <Compile Include="EntityResource.cs" />
     <Compile Include="Sensors\HearingSensor.cs" />
     <Compile Include="Needs\AbilityNeed.cs" />
-    <Compile Include="ActionCost.cs" />
     <Compile Include="ActionSystem.cs" />
     <Compile Include="CoreAttribute.cs" />
     <Compile Include="Needs\CoreNeed.cs" />

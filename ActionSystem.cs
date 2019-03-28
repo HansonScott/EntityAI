@@ -28,12 +28,23 @@ namespace EntityAI
         public ActionSystem(Entity entity)
         {
             this.entity = entity;
-
-            Abilities = new List<Ability>();
+            this.LoopDelay = entity.LoopDelay;
+            Abilities = PopulateAbilities();
             ActionQueue = new List<EntityAction>();
             
             // default to a waiting state
             this.CurrentState = ActionState.Waiting;            
+        }
+
+        private List<Ability> PopulateAbilities()
+        {
+            List<Ability>  result = new List<Ability>();
+            string[] ATypes = Enum.GetNames(typeof(Ability.AbilityType));
+            foreach (string a in ATypes)
+            {
+                result.Add(new Ability((Ability.AbilityType)Enum.Parse(typeof(Ability.AbilityType), a)));
+            }
+            return result;
         }
 
         public void AddAction(EntityAction A)
@@ -49,6 +60,8 @@ namespace EntityAI
             while (ShouldContinue)
             {
                 DateTime Start = DateTime.Now;
+
+                EvaluateAnyBlockedActions();
 
                 #region Acting
                 // most likely, we will be in the middle of acting, so just continue
@@ -71,11 +84,16 @@ namespace EntityAI
                     {
                         if(CurrentAction.ActionState == EntityAction.EntityActionState.Complete)
                         {
-                            nextAction = CurrentAction.ParentSolution.GetNextAction(CurrentAction);
+                            if(CurrentAction.ParentSolution != null)
+                            {
+                                nextAction = CurrentAction.ParentSolution.GetNextAction(CurrentAction);
+                            }
 
                             if (nextAction == null)
                             {
                                 // then we may have finished the last action within the current solution, remove solution?
+                                CurrentAction.ParentSolution.SolutionState = Solution.EntitySolutionState.completed;
+                                this.entity.RaiseLog(new EntityLogging.EntityLog("Completed solution: " + CurrentAction.ParentSolution.Description));
                                 this.entity.CurrentSolutions.Remove(CurrentAction.ParentSolution);
                             }
                         }
@@ -140,18 +158,32 @@ namespace EntityAI
             }
         }
 
+        private void EvaluateAnyBlockedActions()
+        {
+            foreach(EntityAction ea in this.ActionQueue)
+            {
+                if(ea.ActionState == EntityAction.EntityActionState.Blocked)
+                {
+                    // actions are blocked for a few reasons, check the assumptions of each reason.
+                    ea.EvaluateForBlockedStatus(this.entity);
+                }
+            }
+        }
+
         private void PerformAction(EntityAction currentAction)
         {
             switch(currentAction.ActionState)
             {
                 case EntityAction.EntityActionState.New:
+                    this.CurrentState = ActionState.Acting;
                     currentAction.Start(this.entity);
                     break;
                 case EntityAction.EntityActionState.Active:
+                    this.CurrentState = ActionState.Acting;
                     currentAction.Update(this.entity);
                     break;
                 case EntityAction.EntityActionState.Blocked:
-                    entity.RaiseLog(new EntityLogging.EntityLog("Cannot perform action, it is blocked."));
+                    entity.RaiseLog(new EntityLogging.EntityLog("Cannot " + currentAction.Description + ", it is blocked."));
                     this.CurrentState = ActionState.Waiting;
                     break;
                 case EntityAction.EntityActionState.Complete:

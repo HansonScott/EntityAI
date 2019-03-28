@@ -73,5 +73,11 @@ namespace EntitySimulator
                 dgvActions.Rows.Add(e.ability.Name, e.Target?.ToString(), e.Item?.ToString());
             }
         }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            LoadEntityDetails();
+            this.splitContainer1.Refresh();
+        }
     }
 }
