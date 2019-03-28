@@ -198,8 +198,29 @@ namespace EntityAI
                 //    break;
                 //case Ability.AbilityType.Drop:
                 //    break;
-                //case Ability.AbilityType.Pick_Up:
-                //    break;
+                case Ability.AbilityType.Pick_Up:
+                    // if we've spent long enough doing this, then accomplish it
+                    if (DateTime.Now > ActionStartedWhen + DurationRequired)
+                    {
+                        // NOTE: this assumes we have the item and the target within reach...
+                        if ((this.Item as EntityResource).IsConsumedOnUse())
+                        {
+                            entity.Inventory.RemoveResource((this.Item as EntityResource).RType);
+                        }
+                        else if ((this.Item as EntityResource).IsContainer())
+                        {
+                            // NOTE: this does not nest the target into the container item then into the inventory, 
+                            // for now, just add the target to the inventory directly, and assume the container is in use.
+                            entity.Inventory.AddResource(this.Target as EntityResource);
+                        }
+
+                        this.ActionState = EntityActionState.Complete;
+                    }
+                    else // we're still doing it and are not done yet.
+                    {
+                        // update a status or progress?
+                    }
+                    break;
                 //case Ability.AbilityType.Place:
                 //    break;
                 //case Ability.AbilityType.Throw:
@@ -299,13 +320,20 @@ namespace EntityAI
                 // how do we track if a target resource needs to be in the inventory?
                 // for example to chop a tree, it might just need to be a nearby target, not an inventory item...
 
-                // if the target is supposed to be in the inventory, check the inventory
-                if (!entity.Inventory.HaveResource((this.Target as EntityResource).RType))
+                if (this.ability.AType != Ability.AbilityType.Pick_Up)
                 {
-                    entity.RaiseLog(new EntityLogging.EntityLog("Don't have needed target to perform action."));
-                    this.ActionState = EntityActionState.Blocked;
+                    // if the target is supposed to be in the inventory, check the inventory
+                    if (!entity.Inventory.HaveResource((this.Target as EntityResource).RType))
+                    {
+                        entity.RaiseLog(new EntityLogging.EntityLog("Don't have needed target to perform action."));
+                        this.ActionState = EntityActionState.Blocked;
+                    }
                 }
-                // if the target is supposed to be in the environment, check the senses for existance
+                else
+                {
+                    // if the target is supposed to be in the environment, check the senses for existance
+                }
+
             }
             else { } // check other types of targets than resources (unreachable position?)
             #endregion

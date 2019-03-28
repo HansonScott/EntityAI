@@ -58,6 +58,10 @@ namespace EntityAI
 
         internal Position GetNewPositionForSpeedToTarget(Position pTarget, double speed)
         {
+            // note: speed is an ability, so the value range is 1-0
+
+            double speedAdjusted = speed * 5;
+
             // find the angle we want to go
             // adjust the entity's position by the change
             double changeX = pTarget.X - X;
@@ -73,9 +77,9 @@ namespace EntityAI
             double distZ = 0;
 
             // don't overshoot,
-            if (changeX > 0) { distX = Math.Min(speed, changeX); } else { distX = Math.Max(-speed, changeX); }
-            if (changeY > 0) { distY = Math.Min(speed, changeY); } else { distY = Math.Max(-speed, changeY); }
-            if (changeZ > 0) { distZ = Math.Min(speed, changeZ); } else { distZ = Math.Max(-speed, changeZ); }
+            if (changeX > 0) { distX = Math.Min(speedAdjusted, changeX); } else { distX = Math.Max(-speedAdjusted, changeX); }
+            if (changeY > 0) { distY = Math.Min(speedAdjusted, changeY); } else { distY = Math.Max(-speedAdjusted, changeY); }
+            if (changeZ > 0) { distZ = Math.Min(speedAdjusted, changeZ); } else { distZ = Math.Max(-speedAdjusted, changeZ); }
 
             // return the new postion
             Position result = new Position(X + distX, Y + distY, Z + distZ);

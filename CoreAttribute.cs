@@ -109,10 +109,8 @@ namespace EntityAI
 
             // apply formula, taking into account speed
 
-            // theory: distance is the base, but the faster the speed, the more energy was used.
-            double baseSpeed = Ability.BaseSpeed;
-
-            double result = dist * (speed / baseSpeed);
+            // future theory: distance is the base, but the faster the speed, the more energy was used.
+            double result = dist;
 
             // transform to ability/attribute scale of 0-1
             result = result * 0.001;

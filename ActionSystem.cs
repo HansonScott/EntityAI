@@ -129,14 +129,23 @@ namespace EntityAI
                             // compare priorities?
 
                             // just assign this one.
-                            nextAction = a;
-                            break; // just default to the first item.
+                            if(a != CurrentAction && a.ActionState != EntityAction.EntityActionState.Blocked)
+                            {
+                                nextAction = a;
+                                break; // just default to the first item.
+                            }
                         }
                     }
 
-                    // we've found something to do, so clear the past action, then start doing the next action.
-                    if(CurrentAction != null) { this.ActionQueue.Remove(CurrentAction); }
-                    if(nextAction != null)
+                    // if we get to here, then we're done with this action, remove it from the queue
+                    if (CurrentAction != null)
+                    {
+                        this.ActionQueue.Remove(CurrentAction);
+                        CurrentAction = null;
+                    }
+
+                    // if we've found something to do, then start doing the next action.
+                    if (nextAction != null)
                     {
                         this.entity.RaiseLog(new EntityLogging.EntityLog("next planned action: " + nextAction.Description));
                         CurrentAction = nextAction;

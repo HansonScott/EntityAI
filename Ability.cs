@@ -7,8 +7,6 @@ namespace EntityAI
     /// </summary>
     public class Ability: EntityAttribute
     {
-        internal static double BaseSpeed = 2.0;
-
         public enum AbilityType
         {
             unknown = 0,

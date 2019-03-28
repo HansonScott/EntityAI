@@ -46,6 +46,7 @@ namespace EntitySimulator
             dgvActions.Columns.Add("Action", "Action");
             dgvActions.Columns.Add("Target", "Target");
             dgvActions.Columns.Add("Item", "Item");
+            dgvActions.Columns.Add("Status", "Status");
         }
 
         internal void LoadEntity(Entity e)
@@ -81,7 +82,33 @@ namespace EntitySimulator
             dgvActions.Rows.Clear();
             foreach(EntityAction e in this.CurrentEntity.actions.ActionQueue)
             {
-                dgvActions.Rows.Add(e.ability.Name, e.Target?.ToString(), e.Item?.ToString());
+                string a = e.ability.Name;
+                string t = string.Empty;
+                if(e.Target != null)
+                {
+                    if(e.Target is EntityResource)
+                    {
+                        t = (e.Target as EntityResource).RType.ToString();
+                    }
+                    else
+                    {
+                        t = e.Target.ToString();
+                    }
+                }
+                string i = string.Empty;
+                if(e.Item != null)
+                {
+                    if(e.Item is EntityResource)
+                    {
+                        i = (e.Item as EntityResource).RType.ToString();
+                    }
+                    else
+                    {
+                        i = e.Item.ToString();
+                    }
+                }
+                string s = e.ActionState.ToString();
+                dgvActions.Rows.Add(a, t, i, s);
             }
         }
 

@@ -94,7 +94,7 @@ namespace EntityAI
 
             // gather the water in a container
             // NOTE: split out to own lines, so we can add the cost to each action before adding it.
-            result.Actions.Add(new EntityAction(result, new Ability(Ability.AbilityType.Use), new EntityResource(EntityResource.ResourceType.Water) ,new EntityResource(EntityResource.ResourceType.Container)));
+            result.Actions.Add(new EntityAction(result, new Ability(Ability.AbilityType.Pick_Up), new EntityResource(EntityResource.ResourceType.Water) ,new EntityResource(EntityResource.ResourceType.Container)));
 
             // consume the water
             // NOTE: split out to own lines, so we can add the cost to each action before adding it.
@@ -115,7 +115,7 @@ namespace EntityAI
                 if (this.Actions[i] == A) { currentIndex = i; break; }
             }
 
-            if (this.Actions.Count > currentIndex) { return this.Actions[currentIndex + 1]; }
+            if (this.Actions.Count > currentIndex + 1) { return this.Actions[currentIndex + 1]; }
 
             return null;
         }

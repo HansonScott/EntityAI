@@ -13,7 +13,7 @@ namespace EntityAI
             Container = 10,
         }
 
-        public double Quantity = 0.1;
+        public double Quantity = 1.0;
 
         public ResourceType RType;
 
@@ -24,12 +24,19 @@ namespace EntityAI
 
         internal bool IsConsumedOnUse()
         {
-            throw new NotImplementedException();
+            switch(this.RType)
+            {
+                case ResourceType.Air:
+                case ResourceType.Water:
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         internal bool IsContainer()
         {
-            throw new NotImplementedException();
+            return (this.RType == ResourceType.Container);
         }
     }
 }
