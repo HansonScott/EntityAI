@@ -5,7 +5,7 @@ namespace EntityAI
 {
     public class EntityInventory
     {
-        List<EntityResource> Items;
+        public List<EntityResource> Items;
         public Entity entity;
 
         public EntityInventory(Entity entity)

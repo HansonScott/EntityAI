@@ -43,6 +43,18 @@ namespace EntitySimulator
             dgvNeeds.Columns.Add("Need", "Need");
             dgvNeeds.Columns.Add("Value", "Value");
 
+            dgvOpportunities.Columns.Add("Opportunity", "Opportunity");
+            dgvOpportunities.Columns.Add("Value", "Value");
+
+            dgvSolutions.Columns.Add("Solution", "Solution");
+            dgvSolutions.Columns.Add("Value", "Value");
+
+            dgvOpportunitySolutions.Columns.Add("Solution", "Solution");
+            dgvOpportunitySolutions.Columns.Add("Value", "Value");
+
+            dgvInventory.Columns.Add("Item", "Item");
+            dgvInventory.Columns.Add("Description", "Description");
+
             dgvActions.Columns.Add("Action", "Action");
             dgvActions.Columns.Add("Target", "Target");
             dgvActions.Columns.Add("Item", "Item");
@@ -75,7 +87,35 @@ namespace EntitySimulator
             dgvNeeds.Rows.Clear();
             foreach(EntityNeed n in this.CurrentEntity.CurrentNeeds)
             {
-                dgvNeeds.Rows.Add(n.Name, "");
+                dgvNeeds.Rows.Add(n.Name, n.Urgency);
+            }
+
+            // dgvOpportunities;
+            dgvOpportunities.Rows.Clear();
+            foreach (EntityNeed n in this.CurrentEntity.CurrentOpportunities)
+            {
+                dgvOpportunities.Rows.Add(n.Name, n.Urgency);
+            }
+
+            // dgvSolutions;
+            dgvSolutions.Rows.Clear();
+            foreach(Solution s in this.CurrentEntity.CurrentSolutions)
+            {
+                dgvSolutions.Rows.Add(s.SolutionState.ToString(), s.Description);
+            }
+
+            // dgvOpportunitySolutions;
+            dgvOpportunitySolutions.Rows.Clear();
+            foreach (Solution s in this.CurrentEntity.CurrentOpportunitySolutions)
+            {
+                dgvOpportunitySolutions.Rows.Add(s.SolutionState.ToString(), s.Description);
+            }
+
+            // dgvInventory
+            dgvInventory.Rows.Clear();
+            foreach(EntityResource item in this.CurrentEntity.Inventory.Items)
+            {
+                dgvInventory.Rows.Add(item.RType.ToString(), item.Quantity);
             }
 
             // dgvActions;
@@ -115,7 +155,7 @@ namespace EntitySimulator
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             LoadEntityDetails();
-            this.splitContainer1.Refresh();
+            this.tableLayoutPanel1.Refresh();
         }
 
         private void cbAutoRefresh_CheckedChanged(object sender, EventArgs e)
@@ -133,7 +173,7 @@ namespace EntitySimulator
             if(ShouldRefresh)
             {
                 LoadEntityDetails();
-                this.splitContainer1.Refresh();
+                this.tableLayoutPanel1.Refresh();
             }
         }
 

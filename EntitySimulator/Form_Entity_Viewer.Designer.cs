@@ -28,53 +28,43 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.gbSenses = new System.Windows.Forms.GroupBox();
             this.dgvSenses = new System.Windows.Forms.DataGridView();
-            this.gbAttributes = new System.Windows.Forms.GroupBox();
             this.dgvAttributes = new System.Windows.Forms.DataGridView();
-            this.gbNeeds = new System.Windows.Forms.GroupBox();
             this.dgvNeeds = new System.Windows.Forms.DataGridView();
-            this.gbActions = new System.Windows.Forms.GroupBox();
             this.dgvActions = new System.Windows.Forms.DataGridView();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.cbAutoRefresh = new System.Windows.Forms.CheckBox();
-            this.gbSenses.SuspendLayout();
+            this.gbNeeds = new System.Windows.Forms.GroupBox();
+            this.gbAttributes = new System.Windows.Forms.GroupBox();
+            this.gbSenses = new System.Windows.Forms.GroupBox();
+            this.gbActions = new System.Windows.Forms.GroupBox();
+            this.gbOpportunities = new System.Windows.Forms.GroupBox();
+            this.dgvOpportunities = new System.Windows.Forms.DataGridView();
+            this.gbSolutions = new System.Windows.Forms.GroupBox();
+            this.dgvSolutions = new System.Windows.Forms.DataGridView();
+            this.gbOpportunitySolutions = new System.Windows.Forms.GroupBox();
+            this.dgvOpportunitySolutions = new System.Windows.Forms.DataGridView();
+            this.gbInventory = new System.Windows.Forms.GroupBox();
+            this.dgvInventory = new System.Windows.Forms.DataGridView();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSenses)).BeginInit();
-            this.gbAttributes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAttributes)).BeginInit();
-            this.gbNeeds.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNeeds)).BeginInit();
-            this.gbActions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvActions)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
-            this.splitContainer3.Panel1.SuspendLayout();
-            this.splitContainer3.Panel2.SuspendLayout();
-            this.splitContainer3.SuspendLayout();
+            this.gbNeeds.SuspendLayout();
+            this.gbAttributes.SuspendLayout();
+            this.gbSenses.SuspendLayout();
+            this.gbActions.SuspendLayout();
+            this.gbOpportunities.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOpportunities)).BeginInit();
+            this.gbSolutions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSolutions)).BeginInit();
+            this.gbOpportunitySolutions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOpportunitySolutions)).BeginInit();
+            this.gbInventory.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvInventory)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // gbSenses
-            // 
-            this.gbSenses.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.gbSenses.Controls.Add(this.dgvSenses);
-            this.gbSenses.Location = new System.Drawing.Point(3, 3);
-            this.gbSenses.Name = "gbSenses";
-            this.gbSenses.Size = new System.Drawing.Size(384, 157);
-            this.gbSenses.TabIndex = 0;
-            this.gbSenses.TabStop = false;
-            this.gbSenses.Text = "Senses";
             // 
             // dgvSenses
             // 
@@ -99,21 +89,8 @@
             this.dgvSenses.ShowCellToolTips = false;
             this.dgvSenses.ShowEditingIcon = false;
             this.dgvSenses.ShowRowErrors = false;
-            this.dgvSenses.Size = new System.Drawing.Size(384, 138);
+            this.dgvSenses.Size = new System.Drawing.Size(202, 241);
             this.dgvSenses.TabIndex = 0;
-            // 
-            // gbAttributes
-            // 
-            this.gbAttributes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.gbAttributes.Controls.Add(this.dgvAttributes);
-            this.gbAttributes.Location = new System.Drawing.Point(3, 3);
-            this.gbAttributes.Name = "gbAttributes";
-            this.gbAttributes.Size = new System.Drawing.Size(382, 157);
-            this.gbAttributes.TabIndex = 1;
-            this.gbAttributes.TabStop = false;
-            this.gbAttributes.Text = "Attributes";
             // 
             // dgvAttributes
             // 
@@ -138,21 +115,8 @@
             this.dgvAttributes.ShowCellToolTips = false;
             this.dgvAttributes.ShowEditingIcon = false;
             this.dgvAttributes.ShowRowErrors = false;
-            this.dgvAttributes.Size = new System.Drawing.Size(382, 138);
+            this.dgvAttributes.Size = new System.Drawing.Size(202, 241);
             this.dgvAttributes.TabIndex = 0;
-            // 
-            // gbNeeds
-            // 
-            this.gbNeeds.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.gbNeeds.Controls.Add(this.dgvNeeds);
-            this.gbNeeds.Location = new System.Drawing.Point(3, 3);
-            this.gbNeeds.Name = "gbNeeds";
-            this.gbNeeds.Size = new System.Drawing.Size(382, 178);
-            this.gbNeeds.TabIndex = 2;
-            this.gbNeeds.TabStop = false;
-            this.gbNeeds.Text = "Needs";
             // 
             // dgvNeeds
             // 
@@ -177,21 +141,8 @@
             this.dgvNeeds.ShowCellToolTips = false;
             this.dgvNeeds.ShowEditingIcon = false;
             this.dgvNeeds.ShowRowErrors = false;
-            this.dgvNeeds.Size = new System.Drawing.Size(382, 159);
+            this.dgvNeeds.Size = new System.Drawing.Size(202, 241);
             this.dgvNeeds.TabIndex = 0;
-            // 
-            // gbActions
-            // 
-            this.gbActions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.gbActions.Controls.Add(this.dgvActions);
-            this.gbActions.Location = new System.Drawing.Point(3, 3);
-            this.gbActions.Name = "gbActions";
-            this.gbActions.Size = new System.Drawing.Size(384, 178);
-            this.gbActions.TabIndex = 3;
-            this.gbActions.TabStop = false;
-            this.gbActions.Text = "Actions";
             // 
             // dgvActions
             // 
@@ -216,63 +167,8 @@
             this.dgvActions.ShowCellToolTips = false;
             this.dgvActions.ShowEditingIcon = false;
             this.dgvActions.ShowRowErrors = false;
-            this.dgvActions.Size = new System.Drawing.Size(384, 159);
+            this.dgvActions.Size = new System.Drawing.Size(203, 241);
             this.dgvActions.TabIndex = 0;
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(3, 26);
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer1.Size = new System.Drawing.Size(782, 351);
-            this.splitContainer1.SplitterDistance = 388;
-            this.splitContainer1.TabIndex = 4;
-            // 
-            // splitContainer2
-            // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.gbAttributes);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.gbNeeds);
-            this.splitContainer2.Size = new System.Drawing.Size(388, 351);
-            this.splitContainer2.SplitterDistance = 163;
-            this.splitContainer2.TabIndex = 0;
-            // 
-            // splitContainer3
-            // 
-            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer3.Name = "splitContainer3";
-            this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer3.Panel1
-            // 
-            this.splitContainer3.Panel1.Controls.Add(this.gbSenses);
-            // 
-            // splitContainer3.Panel2
-            // 
-            this.splitContainer3.Panel2.Controls.Add(this.gbActions);
-            this.splitContainer3.Size = new System.Drawing.Size(390, 351);
-            this.splitContainer3.SplitterDistance = 163;
-            this.splitContainer3.TabIndex = 0;
             // 
             // btnRefresh
             // 
@@ -297,60 +193,295 @@
             this.cbAutoRefresh.UseVisualStyleBackColor = true;
             this.cbAutoRefresh.CheckedChanged += new System.EventHandler(this.cbAutoRefresh_CheckedChanged);
             // 
+            // gbNeeds
+            // 
+            this.gbNeeds.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbNeeds.Controls.Add(this.dgvNeeds);
+            this.gbNeeds.Location = new System.Drawing.Point(211, 3);
+            this.gbNeeds.Name = "gbNeeds";
+            this.gbNeeds.Size = new System.Drawing.Size(202, 266);
+            this.gbNeeds.TabIndex = 2;
+            this.gbNeeds.TabStop = false;
+            this.gbNeeds.Text = "Needs";
+            // 
+            // gbAttributes
+            // 
+            this.gbAttributes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbAttributes.Controls.Add(this.dgvAttributes);
+            this.gbAttributes.Location = new System.Drawing.Point(3, 3);
+            this.gbAttributes.Name = "gbAttributes";
+            this.gbAttributes.Size = new System.Drawing.Size(202, 266);
+            this.gbAttributes.TabIndex = 1;
+            this.gbAttributes.TabStop = false;
+            this.gbAttributes.Text = "Attributes";
+            // 
+            // gbSenses
+            // 
+            this.gbSenses.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbSenses.Controls.Add(this.dgvSenses);
+            this.gbSenses.Location = new System.Drawing.Point(3, 275);
+            this.gbSenses.Name = "gbSenses";
+            this.gbSenses.Size = new System.Drawing.Size(202, 266);
+            this.gbSenses.TabIndex = 0;
+            this.gbSenses.TabStop = false;
+            this.gbSenses.Text = "Senses";
+            // 
+            // gbActions
+            // 
+            this.gbActions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbActions.Controls.Add(this.dgvActions);
+            this.gbActions.Location = new System.Drawing.Point(627, 275);
+            this.gbActions.Name = "gbActions";
+            this.gbActions.Size = new System.Drawing.Size(203, 266);
+            this.gbActions.TabIndex = 3;
+            this.gbActions.TabStop = false;
+            this.gbActions.Text = "Actions";
+            // 
+            // gbOpportunities
+            // 
+            this.gbOpportunities.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbOpportunities.Controls.Add(this.dgvOpportunities);
+            this.gbOpportunities.Location = new System.Drawing.Point(419, 3);
+            this.gbOpportunities.Name = "gbOpportunities";
+            this.gbOpportunities.Size = new System.Drawing.Size(202, 266);
+            this.gbOpportunities.TabIndex = 3;
+            this.gbOpportunities.TabStop = false;
+            this.gbOpportunities.Text = "Opportunities";
+            // 
+            // dgvOpportunities
+            // 
+            this.dgvOpportunities.AllowUserToAddRows = false;
+            this.dgvOpportunities.AllowUserToDeleteRows = false;
+            this.dgvOpportunities.AllowUserToResizeColumns = false;
+            this.dgvOpportunities.AllowUserToResizeRows = false;
+            this.dgvOpportunities.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvOpportunities.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvOpportunities.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvOpportunities.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvOpportunities.Location = new System.Drawing.Point(0, 19);
+            this.dgvOpportunities.MultiSelect = false;
+            this.dgvOpportunities.Name = "dgvOpportunities";
+            this.dgvOpportunities.ReadOnly = true;
+            this.dgvOpportunities.RowHeadersVisible = false;
+            this.dgvOpportunities.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dgvOpportunities.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dgvOpportunities.ShowCellErrors = false;
+            this.dgvOpportunities.ShowCellToolTips = false;
+            this.dgvOpportunities.ShowEditingIcon = false;
+            this.dgvOpportunities.ShowRowErrors = false;
+            this.dgvOpportunities.Size = new System.Drawing.Size(202, 241);
+            this.dgvOpportunities.TabIndex = 0;
+            // 
+            // gbSolutions
+            // 
+            this.gbSolutions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbSolutions.Controls.Add(this.dgvSolutions);
+            this.gbSolutions.Location = new System.Drawing.Point(211, 275);
+            this.gbSolutions.Name = "gbSolutions";
+            this.gbSolutions.Size = new System.Drawing.Size(202, 266);
+            this.gbSolutions.TabIndex = 4;
+            this.gbSolutions.TabStop = false;
+            this.gbSolutions.Text = "Solutions (N)";
+            // 
+            // dgvSolutions
+            // 
+            this.dgvSolutions.AllowUserToAddRows = false;
+            this.dgvSolutions.AllowUserToDeleteRows = false;
+            this.dgvSolutions.AllowUserToResizeColumns = false;
+            this.dgvSolutions.AllowUserToResizeRows = false;
+            this.dgvSolutions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvSolutions.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvSolutions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvSolutions.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvSolutions.Location = new System.Drawing.Point(0, 19);
+            this.dgvSolutions.MultiSelect = false;
+            this.dgvSolutions.Name = "dgvSolutions";
+            this.dgvSolutions.ReadOnly = true;
+            this.dgvSolutions.RowHeadersVisible = false;
+            this.dgvSolutions.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dgvSolutions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dgvSolutions.ShowCellErrors = false;
+            this.dgvSolutions.ShowCellToolTips = false;
+            this.dgvSolutions.ShowEditingIcon = false;
+            this.dgvSolutions.ShowRowErrors = false;
+            this.dgvSolutions.Size = new System.Drawing.Size(202, 241);
+            this.dgvSolutions.TabIndex = 0;
+            // 
+            // gbOpportunitySolutions
+            // 
+            this.gbOpportunitySolutions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbOpportunitySolutions.Controls.Add(this.dgvOpportunitySolutions);
+            this.gbOpportunitySolutions.Location = new System.Drawing.Point(419, 275);
+            this.gbOpportunitySolutions.Name = "gbOpportunitySolutions";
+            this.gbOpportunitySolutions.Size = new System.Drawing.Size(202, 266);
+            this.gbOpportunitySolutions.TabIndex = 5;
+            this.gbOpportunitySolutions.TabStop = false;
+            this.gbOpportunitySolutions.Text = "Solutions (O)";
+            // 
+            // dgvOpportunitySolutions
+            // 
+            this.dgvOpportunitySolutions.AllowUserToAddRows = false;
+            this.dgvOpportunitySolutions.AllowUserToDeleteRows = false;
+            this.dgvOpportunitySolutions.AllowUserToResizeColumns = false;
+            this.dgvOpportunitySolutions.AllowUserToResizeRows = false;
+            this.dgvOpportunitySolutions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvOpportunitySolutions.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvOpportunitySolutions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvOpportunitySolutions.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvOpportunitySolutions.Location = new System.Drawing.Point(0, 19);
+            this.dgvOpportunitySolutions.MultiSelect = false;
+            this.dgvOpportunitySolutions.Name = "dgvOpportunitySolutions";
+            this.dgvOpportunitySolutions.ReadOnly = true;
+            this.dgvOpportunitySolutions.RowHeadersVisible = false;
+            this.dgvOpportunitySolutions.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dgvOpportunitySolutions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dgvOpportunitySolutions.ShowCellErrors = false;
+            this.dgvOpportunitySolutions.ShowCellToolTips = false;
+            this.dgvOpportunitySolutions.ShowEditingIcon = false;
+            this.dgvOpportunitySolutions.ShowRowErrors = false;
+            this.dgvOpportunitySolutions.Size = new System.Drawing.Size(202, 241);
+            this.dgvOpportunitySolutions.TabIndex = 0;
+            // 
+            // gbInventory
+            // 
+            this.gbInventory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbInventory.Controls.Add(this.dgvInventory);
+            this.gbInventory.Location = new System.Drawing.Point(627, 3);
+            this.gbInventory.Name = "gbInventory";
+            this.gbInventory.Size = new System.Drawing.Size(203, 266);
+            this.gbInventory.TabIndex = 4;
+            this.gbInventory.TabStop = false;
+            this.gbInventory.Text = "Inventory";
+            // 
+            // dgvInventory
+            // 
+            this.dgvInventory.AllowUserToAddRows = false;
+            this.dgvInventory.AllowUserToDeleteRows = false;
+            this.dgvInventory.AllowUserToResizeColumns = false;
+            this.dgvInventory.AllowUserToResizeRows = false;
+            this.dgvInventory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvInventory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvInventory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvInventory.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvInventory.Location = new System.Drawing.Point(0, 19);
+            this.dgvInventory.MultiSelect = false;
+            this.dgvInventory.Name = "dgvInventory";
+            this.dgvInventory.ReadOnly = true;
+            this.dgvInventory.RowHeadersVisible = false;
+            this.dgvInventory.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dgvInventory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dgvInventory.ShowCellErrors = false;
+            this.dgvInventory.ShowCellToolTips = false;
+            this.dgvInventory.ShowEditingIcon = false;
+            this.dgvInventory.ShowRowErrors = false;
+            this.dgvInventory.Size = new System.Drawing.Size(203, 241);
+            this.dgvInventory.TabIndex = 0;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.Controls.Add(this.gbAttributes, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.gbActions, 3, 1);
+            this.tableLayoutPanel1.Controls.Add(this.gbInventory, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.gbSenses, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.gbOpportunitySolutions, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.gbNeeds, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.gbOpportunities, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.gbSolutions, 1, 1);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 29);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(833, 544);
+            this.tableLayoutPanel1.TabIndex = 7;
+            // 
             // Form_Entity_Viewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(786, 377);
+            this.ClientSize = new System.Drawing.Size(840, 576);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.cbAutoRefresh);
             this.Controls.Add(this.btnRefresh);
-            this.Controls.Add(this.splitContainer1);
             this.Name = "Form_Entity_Viewer";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Entity Viewer";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Entity_Viewer_FormClosing);
             this.Load += new System.EventHandler(this.Form_Entity_Viewer_Load);
-            this.gbSenses.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvSenses)).EndInit();
-            this.gbAttributes.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAttributes)).EndInit();
-            this.gbNeeds.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvNeeds)).EndInit();
-            this.gbActions.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvActions)).EndInit();
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
-            this.splitContainer3.Panel1.ResumeLayout(false);
-            this.splitContainer3.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
-            this.splitContainer3.ResumeLayout(false);
+            this.gbNeeds.ResumeLayout(false);
+            this.gbAttributes.ResumeLayout(false);
+            this.gbSenses.ResumeLayout(false);
+            this.gbActions.ResumeLayout(false);
+            this.gbOpportunities.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOpportunities)).EndInit();
+            this.gbSolutions.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSolutions)).EndInit();
+            this.gbOpportunitySolutions.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOpportunitySolutions)).EndInit();
+            this.gbInventory.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvInventory)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.GroupBox gbSenses;
         private System.Windows.Forms.DataGridView dgvSenses;
-        private System.Windows.Forms.GroupBox gbAttributes;
         private System.Windows.Forms.DataGridView dgvAttributes;
-        private System.Windows.Forms.GroupBox gbNeeds;
         private System.Windows.Forms.DataGridView dgvNeeds;
-        private System.Windows.Forms.GroupBox gbActions;
         private System.Windows.Forms.DataGridView dgvActions;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.CheckBox cbAutoRefresh;
+        private System.Windows.Forms.GroupBox gbNeeds;
+        private System.Windows.Forms.GroupBox gbAttributes;
+        private System.Windows.Forms.GroupBox gbSenses;
+        private System.Windows.Forms.GroupBox gbActions;
+        private System.Windows.Forms.GroupBox gbOpportunities;
+        private System.Windows.Forms.DataGridView dgvOpportunities;
+        private System.Windows.Forms.GroupBox gbSolutions;
+        private System.Windows.Forms.DataGridView dgvSolutions;
+        private System.Windows.Forms.GroupBox gbOpportunitySolutions;
+        private System.Windows.Forms.DataGridView dgvOpportunitySolutions;
+        private System.Windows.Forms.GroupBox gbInventory;
+        private System.Windows.Forms.DataGridView dgvInventory;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }
