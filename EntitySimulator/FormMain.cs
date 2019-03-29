@@ -36,9 +36,25 @@ namespace EntitySimulator
         public FormMain()
         {
             InitializeComponent();
+
+            PopulateSoundCombo();
+            PopulateSightCombo();
+        }
+
+        private void PopulateSoundCombo()
+        {
+            cbSoundType.DataSource = Enum.GetNames(typeof(Sound.RecognitionFootPrint));
+        }
+        private void PopulateSightCombo()
+        {
+            cbSightType.DataSource = Enum.GetNames(typeof(Sight.RecognitionFootPrint));
         }
 
         #region Event Handlers
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            CurrentSimulator?.StopSimulation();
+        }
         private void btnNew_Click(object sender, EventArgs e)
         {
             // a new simulation calls for new textbox
@@ -106,38 +122,15 @@ namespace EntitySimulator
 
             Output("Simulation stopped.");
         }
-        private void EnvironmentPanel_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (CurrentState == UIState.Placing_Sound)
-            {
-                CurrentSimulator.CurrentEnvironment.Sounds.Add(
-                    new Sound(Sound.RecognitionFootPrint.Water, 50, new Position(e.X, e.Y, 0)));
-            }
-            else if (CurrentState == UIState.Placing_Sight)
-            {
-                EntityObject eo = new EntityObject();
-                // set properties of eo
-
-                // add to environment
-                CurrentSimulator.CurrentEnvironment.Sights.Add(
-                    new Sight(eo));
-            }
-
-            // and finally, set the state back to normal
-            CurrentState = UIState.normal;
-        }
         private void btnPlaceSound_Click(object sender, EventArgs e)
         {
-            // get what type of input was chosen from the comboBox
-            switch(cbSensoryType.SelectedItem)
-            {
-                case "Sound":
-                    CurrentState = UIState.Placing_Sound;
-                    Output("Placing sound...");
-                    break;
-                default:
-                    break;
-            }
+            CurrentState = UIState.Placing_Sound;
+            Output("Placing sound of " + cbSoundType.SelectedItem);
+        }
+        private void btnPlaceSight_Click(object sender, EventArgs e)
+        {
+            CurrentState = UIState.Placing_Sight;
+            Output("Placing sight of " + cbSightType.SelectedItem);
         }
         private void EnvironmentPanel_MouseEnter(object sender, EventArgs e)
         {
@@ -150,6 +143,39 @@ namespace EntitySimulator
         {
             Cursor.Current = Cursors.Default;
         }
+        private void EnvironmentPanel_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (CurrentState == UIState.Placing_Sound)
+            {
+                string item = cbSoundType.SelectedItem.ToString();
+                Sound.RecognitionFootPrint snd = (Sound.RecognitionFootPrint)Enum.Parse(typeof(Sound.RecognitionFootPrint), item);
+                CurrentSimulator.CurrentEnvironment.Sounds.Add(
+                    new Sound(snd, 50, new Position(e.X, e.Y, 0)));
+            }
+            else if (CurrentState == UIState.Placing_Sight)
+            {
+                string item = cbSightType.SelectedItem.ToString();
+                Sight.RecognitionFootPrint sght = (Sight.RecognitionFootPrint)Enum.Parse(typeof(Sight.RecognitionFootPrint), item);
+                CurrentSimulator.CurrentEnvironment.Sights.Add(
+                    new Sight(new EntityObject(sght, Sound.RecognitionFootPrint.Unknown, new Position(e.X, e.Y, 0))));
+            }
+
+            // and finally, set the state back to normal
+            CurrentState = UIState.normal;
+        }
+        private void btnEntityStats_Click(object sender, EventArgs e)
+        {
+            if (this.CurrentSimulator == null || this.CurrentSimulator.Protagonist == null)
+            {
+                Output("create a new simulation before opening the entity stat viewer.");
+                return;
+            }
+
+            Form_Entity_Viewer frm = new Form_Entity_Viewer();
+            frm.LoadEntity(this.CurrentSimulator.Protagonist);
+            frm.Show(this);
+        }
+
         #endregion
 
         private void Output(string msg)
@@ -199,33 +225,17 @@ namespace EntitySimulator
             // draw sights, sounds, etc.
             foreach(Sound s in currentEnvironment.Sounds)
             {
-                g.DrawString("*", DefaultFont, Brushes.DarkBlue, (float)s.Origin.X, (float)s.Origin.Y);
+                string snd = Enum.GetName(typeof(Sound.RecognitionFootPrint), s.FootPrint);
+                g.DrawString(snd.Substring(0,1), DefaultFont, Brushes.LightBlue, (float)s.Origin.X, (float)s.Origin.Y);
             }
 
             foreach (Sight s in currentEnvironment.Sights)
             {
-                //g.DrawString("@", DefaultFont, Brushes.Gold, (float)s.X, (float)s.Y);
+                string sght = Enum.GetName(typeof(Sight.RecognitionFootPrint), s.FootPrint);
+                g.DrawString(sght.Substring(0,1), DefaultFont, Brushes.Blue, (float)s.Origin.X, (float)s.Origin.Y);
             }
 
         }
         #endregion
-
-        private void btnEntityStats_Click(object sender, EventArgs e)
-        {
-            if(this.CurrentSimulator == null || this.CurrentSimulator.Protagonist == null)
-            {
-                Output("create a new simulation before opening the entity stat viewer.");
-                return;
-            }
-
-            Form_Entity_Viewer frm = new Form_Entity_Viewer();
-            frm.LoadEntity(this.CurrentSimulator.Protagonist);
-            frm.Show(this);
-        }
-
-        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            CurrentSimulator?.StopSimulation();
-        }
     }
 }

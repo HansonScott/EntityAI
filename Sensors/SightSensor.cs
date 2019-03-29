@@ -21,11 +21,11 @@ namespace EntityAI
 
         internal override void CaptureInput(Entity entity)
         {
-            entity.senses.SightsCurrentlySeen = GetAllSightsSeen(SightDistance, entity.CurrentEnvironment.Sights, entity.PositionCurrent, entity.CurrentEnvironment.SightDistance_Current);
+            entity.senses.SightsCurrentlySeen.AddRange(GetAllNewSightsSeen(SightDistance, entity.CurrentEnvironment.Sights, entity.PositionCurrent, entity.CurrentEnvironment.SightDistance_Current));
         }
 
 
-        private List<Sight> GetAllSightsSeen(double BaseSightDistance, List<Sight> sights, Position p, double SightDistance)
+        private List<Sight> GetAllNewSightsSeen(double BaseSightDistance, List<Sight> sights, Position p, double SightDistance)
         {
             List<Sight> results = new List<Sight>();
 
@@ -33,14 +33,31 @@ namespace EntityAI
             {
                 if (s.IsSeen(BaseSightDistance, this.Effectiveness_Current, p, SightDistance))
                 {
-                    // log that the entity sees something
-                    base.parentSystem.entity.RaiseLog(new EntityLogging.EntityLog("I see " + s.Description, System.Diagnostics.TraceLevel.Verbose));
+                    if(!SightCurrentlySeen(s))
+                    {
+                        // log that the entity sees something
+                        base.parentSystem.entity.RaiseLog(new EntityLogging.EntityLog("I see something: " + s.Description, System.Diagnostics.TraceLevel.Verbose));
 
-                    results.Add(s);
+                        results.Add(s);
+                    }
                 }
             }
 
             return results;
+        }
+
+        private bool SightCurrentlySeen(Sight s)
+        {
+            foreach(Sight sght in this.parentSystem.SightsCurrentlySeen)
+            {
+                if(sght.Description == s.Description &&
+                    sght.Origin == s.Origin)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

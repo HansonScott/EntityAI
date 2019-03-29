@@ -8,14 +8,14 @@ namespace EntityAI
 {
     public class HearingSensor: Sensor
     {
-        public HearingSensor(SensorySystem parentSystem): base(parentSystem)
-        {
-
-        }
-
         public override string Name
         {
             get { return "Hearing"; }
+        }
+
+        public HearingSensor(SensorySystem parentSystem): base(parentSystem)
+        {
+
         }
 
         internal override void CaptureInput(Entity entity)
@@ -46,7 +46,7 @@ namespace EntityAI
                     // now, before adding, check that we don't already have it.
                     if (!SoundCurrentlyHeard(s))
                     {
-                        base.parentSystem.entity.RaiseLog(new EntityLogging.EntityLog("I hear " + s.Description, System.Diagnostics.TraceLevel.Verbose));
+                        base.parentSystem.entity.RaiseLog(new EntityLogging.EntityLog("I hear something: " + s.Description, System.Diagnostics.TraceLevel.Verbose));
                         results.Add(s);
                     }
                 }
@@ -59,7 +59,8 @@ namespace EntityAI
         {
             foreach(Sound cs in this.parentSystem.SoundsCurrentlyHeard)
             {
-                if (cs.Description == s.Description)
+                if (cs.Description == s.Description &&
+                    cs.Origin == s.Origin)
                     return true;
             }
 

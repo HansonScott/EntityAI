@@ -136,5 +136,10 @@ namespace EntitySimulator
                 this.splitContainer1.Refresh();
             }
         }
+
+        private void Form_Entity_Viewer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ShouldRefresh = false;
+        }
     }
 }

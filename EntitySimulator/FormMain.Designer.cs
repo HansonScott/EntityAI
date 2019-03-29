@@ -34,9 +34,11 @@
             this.EnvironmentPanel = new System.Windows.Forms.Panel();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnPlaceSensoryInput = new System.Windows.Forms.Button();
-            this.cbSensoryType = new System.Windows.Forms.ComboBox();
+            this.cbSoundType = new System.Windows.Forms.ComboBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.btnEntityStats = new System.Windows.Forms.Button();
+            this.cbSightType = new System.Windows.Forms.ComboBox();
+            this.btnPlaceSight = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -108,19 +110,19 @@
             this.btnPlaceSensoryInput.Name = "btnPlaceSensoryInput";
             this.btnPlaceSensoryInput.Size = new System.Drawing.Size(122, 23);
             this.btnPlaceSensoryInput.TabIndex = 5;
-            this.btnPlaceSensoryInput.Text = "Place Input";
+            this.btnPlaceSensoryInput.Text = "Place Sound";
             this.btnPlaceSensoryInput.UseVisualStyleBackColor = true;
             this.btnPlaceSensoryInput.Click += new System.EventHandler(this.btnPlaceSound_Click);
             // 
-            // cbSensoryType
+            // cbSoundType
             // 
-            this.cbSensoryType.FormattingEnabled = true;
-            this.cbSensoryType.Items.AddRange(new object[] {
-            "Sound"});
-            this.cbSensoryType.Location = new System.Drawing.Point(13, 135);
-            this.cbSensoryType.Name = "cbSensoryType";
-            this.cbSensoryType.Size = new System.Drawing.Size(121, 21);
-            this.cbSensoryType.TabIndex = 6;
+            this.cbSoundType.FormattingEnabled = true;
+            this.cbSoundType.Items.AddRange(new object[] {
+            "Water"});
+            this.cbSoundType.Location = new System.Drawing.Point(13, 135);
+            this.cbSoundType.Name = "cbSoundType";
+            this.cbSoundType.Size = new System.Drawing.Size(121, 21);
+            this.cbSoundType.TabIndex = 6;
             // 
             // splitContainer1
             // 
@@ -153,14 +155,36 @@
             this.btnEntityStats.UseVisualStyleBackColor = true;
             this.btnEntityStats.Click += new System.EventHandler(this.btnEntityStats_Click);
             // 
+            // cbSightType
+            // 
+            this.cbSightType.FormattingEnabled = true;
+            this.cbSightType.Items.AddRange(new object[] {
+            "Water"});
+            this.cbSightType.Location = new System.Drawing.Point(14, 212);
+            this.cbSightType.Name = "cbSightType";
+            this.cbSightType.Size = new System.Drawing.Size(121, 21);
+            this.cbSightType.TabIndex = 10;
+            // 
+            // btnPlaceSight
+            // 
+            this.btnPlaceSight.Location = new System.Drawing.Point(13, 239);
+            this.btnPlaceSight.Name = "btnPlaceSight";
+            this.btnPlaceSight.Size = new System.Drawing.Size(122, 23);
+            this.btnPlaceSight.TabIndex = 9;
+            this.btnPlaceSight.Text = "Place Sight";
+            this.btnPlaceSight.UseVisualStyleBackColor = true;
+            this.btnPlaceSight.Click += new System.EventHandler(this.btnPlaceSight_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.cbSightType);
+            this.Controls.Add(this.btnPlaceSight);
             this.Controls.Add(this.btnEntityStats);
             this.Controls.Add(this.splitContainer1);
-            this.Controls.Add(this.cbSensoryType);
+            this.Controls.Add(this.cbSoundType);
             this.Controls.Add(this.btnPlaceSensoryInput);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnRun);
@@ -187,9 +211,11 @@
         private System.Windows.Forms.Panel EnvironmentPanel;
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Button btnPlaceSensoryInput;
-        private System.Windows.Forms.ComboBox cbSensoryType;
+        private System.Windows.Forms.ComboBox cbSoundType;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Button btnEntityStats;
+        private System.Windows.Forms.ComboBox cbSightType;
+        private System.Windows.Forms.Button btnPlaceSight;
     }
 }
 

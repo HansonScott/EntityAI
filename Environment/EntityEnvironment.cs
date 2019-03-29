@@ -26,7 +26,7 @@ namespace EntityAI
         public List<Sound> Sounds;
         public List<Sight> Sights;
         public double SightDistance_Current;
-        private const double SightDistance_Default = 5000; // units of distance in meters
+        private const double SightDistance_Default = 500; // units of distance in meters
 
         private bool Continue = true;
         int delay = 1000; // 1 per second draw loop
@@ -35,6 +35,8 @@ namespace EntityAI
         {
             Sounds = new List<Sound>();
             Sights = new List<Sight>();
+
+            SightDistance_Current = SightDistance_Default;
         }
 
         public void Run()

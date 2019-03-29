@@ -310,6 +310,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Entity Viewer";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Entity_Viewer_FormClosing);
             this.Load += new System.EventHandler(this.Form_Entity_Viewer_Load);
             this.gbSenses.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvSenses)).EndInit();

@@ -17,9 +17,9 @@ namespace EntityAI
             Animal_Call = 20,
         }
 
-        EntityObject ThisObject = null;
-        internal Position Origin;
-        internal RecognitionFootPrint FootPrint;
+        public EntityObject ThisObject = null;
+        public Position Origin;
+        public RecognitionFootPrint FootPrint;
 
         public string Description
         {
@@ -39,7 +39,7 @@ namespace EntityAI
             this.Origin = obj.Position;
 
             // determine the footprint based on the object
-            FootPrint = RecognitionFootPrint.Unknown;
+            FootPrint = obj.Appearance;
         }
 
         internal bool IsSeen(double EntitySightDistance, double effectiveness_Current, Position p, double EnvironmentSightDistance)
