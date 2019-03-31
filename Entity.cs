@@ -106,6 +106,9 @@ namespace EntityAI
                 // evalute Needs
                 EvaluateNeeds();
 
+                // Evaluate blocked actions
+                EvaluateBlockedActions();
+
                 // perform actions
                 PerformActions();
 
@@ -171,6 +174,24 @@ namespace EntityAI
             // create solution
             CreateSolutionsFromNeeds();
         }
+        private void EvaluateBlockedActions()
+        {
+            if (!this.actions.HaveBlockedActions()) { return; }
+
+            foreach(EntityAction ea in this.actions.ActionQueue)
+            {
+                if(ea.ActionState == EntityAction.EntityActionState.Blocked)
+                {
+                    FindNeedForBlockedAction(ea);
+                }
+            }
+        }
+
+        private void FindNeedForBlockedAction(EntityAction ea)
+        {
+            throw new NotImplementedException();
+        }
+
         private void PerformActions()
         {
             // prioritize and load solutions

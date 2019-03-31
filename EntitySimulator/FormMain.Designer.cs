@@ -39,6 +39,8 @@
             this.btnEntityStats = new System.Windows.Forms.Button();
             this.cbSightType = new System.Windows.Forms.ComboBox();
             this.btnPlaceSight = new System.Windows.Forms.Button();
+            this.cbResource = new System.Windows.Forms.ComboBox();
+            this.btnPlaceResource = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -175,11 +177,33 @@
             this.btnPlaceSight.UseVisualStyleBackColor = true;
             this.btnPlaceSight.Click += new System.EventHandler(this.btnPlaceSight_Click);
             // 
+            // cbResource
+            // 
+            this.cbResource.FormattingEnabled = true;
+            this.cbResource.Items.AddRange(new object[] {
+            "Water"});
+            this.cbResource.Location = new System.Drawing.Point(12, 292);
+            this.cbResource.Name = "cbResource";
+            this.cbResource.Size = new System.Drawing.Size(121, 21);
+            this.cbResource.TabIndex = 12;
+            // 
+            // btnPlaceResource
+            // 
+            this.btnPlaceResource.Location = new System.Drawing.Point(11, 319);
+            this.btnPlaceResource.Name = "btnPlaceResource";
+            this.btnPlaceResource.Size = new System.Drawing.Size(122, 23);
+            this.btnPlaceResource.TabIndex = 11;
+            this.btnPlaceResource.Text = "Place Sight";
+            this.btnPlaceResource.UseVisualStyleBackColor = true;
+            this.btnPlaceResource.Click += new System.EventHandler(this.btnPlaceResource_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.cbResource);
+            this.Controls.Add(this.btnPlaceResource);
             this.Controls.Add(this.cbSightType);
             this.Controls.Add(this.btnPlaceSight);
             this.Controls.Add(this.btnEntityStats);
@@ -216,6 +240,8 @@
         private System.Windows.Forms.Button btnEntityStats;
         private System.Windows.Forms.ComboBox cbSightType;
         private System.Windows.Forms.Button btnPlaceSight;
+        private System.Windows.Forms.ComboBox cbResource;
+        private System.Windows.Forms.Button btnPlaceResource;
     }
 }
 

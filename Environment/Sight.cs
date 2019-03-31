@@ -15,6 +15,8 @@ namespace EntityAI
             Footfall = 10,
 
             Animal_Call = 20,
+
+            Container = 30,
         }
 
         public EntityObject ThisObject = null;

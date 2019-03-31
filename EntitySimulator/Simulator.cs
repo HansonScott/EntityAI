@@ -49,7 +49,7 @@ namespace EntitySimulator
 
             result.CurrentEnvironment = CurrentEnvironment;
             result.PositionCurrent = new EntityAI.Position();
-            result.Inventory.AddResource(new EntityResource(EntityResource.ResourceType.Container));
+            //result.Inventory.AddResource(new EntityResource(EntityResource.ResourceType.Container));
             return result;
         }
         #endregion

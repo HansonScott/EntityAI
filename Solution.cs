@@ -94,11 +94,14 @@ namespace EntityAI
 
             // gather the water in a container
             // NOTE: split out to own lines, so we can add the cost to each action before adding it.
-            result.Actions.Add(new EntityAction(result, new Ability(Ability.AbilityType.Pick_Up), new EntityResource(EntityResource.ResourceType.Water) ,new EntityResource(EntityResource.ResourceType.Container)));
+            result.Actions.Add(new EntityAction(result, new Ability(Ability.AbilityType.Pick_Up), 
+                                                        new EntityResource(EntityResource.ResourceType.Water, CurrentEntity.PositionCurrent),
+                                                        new EntityResource(EntityResource.ResourceType.Container, CurrentEntity.PositionCurrent)));
 
             // consume the water
             // NOTE: split out to own lines, so we can add the cost to each action before adding it.
-            result.Actions.Add(new EntityAction(result, new Ability(Ability.AbilityType.Consume), new EntityResource(EntityResource.ResourceType.Water)));
+            result.Actions.Add(new EntityAction(result, new Ability(Ability.AbilityType.Consume), 
+                                                        new EntityResource(EntityResource.ResourceType.Water, CurrentEntity.PositionCurrent)));
             #endregion
 
             return result;

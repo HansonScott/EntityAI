@@ -167,6 +167,16 @@ namespace EntityAI
             }
         }
 
+        internal bool HaveBlockedActions()
+        {
+            foreach(EntityAction ea in this.ActionQueue)
+            {
+                if(ea.ActionState == EntityAction.EntityActionState.Blocked) { return true; }
+            }
+
+            return false;
+        }
+
         private void EvaluateAnyBlockedActions()
         {
             foreach(EntityAction ea in this.ActionQueue)

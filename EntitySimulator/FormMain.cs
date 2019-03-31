@@ -31,6 +31,7 @@ namespace EntitySimulator
             normal = 0,
             Placing_Sound = 1,
             Placing_Sight = 2,
+            Placing_Resource = 3,
         }
 
         public FormMain()
@@ -132,6 +133,11 @@ namespace EntitySimulator
             CurrentState = UIState.Placing_Sight;
             Output("Placing sight of " + cbSightType.SelectedItem);
         }
+        private void btnPlaceResource_Click(object sender, EventArgs e)
+        {
+            CurrentState = UIState.Placing_Resource;
+            Output("Placing resource: " + cbResource.SelectedItem);
+        }
         private void EnvironmentPanel_MouseEnter(object sender, EventArgs e)
         {
             if (CurrentState != UIState.normal)
@@ -158,6 +164,13 @@ namespace EntitySimulator
                 Sight.RecognitionFootPrint sght = (Sight.RecognitionFootPrint)Enum.Parse(typeof(Sight.RecognitionFootPrint), item);
                 CurrentSimulator.CurrentEnvironment.Sights.Add(
                     new Sight(new EntityObject(sght, Sound.RecognitionFootPrint.Unknown, new Position(e.X, e.Y, 0))));
+            }
+            else if (CurrentState == UIState.Placing_Resource)
+            {
+                string item = cbResource.SelectedItem.ToString();
+                Sight.RecognitionFootPrint sght = (Sight.RecognitionFootPrint)Enum.Parse(typeof(Sight.RecognitionFootPrint), item);
+                CurrentSimulator.CurrentEnvironment.Objects.Add(
+                    new EntityResource(EntityResource.ResourceType.Container, new Position(e.X, e.Y, 0)));
             }
 
             // and finally, set the state back to normal
@@ -237,5 +250,6 @@ namespace EntitySimulator
 
         }
         #endregion
+
     }
 }

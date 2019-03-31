@@ -25,6 +25,8 @@ namespace EntityAI
 
         public List<Sound> Sounds;
         public List<Sight> Sights;
+        public List<EntityObject> Objects;
+
         public double SightDistance_Current;
         private const double SightDistance_Default = 500; // units of distance in meters
 

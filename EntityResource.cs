@@ -2,7 +2,7 @@
 
 namespace EntityAI
 {
-    public class EntityResource
+    public class EntityResource: EntityObject
     {
         public enum ResourceType
         {
@@ -13,13 +13,43 @@ namespace EntityAI
             Container = 10,
         }
 
-        public double Quantity = 1.0;
-
         public ResourceType RType;
 
-        public EntityResource(ResourceType t)
+        public EntityResource(ResourceType t, Position P): base(GetAppearanceForType(t), GetSoundForType(t), P)
         {
             this.RType = t;
+        }
+
+        private static Sound.RecognitionFootPrint GetSoundForType(ResourceType t)
+        {
+            switch(t)
+            {
+                case ResourceType.Air:
+                    return EntityAI.Sound.RecognitionFootPrint.Wind;
+                case ResourceType.Water:
+                    return EntityAI.Sound.RecognitionFootPrint.Water;
+                case ResourceType.Container:
+                    return EntityAI.Sound.RecognitionFootPrint.Container;
+                case ResourceType.Unknown:
+                default:
+                    return EntityAI.Sound.RecognitionFootPrint.Unknown;
+            }
+        }
+
+        private static Sight.RecognitionFootPrint GetAppearanceForType(ResourceType t)
+        {
+            switch(t)
+            {
+                case ResourceType.Air:
+                    return Sight.RecognitionFootPrint.Wind;
+                case ResourceType.Water:
+                    return Sight.RecognitionFootPrint.Water;
+                case ResourceType.Container:
+                    return Sight.RecognitionFootPrint.Container;
+                case ResourceType.Unknown:
+                default:
+                    return Sight.RecognitionFootPrint.Unknown;
+            }
         }
 
         internal bool IsConsumedOnUse()
