@@ -40,6 +40,7 @@ namespace EntitySimulator
 
             PopulateSoundCombo();
             PopulateSightCombo();
+            PopulateResourceCombo();
         }
 
         private void PopulateSoundCombo()
@@ -49,6 +50,10 @@ namespace EntitySimulator
         private void PopulateSightCombo()
         {
             cbSightType.DataSource = Enum.GetNames(typeof(Sight.RecognitionFootPrint));
+        }
+        private void PopulateResourceCombo()
+        {
+            cbResource.DataSource = Enum.GetNames(typeof(EntityResource.ResourceType));
         }
 
         #region Event Handlers

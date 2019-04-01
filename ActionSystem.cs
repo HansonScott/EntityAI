@@ -179,9 +179,11 @@ namespace EntityAI
 
         private void EvaluateAnyBlockedActions()
         {
-            foreach(EntityAction ea in this.ActionQueue)
+            for(int i = 0; i < this.ActionQueue.Count; i++)
             {
-                if(ea.ActionState == EntityAction.EntityActionState.Blocked)
+                EntityAction ea = ActionQueue[i];
+
+                if (ea.ActionState == EntityAction.EntityActionState.Blocked)
                 {
                     // actions are blocked for a few reasons, check the assumptions of each reason.
                     ea.EvaluateForBlockedStatus(this.entity);

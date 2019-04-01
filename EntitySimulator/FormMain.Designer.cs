@@ -193,7 +193,7 @@
             this.btnPlaceResource.Name = "btnPlaceResource";
             this.btnPlaceResource.Size = new System.Drawing.Size(122, 23);
             this.btnPlaceResource.TabIndex = 11;
-            this.btnPlaceResource.Text = "Place Sight";
+            this.btnPlaceResource.Text = "Place Resource";
             this.btnPlaceResource.UseVisualStyleBackColor = true;
             this.btnPlaceResource.Click += new System.EventHandler(this.btnPlaceResource_Click);
             // 

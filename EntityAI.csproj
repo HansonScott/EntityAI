@@ -55,6 +55,7 @@
     <Compile Include="EntityInventory.cs" />
     <Compile Include="EntityObject.cs" />
     <Compile Include="EntityResource.cs" />
+    <Compile Include="Needs\ResourceNeed.cs" />
     <Compile Include="Sensors\HearingSensor.cs" />
     <Compile Include="Needs\AbilityNeed.cs" />
     <Compile Include="ActionSystem.cs" />

@@ -50,61 +50,50 @@ namespace EntityAI
         public static Solution FindSolutionForNeed(EntityNeed need, Entity CurrentEntity)
         {
             // lookup from database?
-
             // create from known actions?
-
             // if none found, return null
 
-            #region hard code the prototype - water
-            Solution result = new Solution();
+            if(need is CoreNeed)
+            {
+                CoreNeed cn = need as CoreNeed;
 
-            // the actions to achive it:
-            // find water - a separate action?
-            Position target = null;
-            foreach(Sound s in CurrentEntity.senses.SoundsCurrentlyHeard)
-            {
-                if(s.FootPrint == Sound.RecognitionFootPrint.Water)
+                switch(cn.Attribute.CType)
                 {
-                    target = s.Origin;
-                    break;
-                }
-            }
-            if(target == null)
-            {
-                foreach(Sight s in CurrentEntity.senses.SightsCurrentlySeen)
-                {
-                    if(s.FootPrint == Sight.RecognitionFootPrint.Water)
-                    {
-                        target = s.Origin;
+                    case CoreAttribute.CoreAttributeType.Water:
+                        Solution result = new Solution();
+
+                        // consume the water
+                        // NOTE: split out to own lines, so we can add the cost to each action before adding it.
+                        result.Actions.Add(new EntityAction(result, new Ability(Ability.AbilityType.Consume),
+                                                                    new EntityResource(EntityResource.ResourceType.Water, CurrentEntity.PositionCurrent)));
+                        return result;
+                    default:
                         break;
-                    }
+                }
+            }
+            else if(need is ResourceNeed)
+            {
+                ResourceNeed rn = need as ResourceNeed;
+                Solution result = new Solution();
+                switch (rn.Resource.RType)
+                {
+                    case EntityResource.ResourceType.Container:
+                    // gather the water in a container
+                    // NOTE: split out to own lines, so we can add the cost to each action before adding it.
+                    result.Actions.Add(new EntityAction(result, new Ability(Ability.AbilityType.Pick_Up),
+                                                                new EntityResource(EntityResource.ResourceType.Container, CurrentEntity.PositionCurrent)));
+                        return result;
+                    case EntityResource.ResourceType.Water:
+                        result.Actions.Add(new EntityAction(result, new Ability(Ability.AbilityType.Pick_Up),
+                                                                    new EntityResource(EntityResource.ResourceType.Water, CurrentEntity.PositionCurrent),
+                                                                    new EntityResource(EntityResource.ResourceType.Container, CurrentEntity.PositionCurrent)));
+                        return result;
+                    default:
+                        break;
                 }
             }
 
-            if(target == null)
-            {
-                // then we don't know of any water we can find.
-                // this solution won't work, go elsewhere, or just quit.
-                return null;
-            }
-
-            // go to water
-            // NOTE: split out to own lines, so we can add the cost to each action before adding it.
-            result.Actions.Add(new EntityAction(result, new Ability(Ability.AbilityType.Walk), target, null));
-
-            // gather the water in a container
-            // NOTE: split out to own lines, so we can add the cost to each action before adding it.
-            result.Actions.Add(new EntityAction(result, new Ability(Ability.AbilityType.Pick_Up), 
-                                                        new EntityResource(EntityResource.ResourceType.Water, CurrentEntity.PositionCurrent),
-                                                        new EntityResource(EntityResource.ResourceType.Container, CurrentEntity.PositionCurrent)));
-
-            // consume the water
-            // NOTE: split out to own lines, so we can add the cost to each action before adding it.
-            result.Actions.Add(new EntityAction(result, new Ability(Ability.AbilityType.Consume), 
-                                                        new EntityResource(EntityResource.ResourceType.Water, CurrentEntity.PositionCurrent)));
-            #endregion
-
-            return result;
+            return null;
         }
         
         public EntityAction GetNextAction(EntityAction A)

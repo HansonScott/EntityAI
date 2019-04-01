@@ -178,18 +178,126 @@ namespace EntityAI
         {
             if (!this.actions.HaveBlockedActions()) { return; }
 
-            foreach(EntityAction ea in this.actions.ActionQueue)
+            for(int i = 0; i < actions.ActionQueue.Count; i++)
             {
-                if(ea.ActionState == EntityAction.EntityActionState.Blocked)
+                EntityAction ea = actions.ActionQueue[i];
+
+                if (ea.ActionState == EntityAction.EntityActionState.Blocked)
                 {
-                    FindNeedForBlockedAction(ea);
+                    ResolveBlockedAction(ea);
                 }
             }
         }
 
-        private void FindNeedForBlockedAction(EntityAction ea)
+        private void ResolveBlockedAction(EntityAction ea)
         {
-            throw new NotImplementedException();
+            // figure out what type of need we have.
+            // ability = abilityNeed
+            // target or item == resourceNeed
+            #region Check for ability
+            double val = actions.GetAbilityValue(ea.ability.AType);
+
+            // if the value of this ability is 0, the entity cannot perform this.
+            if (val == 0)
+            {
+                this.CurrentNeeds.Add(new AbilityNeed(ea.ability));
+            }
+            #endregion
+
+            #region Check Target
+            if (ea.Target != null &&
+                ea.Target is EntityResource)
+            {
+                EntityResource ear = (ea.Target as EntityResource);
+                // how do we track if a target resource needs to be in the inventory?
+                // for example to chop a tree, it might just need to be a nearby target, not an inventory item...
+
+                // if the target is supposed to be in the inventory, check the inventory
+                if (!Inventory.HaveResource(ear.RType))
+                {
+                    // we don't have it in our inventory, see if we have it available from our senses...
+                    Position target = null;
+                    foreach (Sound s in senses.SoundsCurrentlyHeard)
+                    {
+                        if (s.FootPrint == ear.Sound)
+                        {
+                            target = s.Origin;
+                            break;
+                        }
+                    }
+                    if (target == null)
+                    {
+                        foreach (Sight s in senses.SightsCurrentlySeen)
+                        {
+                            if (s.FootPrint == ear.Appearance)
+                            {
+                                target = s.Origin;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (target == null)// we don't know of the resource within the environment
+                    {
+                        RaiseLog(new EntityLog("unable to resolve the blocked action: " + ea.Description));
+                        return;
+                    }
+
+                    // clear out the action from the queue
+                    actions.ActionQueue.Remove(ea);
+                    // add this new action to the blocked action's solution
+                    ea.ParentSolution.Actions.Insert(0, (new EntityAction(ea.ParentSolution, new Ability(Ability.AbilityType.Walk), target, null)));
+                    // reset the state of the solution to reload to the action queue
+                    ea.ParentSolution.SolutionState = Solution.EntitySolutionState.created;
+                } // end if not in inventory
+            }
+            else { } // check other types of targets than resources (unreachable position, such as target doesn't exist?)
+            #endregion
+
+            #region Check Item
+            if (ea.Item != null &&
+                ea.Item is EntityResource)
+            {
+                EntityResource eai = (ea.Item as EntityResource);
+                if (!Inventory.HaveResource(eai.RType))
+                {
+                    // we don't have it in our inventory, see if we have it available from our senses...
+                    Position target = null;
+                    foreach (Sound s in senses.SoundsCurrentlyHeard)
+                    {
+                        if (s.FootPrint == eai.Sound)
+                        {
+                            target = s.Origin;
+                            break;
+                        }
+                    }
+                    if (target == null)
+                    {
+                        foreach (Sight s in senses.SightsCurrentlySeen)
+                        {
+                            if (s.FootPrint == eai.Appearance)
+                            {
+                                target = s.Origin;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (target == null)// we don't know of the resource within the environment
+                    {
+                        RaiseLog(new EntityLog("unable to create a need for a blocked action: " + ea.Description));
+                        return;
+                    }
+
+                    // clear out the action from the queue
+                    actions.ActionQueue.Remove(ea);
+                    // add this new action to the blocked action's solution
+                    ea.ParentSolution.Actions.Insert(0, (new EntityAction(ea.ParentSolution, new Ability(Ability.AbilityType.Walk), target, null)));
+                    // reset the state of the solution to reload to the action queue
+                    ea.ParentSolution.SolutionState = Solution.EntitySolutionState.created;
+                }
+            }
+            #endregion
         }
 
         private void PerformActions()

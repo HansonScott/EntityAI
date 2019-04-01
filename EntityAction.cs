@@ -27,6 +27,7 @@ namespace EntityAI
             New = 0,
             Active = 1,
             Blocked = 10,
+            Remove = 15,
             Complete = 20,
         }
         public EntityActionState ActionState = EntityActionState.New;
