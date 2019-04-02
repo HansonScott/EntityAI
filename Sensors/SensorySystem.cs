@@ -72,7 +72,7 @@ namespace EntityAI
 
             while (ShouldContinue)
             {
-                this.entity.RaiseLog(new EntityLogging.EntityLog("Checking for sensory input..."));
+                this.entity.RaiseLog("Checking for sensory input...");
 
                 DateTime Start = DateTime.Now;
 

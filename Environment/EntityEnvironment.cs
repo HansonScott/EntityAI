@@ -23,8 +23,6 @@ namespace EntityAI
         }
         #endregion
 
-        public List<Sound> Sounds;
-        public List<Sight> Sights;
         public List<EntityObject> Objects;
 
         public double SightDistance_Current;
@@ -35,8 +33,7 @@ namespace EntityAI
 
         public EntityEnvironment()
         {
-            Sounds = new List<Sound>();
-            Sights = new List<Sight>();
+            Objects = new List<EntityObject>();
 
             SightDistance_Current = SightDistance_Default;
         }

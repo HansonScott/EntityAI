@@ -21,22 +21,23 @@ namespace EntityAI
 
         internal override void CaptureInput(Entity entity)
         {
-            entity.senses.SightsCurrentlySeen.AddRange(GetAllNewSightsSeen(SightDistance, entity.CurrentEnvironment.Sights, entity.PositionCurrent, entity.CurrentEnvironment.SightDistance_Current));
+            entity.senses.SightsCurrentlySeen.AddRange(GetAllNewSightsSeen(SightDistance, entity.CurrentEnvironment.Objects, entity.PositionCurrent, entity.CurrentEnvironment.SightDistance_Current));
         }
 
 
-        private List<Sight> GetAllNewSightsSeen(double BaseSightDistance, List<Sight> sights, Position p, double SightDistance)
+        private List<Sight> GetAllNewSightsSeen(double BaseSightDistance, List<EntityObject> objects, Position p, double SightDistance)
         {
             List<Sight> results = new List<Sight>();
 
-            foreach (Sight s in sights)
+            foreach (EntityObject obj in objects)
             {
+                Sight s = obj.Appearance;
                 if (s.IsSeen(BaseSightDistance, this.Effectiveness_Current, p, SightDistance))
                 {
                     if(!SightCurrentlySeen(s))
                     {
                         // log that the entity sees something
-                        base.parentSystem.entity.RaiseLog(new EntityLogging.EntityLog("I see something: " + s.Description, System.Diagnostics.TraceLevel.Verbose));
+                        base.parentSystem.entity.RaiseLog("I see something: " + s.Description);
 
                         results.Add(s);
                     }

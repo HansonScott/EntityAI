@@ -14,10 +14,14 @@ namespace EntityAI
     public class Entity
     {
         #region Custom Logging Events
-        public delegate void LoggingHandler(object sender, EntityLogging.EntityLoggingEventArgs e);
+        public delegate void LoggingHandler(object sender, EntityLoggingEventArgs e);
         public event LoggingHandler OnLog;
 
-        internal void RaiseLog(EntityLogging.EntityLog log)
+        internal void RaiseLog(string message)
+        {
+            RaiseLog(new EntityLog(message));
+        }
+        internal void RaiseLog(EntityLog log)
         {
             // using this inline vs checking for null is more thread safe
             OnLog?.Invoke(this, new EntityLoggingEventArgs(log));
@@ -78,19 +82,19 @@ namespace EntityAI
             // if the function run is called, it is assumed the loop should actually run...
             Continue = true;
 
-            RaiseLog(new EntityLog("Hello."));
+            RaiseLog("Hello.");
 
             // start up sensory input thread
             SensoryThread = new Thread(new ThreadStart(senses.Run));
-            RaiseLog(new EntityLog("I am starting up my senses..."));
+            RaiseLog("I am starting up my senses...");
             SensoryThread.Start();
 
             ActionThread = new Thread(new ThreadStart(actions.Run));
-            RaiseLog(new EntityLog("I am starting up my actions..."));
+            RaiseLog("I am starting up my actions...");
             ActionThread.Start();
             
             // main loop
-            RaiseLog(new EntityLog("I am starting my continuous loop."));
+            RaiseLog("I am starting my continuous loop.");
             while (Continue)
             {
                 DateTime start = DateTime.Now;
@@ -107,10 +111,10 @@ namespace EntityAI
                 EvaluateNeeds();
 
                 // Evaluate blocked actions
-                EvaluateBlockedActions();
+                this.actions.EvaluateBlockedActions();
 
-                // perform actions
-                PerformActions();
+                // plan actions
+                PlanActions();
 
                 // reflection and re-evaluate
                 ReflectAndReevaluate();
@@ -127,7 +131,7 @@ namespace EntityAI
                 Thread.Sleep((int)waittime);
             }
 
-            RaiseLog(new EntityLog("Goodbye."));
+            RaiseLog("Goodbye.");
         }
 
         public void ShutDown()
@@ -174,140 +178,7 @@ namespace EntityAI
             // create solution
             CreateSolutionsFromNeeds();
         }
-        private void EvaluateBlockedActions()
-        {
-            if (!this.actions.HaveBlockedActions()) { return; }
 
-            for(int i = 0; i < actions.ActionQueue.Count; i++)
-            {
-                EntityAction ea = actions.ActionQueue[i];
-
-                if (ea.ActionState == EntityAction.EntityActionState.Blocked)
-                {
-                    ResolveBlockedAction(ea);
-                }
-            }
-        }
-
-        private void ResolveBlockedAction(EntityAction ea)
-        {
-            // figure out what type of need we have.
-            // ability = abilityNeed
-            // target or item == resourceNeed
-            #region Check for ability
-            double val = actions.GetAbilityValue(ea.ability.AType);
-
-            // if the value of this ability is 0, the entity cannot perform this.
-            if (val == 0)
-            {
-                this.CurrentNeeds.Add(new AbilityNeed(ea.ability));
-            }
-            #endregion
-
-            #region Check Target
-            if (ea.Target != null &&
-                ea.Target is EntityResource)
-            {
-                EntityResource ear = (ea.Target as EntityResource);
-                // how do we track if a target resource needs to be in the inventory?
-                // for example to chop a tree, it might just need to be a nearby target, not an inventory item...
-
-                // if the target is supposed to be in the inventory, check the inventory
-                if (!Inventory.HaveResource(ear.RType))
-                {
-                    // we don't have it in our inventory, see if we have it available from our senses...
-                    Position target = null;
-                    foreach (Sound s in senses.SoundsCurrentlyHeard)
-                    {
-                        if (s.FootPrint == ear.Sound)
-                        {
-                            target = s.Origin;
-                            break;
-                        }
-                    }
-                    if (target == null)
-                    {
-                        foreach (Sight s in senses.SightsCurrentlySeen)
-                        {
-                            if (s.FootPrint == ear.Appearance)
-                            {
-                                target = s.Origin;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (target == null)// we don't know of the resource within the environment
-                    {
-                        RaiseLog(new EntityLog("unable to resolve the blocked action: " + ea.Description));
-                        return;
-                    }
-
-                    // clear out the action from the queue
-                    actions.ActionQueue.Remove(ea);
-                    // add this new action to the blocked action's solution
-                    ea.ParentSolution.Actions.Insert(0, (new EntityAction(ea.ParentSolution, new Ability(Ability.AbilityType.Walk), target, null)));
-                    // reset the state of the solution to reload to the action queue
-                    ea.ParentSolution.SolutionState = Solution.EntitySolutionState.created;
-                } // end if not in inventory
-            }
-            else { } // check other types of targets than resources (unreachable position, such as target doesn't exist?)
-            #endregion
-
-            #region Check Item
-            if (ea.Item != null &&
-                ea.Item is EntityResource)
-            {
-                EntityResource eai = (ea.Item as EntityResource);
-                if (!Inventory.HaveResource(eai.RType))
-                {
-                    // we don't have it in our inventory, see if we have it available from our senses...
-                    Position target = null;
-                    foreach (Sound s in senses.SoundsCurrentlyHeard)
-                    {
-                        if (s.FootPrint == eai.Sound)
-                        {
-                            target = s.Origin;
-                            break;
-                        }
-                    }
-                    if (target == null)
-                    {
-                        foreach (Sight s in senses.SightsCurrentlySeen)
-                        {
-                            if (s.FootPrint == eai.Appearance)
-                            {
-                                target = s.Origin;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (target == null)// we don't know of the resource within the environment
-                    {
-                        RaiseLog(new EntityLog("unable to create a need for a blocked action: " + ea.Description));
-                        return;
-                    }
-
-                    // clear out the action from the queue
-                    actions.ActionQueue.Remove(ea);
-                    // add this new action to the blocked action's solution
-                    ea.ParentSolution.Actions.Insert(0, (new EntityAction(ea.ParentSolution, new Ability(Ability.AbilityType.Walk), target, null)));
-                    // reset the state of the solution to reload to the action queue
-                    ea.ParentSolution.SolutionState = Solution.EntitySolutionState.created;
-                }
-            }
-            #endregion
-        }
-
-        private void PerformActions()
-        {
-            // prioritize and load solutions
-            PrioritizeSolutions();
-
-            // plan actions for solutions
-            PlanActions();
-        }
         private void ReflectAndReevaluate()
         {
             // review patterns, trends, look to create new solutions
@@ -349,7 +220,7 @@ namespace EntityAI
                             // update source DateTime?
                             // update anything else?
 
-                            RaiseLog(new EntityLog("I have a core attribute need with a higher urgency than previously: " + need.Attribute.Description));
+                            RaiseLog("I have a core attribute need with a higher urgency than previously: " + need.Attribute.Description);
                             CurrentNeeds.Remove(existingNeed);
                             this.CurrentNeeds.Add(need);
                         }
@@ -360,7 +231,7 @@ namespace EntityAI
                     }
                     else
                     {
-                        RaiseLog(new EntityLog("I have a new core attribute need: " + need.Attribute.Description));
+                        RaiseLog("I have a new core attribute need: " + need.Attribute.Description);
                         this.CurrentNeeds.Add(need);
                     }
 
@@ -399,19 +270,27 @@ namespace EntityAI
 
         private CoreNeed GetCoreOpportunity(CoreAttribute.CoreAttributeType cType)
         {
-            foreach (CoreNeed n in this.CurrentOpportunities)
+            for (int i = 0; i < this.CurrentOpportunities.Count; i++)
             {
-                if (n.Attribute.CType == cType) { return n; }
+                if (this.CurrentOpportunities[i] is CoreNeed)
+                {
+                    if ((this.CurrentOpportunities[i] as CoreNeed).Attribute.CType == cType) { return (this.CurrentOpportunities[i] as CoreNeed); }
+                }
             }
+
             return null;
         }
 
         private CoreNeed GetCoreNeed(CoreAttribute.CoreAttributeType cType)
         {
-            foreach (CoreNeed n in this.CurrentNeeds)
+            for(int i = 0; i < this.CurrentNeeds.Count; i++)
             {
-                if (n.Attribute.CType == cType) { return n; }
+                if(this.CurrentNeeds[i] is CoreNeed)
+                {
+                    if((this.CurrentNeeds[i] as CoreNeed).Attribute.CType == cType) { return (this.CurrentNeeds[i] as CoreNeed); }
+                }
             }
+
             return null;
         }
 
@@ -553,8 +432,9 @@ namespace EntityAI
 
                     if (existingSolution == null)
                     {
-                        RaiseLog(new EntityLog("Found a solution for need: " + this.CurrentNeeds[i].Name));
-                        this.CurrentSolutions.Add(S);
+                        RaiseLog("Found a solution for need: " + this.CurrentNeeds[i].Name);
+                        this.CurrentSolutions.Insert(0,S);
+                        this.CurrentNeeds.RemoveAt(i--); // remove this from the list, and continue on
                     }
                 }
                 else
@@ -574,7 +454,7 @@ namespace EntityAI
 
                     if (existingSolution == null)
                     {
-                        RaiseLog(new EntityLog("Found a solution for opportunity: " + this.CurrentOpportunities[i].Name));
+                        RaiseLog("Found a solution for opportunity: " + this.CurrentOpportunities[i].Name);
                         this.CurrentOpportunitySolutions.Add(S);
                     }
                 }
@@ -615,13 +495,6 @@ namespace EntityAI
         #endregion
 
         #region PerformActions
-        private void PrioritizeSolutions()
-        {
-            // look at urgency, ROI, etc.
-
-            // change order to solutions in the list
-
-        }
         private void PlanActions()
         {
             // for each solution
@@ -631,15 +504,19 @@ namespace EntityAI
                 {
                     // future: strategy comes into play here, as some action combinations can be optimized, etc.
                     // for now, just add them linearly.
-                    foreach (EntityAction ea in s.Actions)
+                    for(int i = 0; i < s.Actions.Count; i++)
                     {
+                        EntityAction ea = s.Actions[i];
+
                         // add queued actions to action thread according to queued solutions
-                        this.actions.ActionQueue.Add(ea);
+                        this.actions.ActionQueue.Insert(i++, ea);
                     }
 
+                    // change solution state from create the planned
                     s.SolutionState = Solution.EntitySolutionState.planned;
                 }
             }
+
             foreach(Solution s in this.CurrentOpportunitySolutions)
             {
                 if (s.SolutionState == Solution.EntitySolutionState.created)
@@ -649,6 +526,7 @@ namespace EntityAI
                     foreach (EntityAction ea in s.Actions)
                     {
                         // add queued actions to action thread according to queued solutions
+                        // NOTE: because this is only opportunities, add them to the end of the queue.
                         this.actions.ActionQueue.Add(ea);
                     }
 

@@ -29,27 +29,13 @@ namespace EntitySimulator
         private enum UIState
         {
             normal = 0,
-            Placing_Sound = 1,
-            Placing_Sight = 2,
-            Placing_Resource = 3,
+            Placing_Resource = 1,
         }
 
         public FormMain()
         {
             InitializeComponent();
-
-            PopulateSoundCombo();
-            PopulateSightCombo();
             PopulateResourceCombo();
-        }
-
-        private void PopulateSoundCombo()
-        {
-            cbSoundType.DataSource = Enum.GetNames(typeof(Sound.RecognitionFootPrint));
-        }
-        private void PopulateSightCombo()
-        {
-            cbSightType.DataSource = Enum.GetNames(typeof(Sight.RecognitionFootPrint));
         }
         private void PopulateResourceCombo()
         {
@@ -128,16 +114,6 @@ namespace EntitySimulator
 
             Output("Simulation stopped.");
         }
-        private void btnPlaceSound_Click(object sender, EventArgs e)
-        {
-            CurrentState = UIState.Placing_Sound;
-            Output("Placing sound of " + cbSoundType.SelectedItem);
-        }
-        private void btnPlaceSight_Click(object sender, EventArgs e)
-        {
-            CurrentState = UIState.Placing_Sight;
-            Output("Placing sight of " + cbSightType.SelectedItem);
-        }
         private void btnPlaceResource_Click(object sender, EventArgs e)
         {
             CurrentState = UIState.Placing_Resource;
@@ -156,26 +132,11 @@ namespace EntitySimulator
         }
         private void EnvironmentPanel_MouseClick(object sender, MouseEventArgs e)
         {
-            if (CurrentState == UIState.Placing_Sound)
-            {
-                string item = cbSoundType.SelectedItem.ToString();
-                Sound.RecognitionFootPrint snd = (Sound.RecognitionFootPrint)Enum.Parse(typeof(Sound.RecognitionFootPrint), item);
-                CurrentSimulator.CurrentEnvironment.Sounds.Add(
-                    new Sound(snd, 50, new Position(e.X, e.Y, 0)));
-            }
-            else if (CurrentState == UIState.Placing_Sight)
-            {
-                string item = cbSightType.SelectedItem.ToString();
-                Sight.RecognitionFootPrint sght = (Sight.RecognitionFootPrint)Enum.Parse(typeof(Sight.RecognitionFootPrint), item);
-                CurrentSimulator.CurrentEnvironment.Sights.Add(
-                    new Sight(new EntityObject(sght, Sound.RecognitionFootPrint.Unknown, new Position(e.X, e.Y, 0))));
-            }
-            else if (CurrentState == UIState.Placing_Resource)
+            if (CurrentState == UIState.Placing_Resource)
             {
                 string item = cbResource.SelectedItem.ToString();
-                Sight.RecognitionFootPrint sght = (Sight.RecognitionFootPrint)Enum.Parse(typeof(Sight.RecognitionFootPrint), item);
-                CurrentSimulator.CurrentEnvironment.Objects.Add(
-                    new EntityResource(EntityResource.ResourceType.Container, new Position(e.X, e.Y, 0)));
+                EntityResource.ResourceType objType = (EntityResource.ResourceType)Enum.Parse(typeof(EntityResource.ResourceType), item);
+                CurrentSimulator.CurrentEnvironment.Objects.Add(new EntityResource(objType, new Position(e.X, e.Y, 0)));
             }
 
             // and finally, set the state back to normal
@@ -241,18 +202,10 @@ namespace EntitySimulator
                 (float)CurrentSimulator.Protagonist.PositionCurrent.Y);
 
             // draw sights, sounds, etc.
-            foreach(Sound s in currentEnvironment.Sounds)
+            foreach(EntityObject obj in currentEnvironment.Objects)
             {
-                string snd = Enum.GetName(typeof(Sound.RecognitionFootPrint), s.FootPrint);
-                g.DrawString(snd.Substring(0,1), DefaultFont, Brushes.LightBlue, (float)s.Origin.X, (float)s.Origin.Y);
+                g.DrawString(obj.Name.Substring(0,1), DefaultFont, Brushes.LightBlue, (float)obj.Position.X, (float)obj.Position.Y);
             }
-
-            foreach (Sight s in currentEnvironment.Sights)
-            {
-                string sght = Enum.GetName(typeof(Sight.RecognitionFootPrint), s.FootPrint);
-                g.DrawString(sght.Substring(0,1), DefaultFont, Brushes.Blue, (float)s.Origin.X, (float)s.Origin.Y);
-            }
-
         }
         #endregion
 

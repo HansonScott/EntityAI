@@ -116,7 +116,7 @@ namespace EntityAI
             if(this.ActionState == EntityActionState.Blocked) { return; }
             else
             {
-                entity.RaiseLog(new EntityLogging.EntityLog("starting: " + this.Description));
+                entity.RaiseLog("starting: " + this.Description);
 
                 if(this.ParentSolution != null)
                 {
@@ -135,7 +135,7 @@ namespace EntityAI
 
         public void Update(Entity entity)
         {
-            entity.RaiseLog(new EntityLogging.EntityLog("continuing: " + this.Description));
+            entity.RaiseLog("continuing: " + this.Description);
 
             switch (ability.AType)
             {
@@ -145,7 +145,6 @@ namespace EntityAI
                     // if we have waited long enough...
                     if (DateTime.Now > ActionStartedWhen + DurationRequired)
                     {
-
                         // result: apply effect of the consumption based on the item consumed.
                         switch((this.Target as EntityResource).RType)
                         {
@@ -203,19 +202,55 @@ namespace EntityAI
                     // if we've spent long enough doing this, then accomplish it
                     if (DateTime.Now > ActionStartedWhen + DurationRequired)
                     {
-                        // NOTE: this assumes we have the item and the target within reach...
-                        if ((this.Item as EntityResource).IsConsumedOnUse())
+                        if (this.Target is EntityResource)
                         {
-                            entity.Inventory.RemoveResource((this.Item as EntityResource).RType);
-                        }
-                        else if ((this.Item as EntityResource).IsContainer())
-                        {
-                            // NOTE: this does not nest the target into the container item then into the inventory, 
-                            // for now, just add the target to the inventory directly, and assume the container is in use.
-                            entity.Inventory.AddResource(this.Target as EntityResource);
-                        }
+                            if (!(this.Target as EntityResource).RequiresContainer() || entity.Inventory.HaveResource(EntityResource.ResourceType.Container))
+                            {
+                                if((this.Target as EntityResource).Position.DistanceFrom(entity.PositionCurrent) > 5)
+                                {
+                                    entity.RaiseLog("can't pick up the resource, it is too far away.");
+                                    this.ActionState = EntityActionState.Blocked;
+                                    return;
+                                }
 
-                        this.ActionState = EntityActionState.Complete;
+                                // NOTE: this does not nest the target into the container item then into the inventory, 
+                                // for now, just add the target to the inventory directly, and assume the container is in use.
+                                entity.Inventory.AddResource(this.Target as EntityResource);
+                                this.ActionState = EntityActionState.Complete;
+
+                                // remove this item from the environment? - decrement quantity?
+                                entity.CurrentEnvironment.Objects.Remove(this.Target as EntityResource);
+
+                                return;
+                            }
+                            else // does require a container
+                            {
+                                if (!entity.Inventory.HaveResource(EntityResource.ResourceType.Container))
+                                {
+                                    entity.RaiseLog("this action requires a container, but we don't have one in our inventory, setting this action to blocked status.");
+                                    this.ActionState = EntityActionState.Blocked;
+                                    return;
+                                }
+                            }
+                        }
+                        else // the target is not a resource
+                        {
+                            entity.RaiseLog("I don't know how to pick up something that is not a resource...");
+                            throw new NotImplementedException();
+                        }
+                        // NOTE: this assumes we have the item and the target within reach...
+                        //if ((this.Item as EntityResource).IsConsumedOnUse())
+                        //{
+                        //    entity.Inventory.RemoveResource((this.Item as EntityResource).RType);
+                        //}
+                        //else if ((this.Item as EntityResource).IsContainer())
+                        //{
+                        //    // NOTE: this does not nest the target into the container item then into the inventory, 
+                        //    // for now, just add the target to the inventory directly, and assume the container is in use.
+                        //    entity.Inventory.AddResource(this.Target as EntityResource);
+                        //}
+
+                        //this.ActionState = EntityActionState.Complete;
                     }
                     else // we're still doing it and are not done yet.
                     {
@@ -308,7 +343,7 @@ namespace EntityAI
             double val = entity.actions.GetAbilityValue(this.ability.AType);
             if(val == 0)
             {
-                entity.RaiseLog(new EntityLogging.EntityLog("Unable to to perform action: " + this.ability.AType.ToString()));
+                entity.RaiseLog("Unable to to perform action: " + this.ability.AType.ToString());
                 this.ActionState = EntityActionState.Blocked;
                 return;
             }
@@ -326,13 +361,79 @@ namespace EntityAI
                     // if the target is supposed to be in the inventory, check the inventory
                     if (!entity.Inventory.HaveResource((this.Target as EntityResource).RType))
                     {
-                        entity.RaiseLog(new EntityLogging.EntityLog("Don't have needed target to perform action."));
+                        entity.RaiseLog("Don't have needed target to perform action.");
                         this.ActionState = EntityActionState.Blocked;
+                        return;
                     }
                 }
-                else
+                else // pick up the target
                 {
+                    EntityResource ear = (this.Target as EntityResource);
+
                     // if the target is supposed to be in the environment, check the senses for existance
+                    // we don't have it in our inventory, see if we have it available from our senses...
+                    Position target = null;
+                    foreach (Sound s in entity.senses.SoundsCurrentlyHeard)
+                    {
+                        if (s.FootPrint == ear.Sound.FootPrint)
+                        {
+                            target = s.Origin;
+                            break;
+                        }
+                    }
+                    if (target == null)
+                    {
+                        foreach (Sight s in entity.senses.SightsCurrentlySeen)
+                        {
+                            if (s.FootPrint == ear.Appearance.FootPrint)
+                            {
+                                target = s.Origin;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (target == null)// we don't know of the resource within the environment
+                    {
+                        entity.RaiseLog("cannot find " + ear.RType.ToString());
+                        this.ActionState = EntityActionState.Blocked;
+                        return;
+                    }
+
+                    entity.RaiseLog("found the needed target resource, seeing if we need to travel to it, or have a container...");
+
+                    // if we're too far away from our needed resource, add a walk action
+                    if (target.DistanceFrom(entity.PositionCurrent) > 5)
+                    {
+                        entity.RaiseLog("the target resource that we need is too far to reach, need to walk to it.");
+                        EntityAction newAction = (new EntityAction(this.ParentSolution, new Ability(Ability.AbilityType.Walk), target, null));
+
+                        int aqi = GetIndexOfAction(entity, this);
+                        // insert this new action into the same slot in the action queue
+                        entity.actions.ActionQueue.Insert(aqi, newAction);
+
+                        // add this new action to the blocked action's solution
+                        // by inerting at this index, this new action will go right before the blocked one
+                        int i = this.ParentSolution.GetIndexOfAction(this);
+                        //ea.ParentSolution.Actions.Insert(i, newAction);
+
+                        ActionState = EntityAction.EntityActionState.New;
+                    }
+
+                    // if we need to pick it up, but it requires a container, then make sure to add an action to do so.
+                    if (ear.RequiresContainer() &&
+                        !entity.Inventory.HaveResource(EntityResource.ResourceType.Container))
+                    {
+                        entity.RaiseLog("the target resource that we need requires a container, and we don't have one in our inventory, so adding a need.");
+                        ResourceNeed n = new ResourceNeed(EntityResource.ResourceType.Container, 1, null);
+
+                        if (!NeedExists(entity, n))
+                        {
+                            // default to adding this need to the top of the list.
+                            entity.CurrentNeeds.Insert(0, n);
+                        }
+                    }
+                    return;
                 }
 
             }
@@ -345,7 +446,7 @@ namespace EntityAI
             {
                 if (!entity.Inventory.HaveResource((this.Item as EntityResource).RType))
                 {
-                    entity.RaiseLog(new EntityLogging.EntityLog("Don't have needed " + (this.Item as EntityResource).RType.ToString() + " to perform action."));
+                    entity.RaiseLog($"Don't have needed {(this.Item as EntityResource).RType.ToString()} to perform action.");
                     this.ActionState = EntityActionState.Blocked;
                     return; // no need to go further
                 }
@@ -357,8 +458,30 @@ namespace EntityAI
             // if we get to here, then we can reset it.
             if(oldState == EntityActionState.Blocked)
             {
+                entity.RaiseLog("it seems I have the ability, the target, and the item to perform this action, so setting it back to new");
                 this.ActionState = EntityActionState.New;
             }
+        }
+        internal int GetIndexOfAction(Entity entity, EntityAction ea)
+        {
+            for (int i = 0; i < entity.actions.ActionQueue.Count; i++)
+            {
+                if (entity.actions.ActionQueue[i] == ea) { return i; }
+            }
+
+            return entity.actions.ActionQueue.Count;
+        }
+        private bool NeedExists(Entity entity, ResourceNeed rn)
+        {
+            foreach (EntityNeed en in entity.CurrentNeeds)
+            {
+                if (!(en is ResourceNeed)) { continue; }
+                ResourceNeed existingRN = en as ResourceNeed;
+
+                if (existingRN.Resource.RType == rn.Resource.RType) { return true; }
+            }
+
+            return false;
         }
     }
 }

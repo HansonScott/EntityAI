@@ -62,10 +62,29 @@ namespace EntityAI
                     case CoreAttribute.CoreAttributeType.Water:
                         Solution result = new Solution();
 
+                        EntityResource.ResourceType neededResourceType = EntityResource.ResourceType.Water; // DB lookup would be good here.
+
+                        EntityResource neededRes = new EntityResource(neededResourceType, CurrentEntity.PositionCurrent);
+
                         // consume the water
                         // NOTE: split out to own lines, so we can add the cost to each action before adding it.
-                        result.Actions.Add(new EntityAction(result, new Ability(Ability.AbilityType.Consume),
-                                                                    new EntityResource(EntityResource.ResourceType.Water, CurrentEntity.PositionCurrent)));
+                        result.Actions.Add(new EntityAction(result, new Ability(Ability.AbilityType.Consume), neededRes));
+
+                        if(!CurrentEntity.Inventory.HaveResource(neededResourceType))
+                        {
+                            if(neededRes.RequiresContainer())
+                            {
+                                result.Actions.Insert(0, new EntityAction(result, new Ability(Ability.AbilityType.Pick_Up),
+                                                                            new EntityResource(neededResourceType, CurrentEntity.PositionCurrent),
+                                                                            new EntityResource(EntityResource.ResourceType.Container, CurrentEntity.PositionCurrent)));
+                            }
+                            else
+                            {
+                                result.Actions.Insert(0, new EntityAction(result, new Ability(Ability.AbilityType.Pick_Up),
+                                                                            new EntityResource(neededResourceType, CurrentEntity.PositionCurrent)));
+                            }
+                        }
+
                         return result;
                     default:
                         break;
@@ -75,22 +94,20 @@ namespace EntityAI
             {
                 ResourceNeed rn = need as ResourceNeed;
                 Solution result = new Solution();
-                switch (rn.Resource.RType)
+
+                if(rn.Resource.RequiresContainer())
                 {
-                    case EntityResource.ResourceType.Container:
-                    // gather the water in a container
-                    // NOTE: split out to own lines, so we can add the cost to each action before adding it.
+                    result.Actions.Add(new EntityAction(result, new Ability(Ability.AbilityType.Pick_Up),
+                                                                new EntityResource(rn.Resource.RType, CurrentEntity.PositionCurrent),
+                                                                new EntityResource(EntityResource.ResourceType.Container, CurrentEntity.PositionCurrent)));
+                }
+                else
+                {
                     result.Actions.Add(new EntityAction(result, new Ability(Ability.AbilityType.Pick_Up),
                                                                 new EntityResource(EntityResource.ResourceType.Container, CurrentEntity.PositionCurrent)));
-                        return result;
-                    case EntityResource.ResourceType.Water:
-                        result.Actions.Add(new EntityAction(result, new Ability(Ability.AbilityType.Pick_Up),
-                                                                    new EntityResource(EntityResource.ResourceType.Water, CurrentEntity.PositionCurrent),
-                                                                    new EntityResource(EntityResource.ResourceType.Container, CurrentEntity.PositionCurrent)));
-                        return result;
-                    default:
-                        break;
                 }
+
+                return result;
             }
 
             return null;
@@ -110,6 +127,16 @@ namespace EntityAI
             if (this.Actions.Count > currentIndex + 1) { return this.Actions[currentIndex + 1]; }
 
             return null;
+        }
+
+        internal int GetIndexOfAction(EntityAction ea)
+        {
+            for(int i = 0; i < this.Actions.Count; i++)
+            {
+                if(this.Actions[i] == ea) { return i; }
+            }
+
+            return this.Actions.Count;
         }
     }
 }

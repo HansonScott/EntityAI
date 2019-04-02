@@ -19,7 +19,6 @@ namespace EntityAI
             Container = 30,
         }
 
-        public EntityObject ThisObject = null;
         public Position Origin;
         public RecognitionFootPrint FootPrint;
 
@@ -27,46 +26,29 @@ namespace EntityAI
         {
             get
             {
-                if(ThisObject == null) { return "nothing"; }
-                else
-                {
-                    return ThisObject.Description;
-                }
+                return FootPrint.ToString();
             }
         }
 
-        public Sight(EntityObject obj)
+        public Sight(Sight.RecognitionFootPrint rfp, Position p)
         {
-            this.ThisObject = obj;
-            this.Origin = obj.Position;
-
-            // determine the footprint based on the object
-            FootPrint = obj.Appearance;
+            this.Origin = p;
+            this.FootPrint = rfp;
         }
 
         internal bool IsSeen(double EntitySightDistance, double effectiveness_Current, Position p, double EnvironmentSightDistance)
         {
-            // visibility of the object
-            if(!ThisObject.Visibility)
+            // establish distance of the object from the position p
+            double dist = p.DistanceFrom(this.Origin);
+
+            // if out of environment range, we're done
+            if (dist > EnvironmentSightDistance) { return false; }
+            else // the object is within the environment's sight distance
             {
-                // adjust for any invisible-piercing ability?
-
-                return false;
-            }
-            else
-            {
-                // establish distance of the object from the position p
-                double dist = p.DistanceFrom(ThisObject.Position);
-
-                // if out of environment range, we're done
-                if (dist > EnvironmentSightDistance) { return false; }
-                else // the object is within the environment's sight distance
-                {
-                    // compare distance with the seeing ability of the entity
+                // compare distance with the seeing ability of the entity
 
 
-                    return true;
-                }
+                return true;
             }
         }
     }

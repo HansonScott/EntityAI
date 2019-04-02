@@ -35,7 +35,6 @@ namespace EntityAI
                     return EntityAI.Sound.RecognitionFootPrint.Unknown;
             }
         }
-
         private static Sight.RecognitionFootPrint GetAppearanceForType(ResourceType t)
         {
             switch(t)
@@ -63,10 +62,27 @@ namespace EntityAI
                     return false;
             }
         }
-
         internal bool IsContainer()
         {
-            return (this.RType == ResourceType.Container);
+            switch(this.RType)
+            {
+                case ResourceType.Container:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        internal bool RequiresContainer()
+        {
+            // database lookup?
+            switch(this.RType)
+            {
+                case ResourceType.Air:
+                case ResourceType.Water:
+                    return true;
+                default:
+                    return false;
+            }
         }
     }
 }

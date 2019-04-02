@@ -98,7 +98,7 @@ namespace EntityAI
 
                     LastUpdate = DateTime.Now;
 
-                    this.ParentEntity.RaiseLog(new EntityLogging.EntityLog($"{this.Description}"));
+                    this.ParentEntity.RaiseLog($"{this.Description}");
                 }
             }
         }

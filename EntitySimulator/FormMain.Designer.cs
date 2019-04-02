@@ -33,12 +33,8 @@
             this.tbOutput = new System.Windows.Forms.TextBox();
             this.EnvironmentPanel = new System.Windows.Forms.Panel();
             this.btnStop = new System.Windows.Forms.Button();
-            this.btnPlaceSensoryInput = new System.Windows.Forms.Button();
-            this.cbSoundType = new System.Windows.Forms.ComboBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.btnEntityStats = new System.Windows.Forms.Button();
-            this.cbSightType = new System.Windows.Forms.ComboBox();
-            this.btnPlaceSight = new System.Windows.Forms.Button();
             this.cbResource = new System.Windows.Forms.ComboBox();
             this.btnPlaceResource = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -106,26 +102,6 @@
             this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
-            // btnPlaceSensoryInput
-            // 
-            this.btnPlaceSensoryInput.Location = new System.Drawing.Point(12, 162);
-            this.btnPlaceSensoryInput.Name = "btnPlaceSensoryInput";
-            this.btnPlaceSensoryInput.Size = new System.Drawing.Size(122, 23);
-            this.btnPlaceSensoryInput.TabIndex = 5;
-            this.btnPlaceSensoryInput.Text = "Place Sound";
-            this.btnPlaceSensoryInput.UseVisualStyleBackColor = true;
-            this.btnPlaceSensoryInput.Click += new System.EventHandler(this.btnPlaceSound_Click);
-            // 
-            // cbSoundType
-            // 
-            this.cbSoundType.FormattingEnabled = true;
-            this.cbSoundType.Items.AddRange(new object[] {
-            "Water"});
-            this.cbSoundType.Location = new System.Drawing.Point(13, 135);
-            this.cbSoundType.Name = "cbSoundType";
-            this.cbSoundType.Size = new System.Drawing.Size(121, 21);
-            this.cbSoundType.TabIndex = 6;
-            // 
             // splitContainer1
             // 
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -157,39 +133,19 @@
             this.btnEntityStats.UseVisualStyleBackColor = true;
             this.btnEntityStats.Click += new System.EventHandler(this.btnEntityStats_Click);
             // 
-            // cbSightType
-            // 
-            this.cbSightType.FormattingEnabled = true;
-            this.cbSightType.Items.AddRange(new object[] {
-            "Water"});
-            this.cbSightType.Location = new System.Drawing.Point(14, 212);
-            this.cbSightType.Name = "cbSightType";
-            this.cbSightType.Size = new System.Drawing.Size(121, 21);
-            this.cbSightType.TabIndex = 10;
-            // 
-            // btnPlaceSight
-            // 
-            this.btnPlaceSight.Location = new System.Drawing.Point(13, 239);
-            this.btnPlaceSight.Name = "btnPlaceSight";
-            this.btnPlaceSight.Size = new System.Drawing.Size(122, 23);
-            this.btnPlaceSight.TabIndex = 9;
-            this.btnPlaceSight.Text = "Place Sight";
-            this.btnPlaceSight.UseVisualStyleBackColor = true;
-            this.btnPlaceSight.Click += new System.EventHandler(this.btnPlaceSight_Click);
-            // 
             // cbResource
             // 
             this.cbResource.FormattingEnabled = true;
             this.cbResource.Items.AddRange(new object[] {
             "Water"});
-            this.cbResource.Location = new System.Drawing.Point(12, 292);
+            this.cbResource.Location = new System.Drawing.Point(12, 132);
             this.cbResource.Name = "cbResource";
             this.cbResource.Size = new System.Drawing.Size(121, 21);
             this.cbResource.TabIndex = 12;
             // 
             // btnPlaceResource
             // 
-            this.btnPlaceResource.Location = new System.Drawing.Point(11, 319);
+            this.btnPlaceResource.Location = new System.Drawing.Point(11, 159);
             this.btnPlaceResource.Name = "btnPlaceResource";
             this.btnPlaceResource.Size = new System.Drawing.Size(122, 23);
             this.btnPlaceResource.TabIndex = 11;
@@ -204,12 +160,8 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.cbResource);
             this.Controls.Add(this.btnPlaceResource);
-            this.Controls.Add(this.cbSightType);
-            this.Controls.Add(this.btnPlaceSight);
             this.Controls.Add(this.btnEntityStats);
             this.Controls.Add(this.splitContainer1);
-            this.Controls.Add(this.cbSoundType);
-            this.Controls.Add(this.btnPlaceSensoryInput);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnRun);
             this.Controls.Add(this.btnNew);
@@ -234,12 +186,8 @@
         private System.Windows.Forms.TextBox tbOutput;
         private System.Windows.Forms.Panel EnvironmentPanel;
         private System.Windows.Forms.Button btnStop;
-        private System.Windows.Forms.Button btnPlaceSensoryInput;
-        private System.Windows.Forms.ComboBox cbSoundType;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Button btnEntityStats;
-        private System.Windows.Forms.ComboBox cbSightType;
-        private System.Windows.Forms.Button btnPlaceSight;
         private System.Windows.Forms.ComboBox cbResource;
         private System.Windows.Forms.Button btnPlaceResource;
     }

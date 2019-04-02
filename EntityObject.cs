@@ -5,14 +5,32 @@ namespace EntityAI
 {
     public class EntityObject
     {
-        public Sound.RecognitionFootPrint Sound;
-        public Sight.RecognitionFootPrint Appearance;
+        public Sound Sound;
+        public Sight Appearance;
         public Position Position;
         public double Quantity = 1.0;
 
         public bool Visibility
         {
             get; set;
+        }
+        public string Name
+        {
+            get
+            {
+                if(Appearance != null && Appearance.FootPrint != Sight.RecognitionFootPrint.Unknown )
+                {
+                    return Appearance.Description;
+                }
+                else if(Sound != null && Sound.FootPrint != Sound.RecognitionFootPrint.Unknown)
+                {
+                    return Sound.Description;
+                }
+                else
+                {
+                    return "unknown";
+                }
+            }
         }
         public string Description
         {
@@ -22,7 +40,7 @@ namespace EntityAI
 
                 // appearance
                 sb.Append("Looks like ");
-                string a = Enum.GetName(typeof(Sight.RecognitionFootPrint), Appearance).ToLower();
+                string a = Enum.GetName(typeof(Sight.RecognitionFootPrint), Appearance.FootPrint).ToLower();
 
                 // collective
                 if (a == "water") // NOTE: future: get metadata from the enum item to see if it is a collective, or...
@@ -49,10 +67,10 @@ namespace EntityAI
                 sb.Append(a);
 
                 // sound
-                if(Sound != EntityAI.Sound.RecognitionFootPrint.Unknown)
+                if(Sound.FootPrint != EntityAI.Sound.RecognitionFootPrint.Unknown)
                 {
                     sb.Append(", and sounds like ");
-                    string s = Enum.GetName(typeof(Sound.RecognitionFootPrint), Sound).ToLower();
+                    string s = Enum.GetName(typeof(Sound.RecognitionFootPrint), Sound.FootPrint).ToLower();
                     sb.Append(s);
 
                 }
@@ -63,8 +81,8 @@ namespace EntityAI
 
         public EntityObject(Sight.RecognitionFootPrint appearance, Sound.RecognitionFootPrint sound, Position P)
         {
-            this.Appearance = appearance;
-            this.Sound = sound;
+            this.Appearance = new Sight(appearance, P);
+            this.Sound = new Sound(sound, 50, P);
 
             this.Position = P;
 
