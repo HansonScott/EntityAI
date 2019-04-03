@@ -37,6 +37,7 @@
             this.btnEntityStats = new System.Windows.Forms.Button();
             this.cbResource = new System.Windows.Forms.ComboBox();
             this.btnPlaceResource = new System.Windows.Forms.Button();
+            this.cbPrint = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -153,11 +154,25 @@
             this.btnPlaceResource.UseVisualStyleBackColor = true;
             this.btnPlaceResource.Click += new System.EventHandler(this.btnPlaceResource_Click);
             // 
+            // cbPrint
+            // 
+            this.cbPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cbPrint.AutoSize = true;
+            this.cbPrint.Checked = true;
+            this.cbPrint.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbPrint.Location = new System.Drawing.Point(34, 370);
+            this.cbPrint.Name = "cbPrint";
+            this.cbPrint.Size = new System.Drawing.Size(73, 17);
+            this.cbPrint.TabIndex = 13;
+            this.cbPrint.Text = "Print Logs";
+            this.cbPrint.UseVisualStyleBackColor = true;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.cbPrint);
             this.Controls.Add(this.cbResource);
             this.Controls.Add(this.btnPlaceResource);
             this.Controls.Add(this.btnEntityStats);
@@ -176,6 +191,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -190,6 +206,7 @@
         private System.Windows.Forms.Button btnEntityStats;
         private System.Windows.Forms.ComboBox cbResource;
         private System.Windows.Forms.Button btnPlaceResource;
+        private System.Windows.Forms.CheckBox cbPrint;
     }
 }
 

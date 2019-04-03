@@ -169,7 +169,10 @@ namespace EntitySimulator
 
             try
             {
-                tbOutput.AppendText(s);
+                if(cbPrint.Checked)
+                {
+                    tbOutput.AppendText(s);
+                }
             }
             catch { }// in this case, just don't print.
         }

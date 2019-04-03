@@ -16,7 +16,7 @@ namespace EntityAI
             {
                 if(Resource != null)
                 {
-                    return Resource.Description;
+                    return Resource.Name;
                 }
                 else return string.Empty;
             }

@@ -66,6 +66,14 @@ namespace EntityAI
 
                         EntityResource neededRes = new EntityResource(neededResourceType, CurrentEntity.PositionCurrent);
 
+                        Position target = CurrentEntity.CurrentEnvironment.FindObject(CurrentEntity, neededRes);
+
+                        if(target == null)
+                        {
+                            CurrentEntity.RaiseLog("While solving for a core need, the resource is not found.");
+                            return null;
+                        }
+
                         // consume the water
                         // NOTE: split out to own lines, so we can add the cost to each action before adding it.
                         result.Actions.Add(new EntityAction(result, new Ability(Ability.AbilityType.Consume), neededRes));
@@ -75,13 +83,13 @@ namespace EntityAI
                             if(neededRes.RequiresContainer())
                             {
                                 result.Actions.Insert(0, new EntityAction(result, new Ability(Ability.AbilityType.Pick_Up),
-                                                                            new EntityResource(neededResourceType, CurrentEntity.PositionCurrent),
+                                                                            new EntityResource(neededResourceType, target),
                                                                             new EntityResource(EntityResource.ResourceType.Container, CurrentEntity.PositionCurrent)));
                             }
                             else
                             {
                                 result.Actions.Insert(0, new EntityAction(result, new Ability(Ability.AbilityType.Pick_Up),
-                                                                            new EntityResource(neededResourceType, CurrentEntity.PositionCurrent)));
+                                                                            new EntityResource(neededResourceType, target)));
                             }
                         }
 
@@ -95,16 +103,24 @@ namespace EntityAI
                 ResourceNeed rn = need as ResourceNeed;
                 Solution result = new Solution();
 
-                if(rn.Resource.RequiresContainer())
+                Position target = CurrentEntity.CurrentEnvironment.FindObject(CurrentEntity, rn.Resource);
+
+                if(target == null)
+                {
+                    CurrentEntity.RaiseLog("While solving for a resource need, could not find the needed resource.");
+                    return null;
+                }
+
+                if (rn.Resource.RequiresContainer())
                 {
                     result.Actions.Add(new EntityAction(result, new Ability(Ability.AbilityType.Pick_Up),
-                                                                new EntityResource(rn.Resource.RType, CurrentEntity.PositionCurrent),
+                                                                new EntityResource(rn.Resource.RType, target),
                                                                 new EntityResource(EntityResource.ResourceType.Container, CurrentEntity.PositionCurrent)));
                 }
                 else
                 {
                     result.Actions.Add(new EntityAction(result, new Ability(Ability.AbilityType.Pick_Up),
-                                                                new EntityResource(EntityResource.ResourceType.Container, CurrentEntity.PositionCurrent)));
+                                                                new EntityResource(EntityResource.ResourceType.Container, target)));
                 }
 
                 return result;

@@ -48,11 +48,6 @@ namespace EntityAI
             return result;
         }
 
-        public void AddAction(EntityAction A)
-        {
-            ActionQueue.Add(A);
-        }
-
         public void Run()
         {
             // when the function is first called, it can ba ssumed the loop should actually be ran
@@ -337,7 +332,7 @@ namespace EntityAI
 
                         int aqi = GetIndexOfAction(ea);
                         // insert this new action into the same slot in the action queue
-                        ActionQueue.Insert(aqi, newAction);
+                        InsertAction(aqi, newAction);
 
                         // add this new action to the blocked action's solution
                         // by inerting at this index, this new action will go right before the blocked one
@@ -361,7 +356,7 @@ namespace EntityAI
 
                         int aqi = GetIndexOfAction(ea);
                         // insert this new action into the same slot in the action queue
-                        ActionQueue.Insert(aqi, newAction);
+                        InsertAction(aqi, newAction);
 
                         // add this new action to the blocked action's solution
                         // by inerting at this index, this new action will go right before the blocked one
@@ -370,9 +365,8 @@ namespace EntityAI
 
                         ea.ActionState = EntityAction.EntityActionState.New;
                     }
-
                     // if we need to pick it up, but it requires a container, then make sure to add an action to do so.
-                    if (ear.RequiresContainer() &&
+                    else if (ear.RequiresContainer() &&
                         !this.entity.Inventory.HaveResource(EntityResource.ResourceType.Container))
                     {
                         this.entity.RaiseLog("the target resource that we need requires a container, and we don't have one in our inventory, so adding a need.");
@@ -384,10 +378,19 @@ namespace EntityAI
                             this.entity.CurrentNeeds.Insert(0,n);
                         }
                     }
+                    else // close enough and not a consume action
+                    {
+                        entity.RaiseLog("have the ability, within reach of target, so I don't think we're blocked now.");
+                        ea.ActionState = EntityAction.EntityActionState.New;
+                    }
 
                 } // end if not in inventory
+                else // in inventory
+                {
+                    entity.RaiseLog("looks like we have the needed target in our inventory already, this should not be blocked for a get or consume action...");
+                    ea.ActionState = EntityAction.EntityActionState.New;
+                } // check other types of targets than resources (unreachable position, such as target doesn't exist?)
             }
-            else { } // check other types of targets than resources (unreachable position, such as target doesn't exist?)
             #endregion
 
             #region Check Item
@@ -400,26 +403,7 @@ namespace EntityAI
                 if (!this.entity.Inventory.HaveResource(eai.RType))
                 {
                     // we don't have it in our inventory, see if we have it available from our senses...
-                    Position target = null;
-                    foreach (Sound s in this.entity.senses.SoundsCurrentlyHeard)
-                    {
-                        if (s.FootPrint == eai.Sound.FootPrint)
-                        {
-                            target = s.Origin;
-                            break;
-                        }
-                    }
-                    if (target == null)
-                    {
-                        foreach (Sight s in this.entity.senses.SightsCurrentlySeen)
-                        {
-                            if (s.FootPrint == eai.Appearance.FootPrint)
-                            {
-                                target = s.Origin;
-                                break;
-                            }
-                        }
-                    }
+                    Position target = entity.CurrentEnvironment.FindObject(entity, eai);
 
                     if (target == null)// we don't know of the resource within the environment
                     {
@@ -433,7 +417,7 @@ namespace EntityAI
 
                     int aqi = GetIndexOfAction(ea);
                     // insert this new action into the same slot in the action queue
-                    ActionQueue.Insert(aqi, newAction);
+                    InsertAction(aqi, newAction);
 
                     //ea.ParentSolution.Actions.Insert(0, (new EntityAction(ea.ParentSolution, new Ability(Ability.AbilityType.Walk), target, null)));
                     ea.ActionState = EntityAction.EntityActionState.New;
@@ -442,6 +426,32 @@ namespace EntityAI
                 }
             }
             #endregion
+        }
+
+        internal void InsertAction(EntityAction ea)
+        {
+            if(!QueueHasAction(ea))
+            {
+                this.ActionQueue.Add(ea);
+            }
+        }
+
+        internal void InsertAction(int index, EntityAction ea)
+        {
+            if(!QueueHasAction(ea))
+            {
+                this.ActionQueue.Insert(index, ea);
+            }
+        }
+
+        private bool QueueHasAction(EntityAction ea)
+        {
+            foreach(EntityAction e in ActionQueue)
+            {
+                if(e.Description == ea.Description) { return true; }
+            }
+
+            return false;
         }
 
         private bool NeedExists(ResourceNeed rn)

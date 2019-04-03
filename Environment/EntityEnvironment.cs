@@ -75,5 +75,33 @@ namespace EntityAI
         {
             this.Continue = false;
         }
+
+        internal Position FindObject(Entity entity, EntityResource ear)
+        {
+            Position target = null;
+            foreach (Sound s in entity.senses.SoundsCurrentlyHeard)
+            {
+                if (s.FootPrint == ear.Sound.FootPrint)
+                {
+                    // find a closer one, or just the first?
+                    target = s.Origin;
+                    break;
+                }
+            }
+            if (target == null)
+            {
+                foreach (Sight s in entity.senses.SightsCurrentlySeen)
+                {
+                    if (s.FootPrint == ear.Appearance.FootPrint)
+                    {
+                        // find a closer one, or just the first?
+                        target = s.Origin;
+                        break;
+                    }
+                }
+            }
+
+            return target;
+        }
     }
 }

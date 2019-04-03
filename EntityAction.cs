@@ -206,7 +206,8 @@ namespace EntityAI
                         {
                             if (!(this.Target as EntityResource).RequiresContainer() || entity.Inventory.HaveResource(EntityResource.ResourceType.Container))
                             {
-                                if((this.Target as EntityResource).Position.DistanceFrom(entity.PositionCurrent) > 5)
+                                double distanceToTarget = (this.Target as EntityResource).Position.DistanceFrom(entity.PositionCurrent);
+                                if (distanceToTarget > 5)
                                 {
                                     entity.RaiseLog("can't pick up the resource, it is too far away.");
                                     this.ActionState = EntityActionState.Blocked;
@@ -372,26 +373,7 @@ namespace EntityAI
 
                     // if the target is supposed to be in the environment, check the senses for existance
                     // we don't have it in our inventory, see if we have it available from our senses...
-                    Position target = null;
-                    foreach (Sound s in entity.senses.SoundsCurrentlyHeard)
-                    {
-                        if (s.FootPrint == ear.Sound.FootPrint)
-                        {
-                            target = s.Origin;
-                            break;
-                        }
-                    }
-                    if (target == null)
-                    {
-                        foreach (Sight s in entity.senses.SightsCurrentlySeen)
-                        {
-                            if (s.FootPrint == ear.Appearance.FootPrint)
-                            {
-                                target = s.Origin;
-                                break;
-                            }
-                        }
-                    }
+                    Position target = entity.CurrentEnvironment.FindObject(entity, ear);
 
                     if (target == null)// we don't know of the resource within the environment
                     {
@@ -410,7 +392,7 @@ namespace EntityAI
 
                         int aqi = GetIndexOfAction(entity, this);
                         // insert this new action into the same slot in the action queue
-                        entity.actions.ActionQueue.Insert(aqi, newAction);
+                        entity.actions.InsertAction(aqi, newAction);
 
                         // add this new action to the blocked action's solution
                         // by inerting at this index, this new action will go right before the blocked one

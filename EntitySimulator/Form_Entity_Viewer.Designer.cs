@@ -89,7 +89,7 @@
             this.dgvSenses.ShowCellToolTips = false;
             this.dgvSenses.ShowEditingIcon = false;
             this.dgvSenses.ShowRowErrors = false;
-            this.dgvSenses.Size = new System.Drawing.Size(202, 241);
+            this.dgvSenses.Size = new System.Drawing.Size(160, 241);
             this.dgvSenses.TabIndex = 0;
             // 
             // dgvAttributes
@@ -115,7 +115,7 @@
             this.dgvAttributes.ShowCellToolTips = false;
             this.dgvAttributes.ShowEditingIcon = false;
             this.dgvAttributes.ShowRowErrors = false;
-            this.dgvAttributes.Size = new System.Drawing.Size(202, 241);
+            this.dgvAttributes.Size = new System.Drawing.Size(160, 241);
             this.dgvAttributes.TabIndex = 0;
             // 
             // dgvNeeds
@@ -141,7 +141,7 @@
             this.dgvNeeds.ShowCellToolTips = false;
             this.dgvNeeds.ShowEditingIcon = false;
             this.dgvNeeds.ShowRowErrors = false;
-            this.dgvNeeds.Size = new System.Drawing.Size(202, 241);
+            this.dgvNeeds.Size = new System.Drawing.Size(160, 241);
             this.dgvNeeds.TabIndex = 0;
             // 
             // dgvActions
@@ -167,7 +167,7 @@
             this.dgvActions.ShowCellToolTips = false;
             this.dgvActions.ShowEditingIcon = false;
             this.dgvActions.ShowRowErrors = false;
-            this.dgvActions.Size = new System.Drawing.Size(203, 241);
+            this.dgvActions.Size = new System.Drawing.Size(287, 241);
             this.dgvActions.TabIndex = 0;
             // 
             // btnRefresh
@@ -199,9 +199,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbNeeds.Controls.Add(this.dgvNeeds);
-            this.gbNeeds.Location = new System.Drawing.Point(211, 3);
+            this.gbNeeds.Location = new System.Drawing.Point(169, 3);
             this.gbNeeds.Name = "gbNeeds";
-            this.gbNeeds.Size = new System.Drawing.Size(202, 266);
+            this.gbNeeds.Size = new System.Drawing.Size(160, 266);
             this.gbNeeds.TabIndex = 2;
             this.gbNeeds.TabStop = false;
             this.gbNeeds.Text = "Needs";
@@ -214,7 +214,7 @@
             this.gbAttributes.Controls.Add(this.dgvAttributes);
             this.gbAttributes.Location = new System.Drawing.Point(3, 3);
             this.gbAttributes.Name = "gbAttributes";
-            this.gbAttributes.Size = new System.Drawing.Size(202, 266);
+            this.gbAttributes.Size = new System.Drawing.Size(160, 266);
             this.gbAttributes.TabIndex = 1;
             this.gbAttributes.TabStop = false;
             this.gbAttributes.Text = "Attributes";
@@ -227,7 +227,7 @@
             this.gbSenses.Controls.Add(this.dgvSenses);
             this.gbSenses.Location = new System.Drawing.Point(3, 275);
             this.gbSenses.Name = "gbSenses";
-            this.gbSenses.Size = new System.Drawing.Size(202, 266);
+            this.gbSenses.Size = new System.Drawing.Size(160, 266);
             this.gbSenses.TabIndex = 0;
             this.gbSenses.TabStop = false;
             this.gbSenses.Text = "Senses";
@@ -238,9 +238,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbActions.Controls.Add(this.dgvActions);
-            this.gbActions.Location = new System.Drawing.Point(627, 275);
+            this.gbActions.Location = new System.Drawing.Point(543, 275);
             this.gbActions.Name = "gbActions";
-            this.gbActions.Size = new System.Drawing.Size(203, 266);
+            this.gbActions.Size = new System.Drawing.Size(287, 266);
             this.gbActions.TabIndex = 3;
             this.gbActions.TabStop = false;
             this.gbActions.Text = "Actions";
@@ -251,7 +251,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbOpportunities.Controls.Add(this.dgvOpportunities);
-            this.gbOpportunities.Location = new System.Drawing.Point(419, 3);
+            this.gbOpportunities.Location = new System.Drawing.Point(335, 3);
             this.gbOpportunities.Name = "gbOpportunities";
             this.gbOpportunities.Size = new System.Drawing.Size(202, 266);
             this.gbOpportunities.TabIndex = 3;
@@ -290,9 +290,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbSolutions.Controls.Add(this.dgvSolutions);
-            this.gbSolutions.Location = new System.Drawing.Point(211, 275);
+            this.gbSolutions.Location = new System.Drawing.Point(169, 275);
             this.gbSolutions.Name = "gbSolutions";
-            this.gbSolutions.Size = new System.Drawing.Size(202, 266);
+            this.gbSolutions.Size = new System.Drawing.Size(160, 266);
             this.gbSolutions.TabIndex = 4;
             this.gbSolutions.TabStop = false;
             this.gbSolutions.Text = "Solutions (N)";
@@ -320,7 +320,7 @@
             this.dgvSolutions.ShowCellToolTips = false;
             this.dgvSolutions.ShowEditingIcon = false;
             this.dgvSolutions.ShowRowErrors = false;
-            this.dgvSolutions.Size = new System.Drawing.Size(202, 241);
+            this.dgvSolutions.Size = new System.Drawing.Size(160, 241);
             this.dgvSolutions.TabIndex = 0;
             // 
             // gbOpportunitySolutions
@@ -329,7 +329,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbOpportunitySolutions.Controls.Add(this.dgvOpportunitySolutions);
-            this.gbOpportunitySolutions.Location = new System.Drawing.Point(419, 275);
+            this.gbOpportunitySolutions.Location = new System.Drawing.Point(335, 275);
             this.gbOpportunitySolutions.Name = "gbOpportunitySolutions";
             this.gbOpportunitySolutions.Size = new System.Drawing.Size(202, 266);
             this.gbOpportunitySolutions.TabIndex = 5;
@@ -368,9 +368,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbInventory.Controls.Add(this.dgvInventory);
-            this.gbInventory.Location = new System.Drawing.Point(627, 3);
+            this.gbInventory.Location = new System.Drawing.Point(543, 3);
             this.gbInventory.Name = "gbInventory";
-            this.gbInventory.Size = new System.Drawing.Size(203, 266);
+            this.gbInventory.Size = new System.Drawing.Size(287, 266);
             this.gbInventory.TabIndex = 4;
             this.gbInventory.TabStop = false;
             this.gbInventory.Text = "Inventory";
@@ -398,7 +398,7 @@
             this.dgvInventory.ShowCellToolTips = false;
             this.dgvInventory.ShowEditingIcon = false;
             this.dgvInventory.ShowRowErrors = false;
-            this.dgvInventory.Size = new System.Drawing.Size(203, 241);
+            this.dgvInventory.Size = new System.Drawing.Size(287, 241);
             this.dgvInventory.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -407,10 +407,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
             this.tableLayoutPanel1.Controls.Add(this.gbAttributes, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.gbActions, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.gbInventory, 3, 0);

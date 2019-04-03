@@ -509,7 +509,7 @@ namespace EntityAI
                         EntityAction ea = s.Actions[i];
 
                         // add queued actions to action thread according to queued solutions
-                        this.actions.ActionQueue.Insert(i++, ea);
+                        this.actions.InsertAction(i++, ea);
                     }
 
                     // change solution state from create the planned
@@ -527,7 +527,7 @@ namespace EntityAI
                     {
                         // add queued actions to action thread according to queued solutions
                         // NOTE: because this is only opportunities, add them to the end of the queue.
-                        this.actions.ActionQueue.Add(ea);
+                        this.actions.InsertAction(ea);
                     }
 
                     s.SolutionState = Solution.EntitySolutionState.planned;
